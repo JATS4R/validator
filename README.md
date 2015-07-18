@@ -56,8 +56,7 @@ that server, and execute the following:
 git clone https://github.com/JATS4R/validator.git
 cd validator
 source bin/setenv.sh   # sets environment variables
-setup.sh               # extracts libraries, etc.
-process-schematron.sh  # processes the Schematron files
+setup.sh               # extracts libraries, etc., and process schematron
 ```
 
 Then, open the `index.html` page in your browser, through the web server on your
@@ -78,16 +77,30 @@ source bin/setenv.sh
 ```
 
 After initially cloning the repository, to configure the necessary tools, 
-you'll need to run *bin/setup.sh*. This extracts several third party
-libraries, and builds flattened versions of the JATS DTDs. It creates the
-directorys `lib` and `dtds` that are used by the validator.
+you'll need to run 
 
-Finally, to build XSLT versions of the Schematron validation files, you'll
-need to run *process-schematron.sh*.  This creates the directory
-`generated-xsl`, and populates it with the needed XSLT files.
+```
+bin/setup.sh
+```
 
-To clean up the working directory, and start from scratch, just run the
-*clean.sh* script.
+This does the following:
+
+1. Extracts several third party libraries into the `lib` directory,
+2. Builds flattened versions of the JATS DTDs, writing them into the `dtds` directory, and
+3. Processes the schematron files, writing the results into `generated-xsl`.
+
+If any changes are made to the Schematron files, you can rebuild them, without
+rerunning the entire setup, by running 
+
+```
+bin/process-schematron.sh
+```
+
+To clean up the working directory, and start from scratch, just run
+
+```
+bin/clean.sh
+```
 
 
 Validating from the command line

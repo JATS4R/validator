@@ -28,6 +28,10 @@ fi
 cd $JATS4R_HOME/lib
 if ! [ -d Saxonce ]; then
     wget http://www.saxonica.com/ce/download/Saxon-CE_1.1.zip
+    if [ $? -ne 0 ]; then
+        echo "wget failed; aborting"
+        exit 1
+    fi
     unzip Saxon-CE_1.1.zip 'Saxonce/*'
     rm Saxon-CE_1.1.zip
 fi
@@ -45,6 +49,10 @@ cd $JATS4R_HOME/lib
 if ! [ -d nlm-dtd ]; then
     COMMIT=c8ad958f6190313807b2aa376a38537148f6c7d6
     wget https://github.com/ncbi/nlm-dtd/archive/$COMMIT.zip
+    if [ $? -ne 0 ]; then
+        echo "wget failed; aborting"
+        exit 1
+    fi
     unzip $COMMIT.zip
     rm $COMMIT.zip
     mv nlm-dtd-$COMMIT nlm-dtd
@@ -53,6 +61,10 @@ fi
 if ! [ -d niso-jats ]; then
     COMMIT=1b907a30b52e272203217c62b0e04898da74b33d
     wget https://github.com/ncbi/niso-jats/archive/$COMMIT.zip
+    if [ $? -ne 0 ]; then
+        echo "wget failed; aborting"
+        exit 1
+    fi
     unzip $COMMIT.zip
     rm $COMMIT.zip
     mv niso-jats-$COMMIT niso-jats
@@ -62,6 +74,10 @@ fi
 cd $JATS4R_HOME/lib
 if ! [ -d DtdAnalyzer-0.5 ]; then
     wget http://dtd.nlm.nih.gov/ncbi/dtdanalyzer/downloads/DtdAnalyzer-0.5.zip
+    if [ $? -ne 0 ]; then
+        echo "wget failed; aborting"
+        exit 1
+    fi
     unzip DtdAnalyzer-0.5.zip
     rm DtdAnalyzer-0.5.zip
 fi
@@ -101,4 +117,8 @@ if ! [ -d xml-commons-resolver-1.2 ]; then
     unzip ../assets/xml-commons-resolver-1.2.zip
 fi
 
+
+# Finally, process the schematron
+cd $JATS4R_HOME
+bin/process-schematron.sh
 
