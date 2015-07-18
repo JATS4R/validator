@@ -1,8 +1,93 @@
-# JATS4R Validator
+JATS4R Validator
+================
+
+
+Contents
+--------
+
+The following are the directories and files in this repository, and what
+they are for.
+
+* ***index.html***, ***validate.js***, ***validate.css*** - the main validator
+  files
+* ***bin*** - Shell scripts and XSLT files
+* ***samples*** - Some sample XML documents, used for testing
+* ***schema*** - The Schematron source files. See [Schema sources](#schema-sources),
+  below.
+* ***assets*** - Some static resources, including some third party libraries.
+* ***validate*** - The source code for the online client-side validator.
+* ***dtds.yaml*** - A YAML data file describing all of the NLM and JATS DTDs.
+* ***README.md*** - This file
+* ***LICENSE***
+
+The following directories are generated in the course of building the validator.
+
+* ***lib*** - Third party libraries and tools. See [Dependencies, 
+  libraries](#dependencies-libraries), below.
+* ***dtds*** - Flattened versions of all of the NLM and JATS DTDs
+* ***generated-xsl*** - This contains XSLT versions of the Schematron files. The contents
+  here should not be edited directly.  See [Generating XSLTs from Schematron 
+  sources](#generating-xslts-from-schematron-sources), below
+
+
+Quick start
+-----------
+
+*The instructions on this page assume you'll be working in a *bash* shell.*
+
+If you're in a hurry, here are the steps to get a working validator on your
+system.
+
+The validator is deployed as a static web site, so you'll need to have access to
+a system with a web server such as Apache. Find a convenient location served by
+that server, and execute the following:
+
+```
+git clone https://github.com/JATS4R/validator.git
+cd validator
+source bin/setenv.sh   # sets environment variables
+setup.sh               # extracts libraries, etc.
+process-schematron.sh  # processes the Schematron files
+```
+
+Then, open the `index.html` page in your browser, through the web server on your
+system, and you should have a working validator.
+
+
+Validation setup
+----------------
+
+More detailed instructions follow.
+
+Whenever you open a new shell, to configure your environment, you must first 
+source the *bin/setenv.sh* script, from this repository's root directory:
+
+```
+cd *repo dir*
+source bin/setenv.sh
+```
+
+After initially cloning the repository, to configure the necessary tools, 
+you'll need to run *bin/setup.sh*. This extracts several third party
+libraries, and builds flattened versions of the JATS DTDs. It creates the
+directorys `lib` and `dtds` that are used by the validator.
+
+Finally, to build XSLT versions of the Schematron validation files, you'll
+need to run *process-schematron.sh*.  This creates the directory
+`generated-xsl`, and populates it with the needed XSLT files.
+
+To clean up the working directory, and start from scratch, just run the
+*clean.sh* script.
 
 
 
-## Dependencies
+
+
+
+
+
+Dependencies
+------------
 
 This tool has a number of dependencies. Some are system tools, that
 are present on many Unix systems, or that can be installed easily,
