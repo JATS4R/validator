@@ -131,7 +131,7 @@ var onSaxonLoad = function() {
     // FIXME:  need to parameterize the version number
     var phase = phaseNode.value;
     Saxon.run({
-      stylesheet: '../generated-xsl/0.1/' + xslt[phase],
+      stylesheet: 'generated-xsl/0.1/' + xslt[phase],
       source: doc,
       method: 'transformToDocument',
       success: function(processor) {

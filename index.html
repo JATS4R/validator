@@ -1,181 +1,59 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html>
   <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <title>JATS4R - JATS for Reuse</title>
-    <link rel="stylesheet" href="static/css/normalize.css" />
-    <link rel="stylesheet" href="static/css/style.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8">
+    <title>JATS4R Validator</title>
+    <link rel='stylesheet' href='validate.css' />
   </head>
-
   <body>
-    <header>
-      <div class="wrap">
-        <a href="http://jats4r.org/"><img class="logo"
-          src="static/img/JATS4R.png" height="28px" alt="JATS4R"></a>
-        <h1><span class="e">JATS for Reuse</h1>
-      </div>
-    </header>
-
-    <div class="wrap content">
-
-      <aside>
-        <p class="intro"><em>Increase the reusability of the online literature by standardising the use of the Journal Article Tag Suite (JATS) for XML tagging</p>
-        <nav>
-          <ul>
-            <li><a href="#tag-recs">Tagging recommendations</a></li>
-            <li><a href="#samples-articles">Sample articles</a></li>
-            <li><a href="#validation">Validation</a></li>
-            <li><a href="#news">News</a></li>
-            <li><a href="#getting-involved">Getting involved</a></li>
-            <li><a href="#endorsements">Organisations currently endorsing JATS4R</a></li>
-            <li><a href="#repositories">GitHub repositories</a></li>
-          </ul>
-        </nav>
-      </aside>
-
-      <section class="main-content" role="main">
-
-
-        <!-- If we ever need any alerts:
-          <p class="alert"></p>
-        -->
-
-
-        <p><strong>JATS for Reuse</strong> (<strong>JATS4R</strong>) was formed to provide guidelines and tools to standardise
-        the use of the <a href="http://www.niso.org/home/">NISO</a>
-        standard <a href="http://jats.nlm.nih.gov/archiving/tag-library/1.1d1/index.html">Journal and Archiving Tag Set</a>
-        (JATS) for tagging XML in publishing workflows. Although JATS is the most recent version of the National Library of
-        Medicine's tag set, many of these principles will also apply to previous versions that publishers may be using. Within
-        JATS, there are three sub sets with varying degrees of prescriptiveness - from most to least prescriptive, the Journal
-        Archiving and Interchange set, the Journal Publishing set and the Article Authoring set. The flexibility of the Journal
-        Archiving and Interchange set was intended to accommodate the requirements of different journals, allowing them to pick
-        and chose which elements and attributes to include. As a consequence, however, there has been considerable divergence
-        between publishers in the tagging of the individual components of different articles, preventing easy data mining and
-        impairing direct comparisons between articles in separate journals.</p>
-
-        <p>The JATS4R group was set by open access publishers and interested parties as a response to users attempting to reuse
-        content available under <a href="http://opendefinition.org/">open</a> <a href "http://creativecommons.org/">Creative Commons</a> licenses but being unable to programmatically
-        locate specific licensing information in published articles. We will define best practice tagging guidelines for
-        specific areas of interest (e.g. licenses, author contributions and display elements such as figures or equations) and
-        develop tools (e.g. schematrons) to help publishers easily identify whether their content is compliant with those best practices. By doing
-        this, we hope to promote the easy machine readability of content, thereby making research literature more accessible
-        for data miners and reducing the complexity of moving and exchanging content on a large scale. Although the initial
-        problem was raised with regards to the open access literature, it has wider scope and we would welcome contributions
-        and the adoption of our recommendations by all publishers and producers of XML based research publications.</p>
-
-        <p>We have already begun to draft recommendations for tagging, and you can see more examples as they
-        <a href="https://github.com/JATS4R/elements/wiki/Draft-recommendations">emerge</a>.</p>
-
-
-        <section id="tag-recs">
-          <h2>Tagging recommendations</h2>
-          <p>Currently, we have established recommendations in two areas:
-            <a href='recommendations/permissions.html'>permissions and licenses</a>,
-            and <a href='recommendations/math.html'>math formulas</a>.</p>
-          <p>See also this <a href='topics.html'>list of topics</a> for those areas related to
-            JATS tagging that we will address next.</p>
-        </section>
-
-
-        <section id="validation">
-          <h2>Validation</h2>
-          <p>An online validation tool is available <a href='validate/'>here</a>.</p>
-        </section>
-
-        <section id="samples-articles">
-          <h2>Sample articles</h2>
-          <p>Coming soon...</p>
-        </section>
-
-
-        <section id="news">
-          <h2>News</h2>
-          <p>We presented a paper at <a 
-            href='http://jats.nlm.nih.gov/jats-con/2015/schedule2015.html'>JATS-Con 2015</a>.
-            You can read the full paper on NCBI Bookshelf, <a href="http://www.ncbi.nlm.nih.gov/books/NBK279901/">Improving the reusability of JATS</a>, and you can also
-            download <a href='http://jats4r.org/documents/jatscon-2015-slides.pptx'>the 
-            slides</a>. The video recording of the presentation is available
-            <a href="http://videocast.nih.gov/Summary.asp?File=18960&bhcp=1&start=12703">here</a>.</p>
-          <p>The group held its <a 
-            href="http://www.openaccessweek.org/profiles/blogs/jats-4-reuse-working-group-launch-first-public-event">first public event</a> - a webinar -
-            on October 22, 2014, as part of Open Access Week. A recording thereof is
-            <a href="https://www.youtube.com/watch?v=S3iwVlkvWdY">available on YouTube</a>.</p>
-        </section>
-
-        <section id="getting-involved">
-          <h2>Getting involved</h2>
-          <p>Your feedback is welcome. If you want to get involved, you can check out our
-            <a href="https://groups.google.com/forum/#!forum/jats4r">mailing list</a>, any of the
-            <a href='#repositories'>GitHub repositories</a> listed below, our current
-            <a href="https://github.com/JATS4R/elements/issues">open issues</a> or our documents on
-            <a href="https://drive.google.com/#folders/0B8n-nWqCI5WmdExlY1Zmd2N0QW8">Google
-            drive</a>.</p>
-          <p>The project is in the public domain, and all contributions to it will be released as
-            such. By submitting a pull request, you are agreeing to waive all rights to your
-            contribution under the terms of the
-            <a href='http://creativecommons.org/publicdomain/zero/1.0/'>CC0 Public Domain
-            Dedication</a>.</p>
-          <p>If you contribute the open source work of others, please mark it clearly in your pull
-            request.</p>
-        </section>
-
-        <section id="endorsements">
-          <h2>Organisations currently endorsing JATS4R</h2>
-          <p>Below is a current list of organisations that currently endorse JATS4R. If you would like to be added to the list,
-          please contact <a class="emailLink" href="mailto:m.harrison@elifesciences.org">m.harrison@elifesciences.org</a>.</p>
-          <ul>
-            <li>Atypon</li>
-            <li>British Institute of Radiology</li>
-            <li>Cambridge University Press</li>
-            <li>Canadian Science Publishing</li>
-            <li>eLife</li>
-            <li>F1000Research</li>
-            <li>HighWire Press</li>
-            <li>Nature</li>
-            <li>NCBI</li>
-            <li>Open Book Publishers</li>
-            <li>Oxford University Press</li>
-            <li>Peer J</li>
-            <li>Pensoft</li>
-            <li>PLoS</li>
-            <li>River Valley Technologies</li>
-          </ul>
-        </section>
-
-
-        <section id="repositories">
-          <h2>GitHub repositories</h2>
-          <ul>
-            <li><a href="https://github.com/jats4r/elements">elements</a> -
-              Examples and draft recommendations</li>
-            <li><a href="https://github.com/jats4r/jats4r.github.io">jats4r.github.com</a> -
-              This site's content, including the validator</li>
-          </ul>
-        </section>
-      </section>
-
-
-      <footer>
-        <p>This project is maintained by the<br />
-          <a href="https://github.com/jats4r">JATS4R organization</a>, and hosted on 
-          <a href="https://github.com/jats4r/jats4r.github.io">Github pages</a>.</p>
-      </footer>
-
+    <h1><img src='assets/JATS4R.png' height='30px'/> Validator</h1>
+    <form id='form'>
+      <table>
+        <tr>
+          <th><label for='phase'>Level:</label></th>
+          <td>
+            <select id='phase' name='phase'>
+              <option value="errors" selected='selected'>Errors</option>
+              <option value="warnings">Warnings</option>
+              <option value="info">Tagging information</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th><label for='input'>Input JATS file:</label></th>
+          <td><input id='input' type='file'/></td>
+        </tr>
+        <tr>
+          <th></th>
+          <td><input id='revalidate' type='button' value='Revalidate' /></td>
+        </tr>
+      </table>
+    </form>
+    <div id='status'>
+      Loading…
     </div>
 
+    <pre id="lint-container"><code id="lint"></code></pre>
 
-    <script src="static/js/jquery-1.10.2.min.js"></script>
-    <script src="static/js/script.js"></script>
-    <!-- Google Analytics -->
-    <script>
-      (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-      function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-      e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-      e.src='//www.google-analytics.com/analytics.js';
-      r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-      ga('create','UA-40159858-3');ga('send','pageview');
-    </script>
+    <div id="results"></div>
+
+    <script src="validate.js"></script>
+    <script src="lib/fetch.js"></script>
+    <script src="lib/es6-promise.min.js"></script>
+    <script src="assets/xmllint.js"></script>
+    <script src="lib/Saxonce/Saxonce.nocache.js"></script>
+    <script type="text/javascript"
+            src="http://cdnjs.cloudflare.com/ajax/libs/js-yaml/3.3.0/js-yaml.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <a href="https://github.com/jats4r/jats4r.github.io">
+      <img style="position: absolute; top: 0; right: 0; border: 0;" 
+        src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" 
+        alt="Fork me on GitHub" 
+        data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" />
+    </a>
+
   </body>
 </html>
