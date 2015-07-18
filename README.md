@@ -1,9 +1,21 @@
 JATS4R Validator
 ================
 
-
 Contents
 --------
+
+* [Files and directories](#files-and-directories)
+* [Quick start](#quick-start)
+* [Validation setup](#validation-setup)
+* [Validating from the command line](#validating-from-the-command-line)
+* [Schema sources](#schema-sources)
+* [Generating XSLTs from Schematron sources](#generating-xslts-from-schematron-sources)
+* [Testing](#testing)
+* [Dependencies](#dependencies)
+
+
+Files and directories
+---------------------
 
 The following are the directories and files in this repository, and what
 they are for.
@@ -22,8 +34,7 @@ they are for.
 
 The following directories are generated in the course of building the validator.
 
-* ***lib*** - Third party libraries and tools. See [Dependencies, 
-  libraries](#dependencies-libraries), below.
+* ***lib*** - Third party libraries and tools. See [Dependencies](#dependencies), below.
 * ***dtds*** - Flattened versions of all of the NLM and JATS DTDs
 * ***generated-xsl*** - This contains XSLT versions of the Schematron files. The contents
   here should not be edited directly.  See [Generating XSLTs from Schematron 
@@ -33,10 +44,9 @@ The following directories are generated in the course of building the validator.
 Quick start
 -----------
 
-*The instructions on this page assume you'll be working in a *bash* shell.*
+Note: the instructions on this page assume you'll be working in a *bash* shell.
 
-If you're in a hurry, here are the steps to get a working validator on your
-system.
+Here are the steps to get a working validator on your system.
 
 The validator is deployed as a static web site, so you'll need to have access to
 a system with a web server such as Apache. Find a convenient location served by
@@ -80,10 +90,110 @@ To clean up the working directory, and start from scratch, just run the
 *clean.sh* script.
 
 
+Validating from the command line
+--------------------------------
+
+To validate a JATS file named sample.xml, use the script *validate.sh*. For example,
+
+```
+validate.sh samples/minimal.xml
+```
+
+This will give a report for compliance of 
+the input file *minimal.xml* with respect to all topics (*math* and *permissions*).
+By default, it only reports *errors*. If you want a full report (*info*, *warnings*,
+and *errors*) then enter:
+
+```
+validate.sh samples/minimal.xml info
+```
+
+Use the `-h` switch to get a list of all the possible arguments.
+
+If your setup requires an OASIS catalog file to resolve the DTDs for JATS
+documents, you can use the environment variable JATS_CATALOG to point to that.
+
+For example, you can download the [JATS Bundle](http://jatspan.org/jats-bundle.html)
+to get all of the DTDs for several versions and flavors of JATS (up to NISO
+JATS draft version 0.4), and unzip it, and then set the JATS_CATALOG environment
+variable to point to the master catalog from that:
+
+```
+cd ~
+wget http://jatspan.org/downloads/jats-core-bundle-0.8.zip
+unzip jats-core-bundle-0.8.zip
+export JATS_CATALOG=~/jatspacks/catalog.xml
+```
+
+Now, when you run *validate.sh*, it will automatically use that catalog file to
+resolve any DTDs.  For example:
+
+```
+validate.sh samples/sample.xml
+```
 
 
+Schema sources
+--------------
+
+The master schema files are in Schematron format, in the *schema* subdirectory.
+
+The "master" Schematron file, which determines conformance or non-conformance,
+is *jats4r.sch*.  This includes all topics, but only the "error level" tests.
+
+There are two other "master" Schematron files, which break down the tests in two different
+ways: one by message severity (*info*, *warnings*, and *errors*) and one by 
+topic (*math* and *permissions*).
+
+The test files themselves are broken down into separate *modules*, by topic and
+by severity level.
+So, for example, *permissions-errors.sch*, *permissions-warnings.sch*, and 
+*permissions-info.sch* define the tests for the permissions topic. 
+All three run tests on permissions, but the permissions-errors reports only those 
+things that are errors. 
+
+In summary, the master Schematron files are:
+
+* jats4r.sch - all topics, error level only
+* jats4r-level.sch - groups tests by message severity level. Using this with
+  `phase=info` (or `phase=#ALL`) will run all of the tests.
+* jats4r-topic.sch - groups tests by topic. So, for example, when you run this
+  with the `phase=math`, you will run just the math tests. 
+
+The *generated-xsl* subdirectory contains XSLT2 files that have been generated from 
+the Schematrons, using the *process-schematron.sh* script. 
+These XSLT files must not be edited directly. If a change is made to a Schematron, a 
+new XSLT should be auto-generated, using the process-schematron.sh script. 
+
+When run against an instance, they will generate a report in [Schematron Validation 
+Report Language XML](http://www.schematron.com/validators.html) (SVRL).
 
 
+Generating XSLTs from Schematron sources
+----------------------------------------
+
+To generate new XSLT files in the generated-xsl directory, first, as described above,
+you must source the *bin/setup.sh* script into your shell.
+
+Then, use the script *process-schematron.sh* to convert the Schematron files into XSLT:
+
+```
+./process-schematron.sh
+```
+
+You can optionally pass this script an *input-type* (`level` or `topic`) and a 
+*phase* (which depends on the *input-type*). Enter `./process-schematron.sh -h` 
+for usage information.
+
+This writes the output files into the *generated-xsl* directory.
+
+
+Testing
+-------
+
+To test the online validator, use the files in the `samples` directory.
+
+Automated tests coming soon.
 
 
 Dependencies
