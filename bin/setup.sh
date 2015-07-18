@@ -88,6 +88,10 @@ export PATH=$PATH:$DTDANALYZER_HOME
 cd $JATS4R_HOME
 if ! [ -d dtds ]; then
     JATS_DTD_BASE=lib python3 bin/flatten.py
+    if [ $? -ne 0 ]; then
+        echo "flatten failed; aborting"
+        exit 1
+    fi
 fi
 
 # Saxon
