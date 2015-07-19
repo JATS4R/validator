@@ -67,8 +67,8 @@ var onSaxonLoad = function() {
 
 
 
-  // This function gets called when we've finished reading the DTD, or, if 
-  // there is no DTD, immediately when the validation begins. If there is 
+  // This function gets called when we've finished reading the DTD, or, if
+  // there is no DTD, immediately when the validation begins. If there is
   // no DTD, this will be called with only one argument.
   function do_validate(contents, dtd_filename, dtd_contents) {
     statusNode.textContent = 'Validating…';
@@ -78,33 +78,48 @@ var onSaxonLoad = function() {
     if (typeof(dtd_filename) !== "undefined") {
 
       // If there is a DTD, invoke xmllint with:
-      // --loaddtd - this causes the DTD specified in the doctype declaration 
+      // --loaddtd - this causes the DTD specified in the doctype declaration
       //     to be loaded when parsing. This is necessary to resolve entity references.
       //     But note that this is redundant, because --valid causes the DTD to be loaded,
       //     too.
       // --valid - cause xmllint to validate against the DTD that it finds from the doctype
       //     declaration.
       // --noent - tells xmlint to resolve all entity references
+      var args = ['--loaddtd', '--valid', '--noent', filename];
 
-      result = xmllint.validateXML({
-        xml: [filename, contents],
-        arguments: ['--loaddtd', '--valid', '--noent', filename],
-        schemaFiles: [[dtd_filename, dtd_contents]]
-      });
+      var files = [
+          {
+              path: filename,
+              data: contents
+          },
+          {
+              path: dtd_filename,
+              data: dtd_contents
+          }
+      ];
+
+      result = xmllint(args, files);
+
       //console.log(result);
       if (result.stderr.length) {
         displayError("Failed DTD validation", result.stderr, true);
         return;
-      } 
+      }
     }
     else {
       // If no DTD:
       console.log('filename = ' + filename + "\ncontents = '" + contents + "'");
-      result = xmllint.validateXML({
-        xml: [filename, contents],
-        arguments: [filename],
-        schemaFiles: [["dummy", ""]]
-      });
+
+      var args = [filename];
+
+      var files = [
+          {
+              path: filename,
+              data: contents
+          }
+      ];
+
+      result = xmllint(args, files);
     }
 
     statusNode.textContent = 'Validated';
@@ -198,7 +213,7 @@ var onSaxonLoad = function() {
         do_validate(contents);
         return;
       }
-  
+
       // Fetch the flattened DTD
       fetch("dtds/" + dtd.path).then(function(response) {
         return response.text();
