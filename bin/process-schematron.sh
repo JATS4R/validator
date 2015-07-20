@@ -4,9 +4,10 @@
 
 if [ "$1" = "-h" ] || [ "$1" = "-?" ] || [ "$1" = "--help" ]
   then
-    echo "Usage: process-schematron.sh [ <input-type> [ <phase> ] ]"
-    echo " "
-    echo "This tool will build a combined Schematron file from a multiple-
+
+    echo "Usage: process-schematron.sh [ <input-type> [ <phase> ] ]
+
+This tool will build a combined Schematron file from a multiple-
 file Schematron, validate it, and output an XSLT2 stylesheet
 to run against an XML instance.
 
@@ -17,7 +18,9 @@ Arguments:
     For 'topic', this can be either 'permissions' or 'math'.
 
 If neither <input-type> nor <phase> is given, this will produce all of
-the valid combinations of output files."
+the valid combinations of output files.
+"
+
     exit 0
 fi
 
@@ -27,7 +30,7 @@ fi
 
 if [ "x$SAXON_JAR" = "x" ] || ! [ -e $SAXON_JAR ]
   then
-    echo "Error: SAXON_JAR doesn't point to anything. Did you remember to run '. setup.sh'?"
+    echo "==> Error: SAXON_JAR doesn't point to anything. Did you remember to run '. setup.sh'?"
     exit 2
 fi
 
@@ -46,33 +49,36 @@ process()
 
   IN_SCH=$IN_DIR/$IN.sch
 
-  echo Build single schematron from multiple files
+
 
   COMBINED_SCH=$IN-combined.sch
-  java -jar $SAXON_JAR -xsl:$JATS4R_HOME/bin/combine-schematron.xsl -s:$IN_SCH -o:$COMBINED_SCH
+  if ! [ -e $COMBINED_SCH ]; then
 
-  if [ $? -eq 0 ]
-    then
-      echo $1 Successfully combined $IN_SCH into $COMBINED_SCH
-    else
-      echo $1 Error: failed to combine $IN_SCH
-      exit 2
+    echo "==> Combining multiple Schematron into $COMBINED_SCH"
+    java -jar $SAXON_JAR -xsl:$JATS4R_HOME/bin/combine-schematron.xsl -s:$IN_SCH -o:$COMBINED_SCH
+
+    if [ $? -eq 0 ]
+      then
+        echo $1 Successfully combined $IN_SCH into $COMBINED_SCH
+      else
+        echo $1 Error: failed to combine $IN_SCH
+        exit 2
+    fi
+
+    echo "==> Validating the combined schema $COMBINED_SCH"
+
+    java com.thaiopensource.relaxng.util.Driver lib/isoSchematron.rng $COMBINED_SCH
+
+    if [ $? -eq 0 ]
+      then
+        echo $IN_SCH is valid
+      else
+        echo Error: $IN_SCH is an invalid Schematron file 
+        exit 2
+    fi
+
   fi
 
-
-  echo Validate the schema
-
-  java com.thaiopensource.relaxng.util.Driver lib/isoSchematron.rng $COMBINED_SCH
-
-  if [ $? -eq 0 ]
-    then
-      echo $IN_SCH is valid
-    else
-      echo Error: $IN_SCH is an invalid Schematron file 
-      exit 2
-  fi
-
-  echo Generate the stylesheet
 
   if [ -z "$PHASE" ]
     then 
@@ -83,20 +89,20 @@ process()
       OUT_XSL=$OUTPUT_DIR/jats4r-$INPUT_TYPE-$PHASE.xsl
   fi
 
-
+  echo "==> Generating the XSLT $OUT_XSL"
   java -jar $SAXON_JAR -s:$COMBINED_SCH -xsl:$SCHEMATRON/iso_svrl_for_xslt2.xsl \
        -o:$OUT_XSL generate-paths=yes $P
 
   if [ $? -ne 0 ]
     then
-      echo Error: Failed to translate Schematron $IN_SCH into XSLT $OUT_XSL
+      echo "==> Error: Failed to translate Schematron $IN_SCH into XSLT $OUT_XSL"
       exit 2
     else
-      echo Successfully generated $OUT_XSL
+      echo "==> Successfully generated $OUT_XSL"
   fi
 
 
-  rm $COMBINED_SCH
+  #rm $COMBINED_SCH
 
 }
 
@@ -113,3 +119,4 @@ if [ $# -ge 1 ]
     process topic math
 fi
 
+rm jats4r-*-combined.sch
