@@ -56,7 +56,7 @@ that server, and execute the following:
 git clone https://github.com/JATS4R/validator.git
 cd validator
 source bin/setenv.sh   # sets environment variables
-setup.sh               # extracts libraries, etc., and process schematron
+setup.sh               # extracts libraries, etc., and processes schematron
 ```
 
 Then, open the `index.html` page in your browser, through the web server on your
@@ -76,7 +76,7 @@ cd *repo dir*
 source bin/setenv.sh
 ```
 
-After initially cloning the repository, to configure the necessary tools, 
+After initially cloning the repository, in order to configure the necessary tools, 
 you'll need to run 
 
 ```
@@ -207,6 +207,17 @@ Testing
 To test the online validator, use the files in the `samples` directory.
 
 Automated tests coming soon.
+
+
+How it works
+------------
+
+For information on this implementation of this tool, see the paper we submitted
+to [Balisage 2015](http://balisage.net/2015/Program.html), "A client-side JATS4R
+validator using Saxon-CE". The following is the data-flow diagram from that paper,
+illustrating in a compact form what is happening under the hood.
+
+![Data flow diagram](https://raw.githubusercontent.com/JATS4R/validator/master/assets/jats4r-validator-data-flow-small.png)
 
 
 Dependencies
