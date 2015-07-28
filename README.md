@@ -332,5 +332,12 @@ on 2015-04-02, and included as assets/xml-commons-resolver-1.2.zip.
 The setup.sh script extracts this into `lib/xml-commons-resolver-1.2`.
 
 
+# Acknowledgements
 
+Portions of this software were borrowed from the following sources:
+
+* [xml.js](https://github.com/syssgx/xml.js), by [syssgx](https://github.com/syssgx), which
+  in turn is based on [xml.js](https://github.com/kripken/xml.js/) by 
+  [kripken](https://github.com/kripken).
+  
 

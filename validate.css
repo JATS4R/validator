@@ -44,6 +44,11 @@ table.results td {
 }
 
 
+/* 
+  The following css rules are by syssgx (https://github.com/syssgx)
+  and are licensed CC-BY.
+  See https://github.com/syssgx/xml.js/blame/gh-pages/css/style.css.
+*/
 .files_wrapper {
   margin-top: 5px;
   padding: 10px;
@@ -77,3 +82,6 @@ table.results td {
   background: #B9B9F4;
   border: 2px solid #2222D3;
 }
+/* End CC-BY licensed code. */
+
+

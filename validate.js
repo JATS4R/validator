@@ -76,6 +76,12 @@ var onSaxonLoad = function() {
     $('#status').text(s);
   }
 
+  /* 
+    The following functions are by syssgx (https://github.com/syssgx),
+    and are licensed CC-BY.
+    See https://github.com/syssgx/xml.js/blame/gh-pages/js/script.js#L59.
+  */
+
   // Called from the drag-and-drop handlers
   function ignore_drag(e) {
     e.originalEvent.stopPropagation();
@@ -93,6 +99,8 @@ var onSaxonLoad = function() {
     $("#drop_div").html(filestring)
                   .addClass("dropped");
   }
+
+  /* End CC-BY licensed code. */
 
 
   // Some classes for holding information about a dtd, as read from the dtds.yaml file
