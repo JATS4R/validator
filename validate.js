@@ -312,6 +312,15 @@ var onSaxonLoad = function() {
             console.error(err);
           }
         );
+    };
+    reader.onerror = function(e) {
+      var msg = "Error attempting to read the file."
+      var error_message = e.currentTarget.error.message;
+      if (error_message) {
+        msg += "\n\nSystem message: " + error_message;
+      }
+      alert(msg);
+      set_status("Error");
     }
 
     // Read the file. This results in the onload function above being called
