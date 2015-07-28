@@ -1,6 +1,6 @@
 body {
   font-family: sans-serif;
-  padding: 2em;
+  padding: 2em 10em;
 }
 
 th { text-align: left; }
@@ -41,4 +41,39 @@ table.results td {
 
 #lint {
     color: red;
+}
+
+
+.files_wrapper {
+  margin-top: 5px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid rgb(221,221,221);
+  transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+}
+
+.files_wrapper:hover {
+  background: #ebebeb;
+  -moz-box-shadow:    0px 0px 3px black;
+  -webkit-box-shadow: 0px 0px 3px black;
+  box-shadow:         0px 0px 3px black;
+}
+
+.xmlarea_file {
+  border: 2px dashed rgb(221,221,221);
+  border-radius: 5px;
+  padding: 25px;
+  text-align: center;
+  font-size: 14px;
+}
+  
+.xmlarea_file:hover { 
+  border: 2px solid white; 
+}
+
+.dropped {
+  background: #B9B9F4;
+  border: 2px solid #2222D3;
 }
