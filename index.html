@@ -9,26 +9,21 @@
   <body>
     <h1><img src='assets/JATS4R.png' height='30px'/> Validator</h1>
     <form id='form'>
-      <table>
-        <tr>
-          <th><label for='phase'>Level:</label></th>
-          <td>
-            <select id='phase' name='phase'>
-              <option value="errors" selected='selected'>Errors</option>
-              <option value="warnings">Warnings</option>
-              <option value="info">Tagging information</option>
-            </select>
-          </td>
-        </tr>
-        <tr>
-          <th><label for='input'>Input JATS file:</label></th>
-          <td><input id='input' type='file'/></td>
-        </tr>
-        <tr>
-          <th></th>
-          <td><input id='revalidate' type='button' value='Revalidate' /></td>
-        </tr>
-      </table>
+      <p><label for='level_select'>Report level:</label>
+        <select id='level_select' name='level_select'>
+          <option value="errors" selected='selected'>Errors</option>
+          <option value="warnings">Warnings</option>
+          <option value="info">Tagging information</option>
+        </select>
+      </p>
+      <p><label for='choose_input'>JATS file:</label>
+        <input id='choose_input' type='file'/>
+      </p>
+
+      <div class="files_wrapper">
+        <div class="xmlarea_file" id="drop_div">Drop your JATS file here</div>
+      </div>
+      <p><input id='revalidate' type='button' value='Revalidate' disabled='disabled'/></p>
     </form>
     <div id='status'>
       Loading…
