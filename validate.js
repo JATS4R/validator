@@ -2,15 +2,18 @@
 // onSaxonLoad is called when Saxon has finished loading
 var onSaxonLoad = function() {
 
-  // Various DOM elements
-  var results = document.getElementById('results');
-
   // Which XSLT to use depending on the level selected
   var xslt = {
     errors:   'jats4r-level-errors.xsl',
     warnings: 'jats4r-level-warnings.xsl',
     info:     'jats4r-level-info.xsl'
   };
+  var NEUTRAL = 0,
+      GOOD = 1,
+      INFO = 2,
+      WARN = 3,
+      ERROR = 4,
+      BUSY = 5;
 
 
   // Singleton DtdDatabase object (see below for the class definition)  
@@ -19,6 +22,9 @@ var onSaxonLoad = function() {
   // This is the input JATS file we'll be working on
   var input_file = null;
 
+  // Console for output; see class definition below
+  var results = new Results();
+
   // First fetch the DTDs database, then add event handlers
   fetch("dtds.yaml")
     .then(function(response) {
@@ -26,8 +32,6 @@ var onSaxonLoad = function() {
     })
     .then(function(yaml_str) {
       dtd_database = new DtdDatabase(jsyaml.load(yaml_str));
-      set_status('Please choose a JATS XML file to validate.');
-      
 
       // Set event handlers
 
@@ -36,14 +40,14 @@ var onSaxonLoad = function() {
         // selected, then revalidate it.
         if (input_file) {
           set_drop_area();
-          validate_file();
+          start_session();
         }
       });
 
       $('#choose_input').on('change', function(e) {
         input_file = $('#choose_input').get()[0].files[0];
         set_drop_area();
-        validate_file();
+        start_session();
       });
 
       $('#drop_div')
@@ -53,27 +57,55 @@ var onSaxonLoad = function() {
           ignore_drag(e);
           input_file = e.originalEvent.dataTransfer.files[0];
           set_drop_area();
-          validate_file();
+          start_session();
         });
 
       $('#revalidate').on('click', function(e) {
         if (!input_file) {
-          set_status("Please select a file first!");
+          set_status("Please select a file first!", ERROR);
         }
         else {
           set_drop_area();
-          validate_file();
+          start_session();
         }
       });
+
+      // Ready to go
+      set_status('Choose a JATS XML file to validate.');
+
+      //test_results();
     });
 
 
   //----------------------------------------------------------------
   // Functions
 
-  // Set the status
-  function set_status(s) {
-    $('#status').text(s);
+  // Test the Results class - not called in production
+  function test_results() {
+    results.start_phase("Doing something");
+    results.info("Info 1");
+    results.info($('<div>Info 2</div>'));
+
+    results.start_phase("Something new, now");
+    results.info("Info 3");
+    results.warn("Warning 1");
+
+    results.start_phase("Yet another thing");
+    results.info("Info 4");
+    results.warn("Warning 2");
+    results.error($('<div>Error 1</div>'));
+
+    results.done();
+  }
+
+  // Set the status. Values for level are one of NEUTRAL (default), GOOD, INFO, 
+  // WARN, or ERROR. Most of the time, this is called from the results
+  // object.
+  function set_status(status, level) {
+    if (typeof level == "undefined") level = NEUTRAL;
+    var cls = ["neutral", "good", "info", "warn", "error", "busy"][level];
+    $('#status').attr('class', "status-" + cls)
+                .text(status);
   }
 
   /* 
@@ -121,48 +153,187 @@ var onSaxonLoad = function() {
     self.data = dtd_data;
 
     var path = dtd_data.path;
-    this.path = path;
-    this.dir = path.replace(/(.*)\/.*/, "$1");
-    this.filename = path.replace(/.*\//, "");;
+    self.path = path;
+    self.dir = path.replace(/(.*)\/.*/, "$1");
+    self.filename = path.replace(/.*\//, "");;
   }
 
-  // Display an error message; with a header and a main message.
-  // `pre` is optional; if true, then the message is wrapped in a <pre> element
-  // for readability (used to display the output of xmllint, for example).
-  function display_error(head, msg, pre) {
-    var msg_div;
-    if (msg instanceof Element) {
-      msg_div = msg;
+  // Class to handle the results output and status message
+  // This is used as follows:
+  //   results.start_phase(p) - The first time this is called, it kicks
+  //       off a validation session
+  //   results.info(m), results.warn(m), results.error(m) - generate messages
+  //   results.start_phase(p) - Start a new phase
+  //   ...
+  //   results.done() - Finish up, reset back to the initial state
+
+  function Results() {
+    var self = this;
+    var results_area = $('#results');
+    var phase = null;   // phase == null means we're in initial state
+    var session_level;  // level of the most severe message received so far,
+                        //   one of GOOD, INFO, WARN, or ERROR
+    var phase_level;    // level of the most severe message in this phase
+    var report_level;   // value of the user-controlled select box
+
+    self.start_phase = function(p, id) {
+      results_area.show();
+      if (!phase) {
+        var lsv = $('#level_select').val();
+
+        report_level = 
+            lsv == "errors" ? ERROR
+          : lsv == "warnings" ? WARN
+          : INFO;
+        results_area.html('');
+        level = GOOD;
+      }
+      phase_level = GOOD;
+      phase = $('<div class="phase"><h2>' + p + '</h2></div>');
+      if (typeof id !== "undefined") {
+        phase.attr('id', id);
+      }
+      results_area.append(phase);
+      set_status(p, BUSY);
     }
-    else {
-      if (typeof(pre) !== "undefined" && pre) {
-        msg_div = document.createElement("pre");
+    self.done = function() {
+      phase = null;
+      var message = 
+          level == GOOD ? ". All good."
+        : level == INFO ? " with informational messages."
+        : level == WARN ? " with warnings."
+        : " with errors.";
+      set_status("Finished" + message, level);
+    }
+
+    // Takes the argument passed to one of info(), warn(), or error(), and makes
+    // a jQuery element out of it, adding the appropriate class.
+    function make_node(msg, cls) {
+      var m = typeof msg == "string"
+        ? $('<div>' + msg + '</div>')
+        : msg;
+      m.attr('class', cls);
+      return m;
+    }
+
+    // Any of the following functions can take either a string or a jQuery <div/>
+    self.info = function(msg) {
+      if (report_level > INFO) return;
+      phase.append(make_node(msg, 'info'));
+      self.bump_level(INFO);
+    }
+    self.warn = function(msg) {
+      if (report_level > WARN) return;
+      phase.append(make_node(msg, 'warn'));
+      self.bump_level(WARN);
+    }
+    self.error = function(msg) {
+      phase.append(make_node(msg, 'error'));
+      self.bump_level(ERROR);
+    }
+
+    self.bump_level = function(new_level) {
+      phase_level = Math.max(phase_level, new_level);
+      level = Math.max(level, new_level);
+    }
+  }
+
+
+  // This gets called in response to the user choosing a file, dropping a file,
+  // or pressing the "Revalidate" button.
+
+  function start_session() {
+    var reader = new FileReader();
+    reader.onload = function() {
+      // Get the contents of the xml file
+      var contents = this.result;
+
+      // Look for a doctype declaration
+      var doctype_pub_re = 
+        /<!DOCTYPE\s+\S+\s+PUBLIC\s+\"(.*?)\"\s+\"(.*?)\"\s*(\[[\s\S]*?\]\s*)?>/;
+      if (m = contents.match(doctype_pub_re)) {
+        var fpi = m[1];
+        var sysid = m[2];
+
+        var dtd = dtd_database.dtd_by_fpi[fpi] || null;
+        if (!dtd) {
+          results.error("Bad doctype declaration. " +
+            "Unrecognized public identifier: '" + fpi + "'");
+        }
+
       }
       else {
-        msg_div = document.createElement("div");
+        var doctype_sys_re = 
+          /<!DOCTYPE\s+\S+\s+SYSTEM\s+\"(.*?)\"\s*(\[[\s\S]*?\]\s*)?>/;
+        if (m = contents.match(doctype_sys_re)) {
+          results.error(
+            "A doctype declaration was found that only contains a SYSTEM identifer. " +
+            "Documents conforming to JATS4R that use DTDs are required to include " +
+            "a PUBLIC identifier.");
+        }
+        else {
+          results.info(
+            "No doctype declaration was found, so DTD validation was skipped");
+        }
       }
-      msg_div.textContent = msg;
+
+      if (!dtd) {
+        do_validate(contents);
+      }
+
+      else {
+        // Fetch the flattened DTD
+        fetch("dtds/" + dtd.path).then(function(response) {
+          return response.text();
+        })
+        .then(
+          function(dtd_contents) {
+            // We use the public identifier from the doctype declaration to find the DTD,
+            // but xmllint fetches it by system identifier. So, we store whatever the system
+            // identifier is, for use by that call.
+            do_validate(contents, sysid, dtd_contents);
+          },
+          function(err) {
+            console.error(err);
+          }
+        );
+      }
+    };
+    reader.onerror = function(e) {
+      var msg = "Error attempting to read the file."
+      var error_message = e.currentTarget.error.message;
+      if (error_message) {
+        msg += "\n\nSystem message: " + error_message;
+      }
+      results.error(msg);
+      results.done();
     }
 
-    results.insertBefore(msg_div, null);
-    var h = document.createElement("h2");
-    h.textContent = head;
-    results.insertBefore(h, msg_div);
-
-    set_status('Finished');
+    // Read the file. This results in the onload function above being called
+    results.start_phase("Reading the XML file");
+    reader.readAsText(input_file);
   }
 
-  // This function gets called when we've finished reading the DTD, or, if
-  // there is no DTD, immediately when the validation begins. If there is
-  // no DTD, this will be called with only one argument.
-  function do_validate(contents, dtd_filename, dtd_contents) {
-    set_status('Validating…');
 
-    console.log(">> input_file = " + input_file);
-    var filename = input_file.name;
-    var result;
+  // This function gets called when we've finished reading the DTD, or, if
+  // there is no DTD, immediately after the instance document is read. 
+  // If there is no DTD, this will be called with only one argument.
+  function do_validate(contents, dtd_filename, dtd_contents) 
+  {
+    var result = parse_and_dtd_validate(input_file.name, contents, 
+                                        dtd_filename, dtd_contents);
+    if (result) schematron_validate(result);
+    $('#revalidate').prop('disabled', false);
+  }
+
+
+  function parse_and_dtd_validate(filename, contents, dtd_filename, dtd_contents) 
+  {
+    var result = null;
 
     if (typeof(dtd_filename) !== "undefined") {
+      results.start_phase("Validating against the DTD");
+
       // If there is a DTD, invoke xmllint with:
       // --loaddtd - this causes the DTD specified in the doctype declaration
       //     to be loaded when parsing. This is necessary to resolve entity references.
@@ -184,9 +355,10 @@ var onSaxonLoad = function() {
       ];
       result = xmllint(args, files);
 
-      //console.log(result);
       if (result.stderr.length) {
-        display_error("Failed DTD validation", result.stderr, true);
+        results.error($('<div>Failed DTD validation: ' +
+          '<pre>' + result.stderr + '</pre></div>'));
+        results.done();
         result = null;
       }
     }
@@ -201,129 +373,69 @@ var onSaxonLoad = function() {
         }
       ];
       result = xmllint(args, files);
-    }
 
-    if (result) {
-      set_status('Validated');
-
-      var doc, pe;
-      var parse_error = false;
-      try {
-        doc = Saxon.parseXML(result.stdout);
-      }
-      catch (e) {
-        parse_error = true;
-      }
-      if (!doc) { parse_error = true; }
-      if (!parse_error) {
-        pe = doc.querySelector("parsererror");
-      }
-      if (parse_error || pe) {
-        if (!pe) { pe = "Unable to parse the input XML file."; }
-        display_error("Error parsing input file", pe);
-      }
-
-      else {
-
-        // run the Schematron tests
-        // FIXME:  need to parameterize the version number
-        var level = $('#level_select').val();
-        Saxon.run({
-          stylesheet: 'generated-xsl/0.1/' + xslt[level],
-          source: doc,
-          method: 'transformToDocument',
-          success: function(processor) {
-            set_status('Converting…');
-
-            // Convert the output SVRL to HTML. When done, this calls updateHTMLDocument,
-            // which uses the @href attribute in the <xsl:result-document> element in the
-            // stylesheet to update the #result element in the HTML page.
-            Saxon.run({
-              stylesheet: 'svrl-to-html.xsl',
-              source: processor.getResultDocument(),
-              method: 'updateHTMLDocument'
-            });
-            set_status('Finished');
-          }
-        });
+      if (result.stderr.length) {
+        results.error($('<div>Failed parsing: ' +
+          '<pre>' + result.stderr + '</pre></div>'));
+        results.done();
+        result = null;
       }
     }
-  
-    $('#revalidate').prop('disabled', false);
+
+    return result;
   }
 
+  // Finally, do the Schematron validation with Saxon CE
+  function schematron_validate(result) 
+  {
+    results.start_phase("Checking JATS for Reuse rules", "schematron-results");
 
-  // This gets called in response to the user choosing a file, dropping a file,
-  // or pressing the "Revalidate" button.
-
-  function validate_file() {
-    // clear any previous results
-    results.textContent = '';
-    set_status('Processing…');
-
-    var reader = new FileReader();
-    reader.onload = function() {
-      // Get the contents of the xml file
-      var contents = this.result;
-
-      // Look for a doctype declaration
-      var doctype_pub_re = /<!DOCTYPE\s+\S+\s+PUBLIC\s+\"(.*?)\"\s+\"(.*?)\"\s*>/;
-      if (m = contents.match(doctype_pub_re)) {
-        var fpi = m[1];
-        var sysid = m[2];
-
-        var dtd = dtd_database.dtd_by_fpi[fpi] || null;
-        if (!dtd) {
-          display_error("Bad doctype declaration",
-            "Unrecognized public identifier: '" + fpi + "'");
-        }
-
-      }
-      else {
-        var doctype_sys_re = /<!DOCTYPE\s+\S+\s+SYSTEM\s+\"(.*?)\"\s*>/;
-        if (m = contents.match(doctype_sys_re)) {
-          display_error("No public identifier in doctype declaration",
-            "A doctype declaration was found that only contains a SYSTEM identifer; " +
-            "and no PUBLIC identifer.");
-        }
-        else {
-          display_error("No doctype declaration found",
-            "No doctype declaration was found, so DTD validation was skipped");
-        }
-      }
-
-      if (!dtd) {
-        do_validate(contents);
-        return;
-      }
-
-      // Fetch the flattened DTD
-      fetch("dtds/" + dtd.path).then(function(response) {
-        return response.text();
-      })
-        .then(
-          function(dtd_contents) {
-            // We use the public identifier from the doctype declaration to find the DTD,
-            // but xmllint fetches it by system identifier. So, we store whatever the system
-            // identifier is, for use by that call.
-            do_validate(contents, sysid, dtd_contents);
-          },
-          function(err) {
-            console.error(err);
-          }
-        );
-    };
-    reader.onerror = function(e) {
-      var msg = "Error attempting to read the file."
-      var error_message = e.currentTarget.error.message;
-      if (error_message) {
-        msg += "\n\nSystem message: " + error_message;
-      }
-      alert(msg);
-      set_status("Error");
+    var doc, pe;
+    var parse_error = false;
+    try {
+      doc = Saxon.parseXML(result.stdout);
+    }
+    catch (e) {
+      parse_error = true;
+    }
+    if (!doc) { parse_error = true; }
+    if (!parse_error) {
+      pe = doc.querySelector("parsererror");
+    }
+    if (parse_error || pe) {
+      if (!pe) { pe = "Unable to parse the input XML file."; }
+      results.error("Error parsing input file: " + pe);
+      results.done();
     }
 
-    // Read the file. This results in the onload function above being called
-    reader.readAsText(input_file);
+    else {
+      // FIXME:  need to parameterize the version number
+      var level = $('#level_select').val();
+      Saxon.run({
+        stylesheet: 'generated-xsl/0.1/' + xslt[level],
+        source: doc,
+        method: 'transformToDocument',
+        success: function(processor) {
+          // Convert the output SVRL to HTML. When done, this calls updateHTMLDocument,
+          // which uses the @href attribute in the <xsl:result-document> element in the
+          // stylesheet to update the #result element in the HTML page.
+          Saxon.run({
+            stylesheet: 'svrl-to-html.xsl',
+            source: processor.getResultDocument(),
+            method: 'updateHTMLDocument'
+          });
+
+          var sr = $('#schematron-results');
+          var level = 
+              sr.find("td.error").length != 0 ? ERROR
+            : sr.find("td.warn").length != 0 ? WARN
+            : sr.find("td.info").length != 0 ? INFO
+            : GOOD;
+          results.bump_level(level);
+          results.done();
+        }
+      });
+    }
   }
+
 }

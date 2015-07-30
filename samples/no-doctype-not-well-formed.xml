@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE article PUBLIC "-//NLM//Fake Public Identifier//EN" "bad-doctype.dtd">
-  
-<article dtd-version="1.0" >
+
+<!-- 
+  Sample file that has no doctype declaration and is not well-formed. Used for testing the validator. 
+-->
+
+<article dtd-version="1.0"
   <front>
     <journal-meta>
       <journal-id></journal-id>

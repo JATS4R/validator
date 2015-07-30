@@ -3,45 +3,73 @@ body {
   padding: 2em 10em;
 }
 
-th { text-align: left; }
 
 /* Controls at the top */
 form { margin: 20px 0; }
-tr td:first-of-type {
-  vertical-align: top;
+
+#form tr {
+  vertical-align: middle;
 }
+
 #form th {
   text-align: right;
   padding: 0.5em 0.5em;
 }
 
-/* Results table */
+
+
+/* Results */
+
+#results {
+  margin-top: 1em;
+  padding: 0.3em 1em;
+  border: 1px solid rgb(100,100,100);
+  border-radius: 5px;
+  background: rgb(230,230,230);
+  box-shadow: 2px 2px 2px #888888;
+  overflow: auto;
+  font-family: Geneva, Tahoma, Verdana, sans-serif;
+}
+#results h2 {
+  font-size: 1.1em;
+  font-style: italic;
+  text-decoration: underline;
+}
+#results > div div {
+  margin: 0.6em;
+}
+.info {
+ /* color: rgb(198,165,142); */
+   color: rgb(132,110,95);
+}
+.warn {
+  color: #A33;
+}
+.error {
+  color: red;
+}
+
+#lint-container {
+    overflow-x: auto;
+}
+#lint {
+    color: red;
+}
+
 table.results {
   border-collapse: collapse;
 }
+
+table.results th { 
+  text-align: left; 
+}
+
 table.results th,
 table.results td {
   border: 1px solid black;
   padding: .2em;
 }
 
-.errors, .error {
-  color: red;
-}
-.warnings {
-  color: #A33;
-}
-.info {
-  color: black;
-}
-
-#lint-container {
-    overflow-x: auto;
-}
-
-#lint {
-    color: red;
-}
 
 
 /* 
@@ -84,4 +112,35 @@ table.results td {
 }
 /* End CC-BY licensed code. */
 
+
+/* Status */
+
+#status {
+  margin-top: 5px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid rgb(221,221,221);
+  letter-spacing: 0.1em;
+}
+
+.status-busy {
+  background-color: rgb(164,191,207);
+  font-style: italic;
+}
+.status-neutral {
+  background-color: rgb(164,191,207);
+}
+.status-good {
+  background-color: rgb(197,221,175);
+}
+.status-info {
+  background-color: rgb(198,165,142);
+}
+.status-warn {
+  background-color: rgb(200,110,110);
+}
+.status-error {
+  background-color: rgb(200,0,0);
+  color: white;
+}
 
