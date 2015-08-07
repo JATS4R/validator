@@ -36,10 +36,19 @@ if ! [ -d Saxonce ]; then
     rm Saxon-CE_1.1.zip
 fi
 
+# prism
+cd $JATS4R_HOME/lib
+if ! [ -e prism.js ]; then
+    cp ../assets/prism.js .
+fi
+if ! [ -e prism.css ]; then
+    cp ../assets/prism.css .
+fi
+
 # xmllint.js
 cd $JATS4R_HOME/lib
-if ! [ -e xmllint.js ]; then
-    cp ../assets/xmllint.js .
+if ! [ -e xmltool.js ]; then
+    cp ../assets/xmltool.js .
 fi
 
 # JATS DTDs

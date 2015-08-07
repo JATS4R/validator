@@ -5,9 +5,11 @@
     <meta charset="utf-8">
     <title>JATS4R Validator</title>
     <link rel='stylesheet' href='validate.css' />
+    <link rel='stylesheet' href='lib/prism.css' />
   </head>
   <body>
     <h1><img src='assets/JATS4R.png' height='30px'/> Validator</h1>
+
     <form id='form'>
 
       <table>
@@ -69,16 +71,18 @@
   -->
 
     <div id="results" style='display: none;'></div>
+    <div id="listing-div" style='display: none;'></div>
 
     <script src="validate.js"></script>
     <script src="lib/fetch.js"></script>
     <script src="lib/es6-promise.min.js"></script>
-    <script src="assets/xmllint.js"></script>
+    <script src="lib/xmltool.js"></script>
     <script src="lib/Saxonce/Saxonce.nocache.js"></script>
     <script type="text/javascript"
             src="http://cdnjs.cloudflare.com/ajax/libs/js-yaml/3.3.0/js-yaml.js"></script>
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src='lib/prism.js'></script>
 
     <a href="https://github.com/jats4r/validator">
       <img style="position: absolute; top: 0; right: 0; border: 0;" 

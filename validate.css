@@ -144,3 +144,27 @@ table.results td {
   color: white;
 }
 
+
+
+.xpath-display {
+  font-size: 0.7em;
+}
+.xpath-location {
+  color: blue;
+  display: none;
+}
+#listing-div {
+  margin-top: 2em;
+  max-height: 100em;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+
