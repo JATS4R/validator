@@ -453,7 +453,6 @@ var onSaxonLoad = function() {
         return $(loc).text();
       }
     );
-    console.log("num locations: " + locs.length);
 
     var args = ['--xpath-locator', 'file.xml'].concat(locs);
     var files = [{
@@ -461,8 +460,8 @@ var onSaxonLoad = function() {
       data: doc
     }];
     result = xmltool(args, files);
-    console.log("stdout: '" + result.stdout + "'");
-    console.log("stderr: '" + result.stderr + "'");
+    //console.log("stdout: '" + result.stdout + "'");
+    //console.log("stderr: '" + result.stderr + "'");
 
     // Get the locations
     var loc_lines = result.stdout.split("\n");
