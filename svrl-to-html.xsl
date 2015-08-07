@@ -65,7 +65,12 @@
     <tr>
       <td class='{$level}'>
         <!-- Insert zero-width spaces to allow the browser to wrap the location cell -->
-        <xsl:value-of select="replace(@location, '/', '&#x200B;/&#x200B;')"/> 
+        <span class='xpath-display'>
+          <xsl:value-of select="replace(@location, '/', '&#x200B;/&#x200B;')"/>
+        </span>
+        <span class='xpath-location'>
+          <xsl:value-of select='@location'/>
+        </span>
       </td>
       <td class='{$level}'>
         <xsl:apply-templates select="svrl:text"/>

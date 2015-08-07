@@ -243,6 +243,10 @@ var onSaxonLoad = function() {
   // or pressing the "Revalidate" button.
 
   function start_session() {
+    // reset any vestiges of a previous session
+    $('#listing-div').hide();
+    window.location.hash='';
+
     var reader = new FileReader();
     reader.onload = function() {
       // Get the contents of the xml file
@@ -353,7 +357,7 @@ var onSaxonLoad = function() {
           data: dtd_contents
         }
       ];
-      result = xmllint(args, files);
+      result = xmltool(args, files);
 
       if (result.stderr.length) {
         results.error($('<div>Failed DTD validation: ' +
@@ -372,7 +376,7 @@ var onSaxonLoad = function() {
           data: contents
         }
       ];
-      result = xmllint(args, files);
+      result = xmltool(args, files);
 
       if (result.stderr.length) {
         results.error($('<div>Failed parsing: ' +
@@ -419,11 +423,14 @@ var onSaxonLoad = function() {
           // Convert the output SVRL to HTML. When done, this calls updateHTMLDocument,
           // which uses the @href attribute in the <xsl:result-document> element in the
           // stylesheet to update the #result element in the HTML page.
+          // I guess this blocks until done.
           Saxon.run({
             stylesheet: 'svrl-to-html.xsl',
             source: processor.getResultDocument(),
             method: 'updateHTMLDocument'
           });
+
+          do_xpath_locations(result.stdout);
 
           var sr = $('#schematron-results');
           var level = 
@@ -436,6 +443,62 @@ var onSaxonLoad = function() {
         }
       });
     }
+  }
+
+  function do_xpath_locations(doc) {
+    // Get the xpath locations from the schematron output results
+    var locs = $.map(
+      $('.xpath-location'), 
+      function(loc) {
+        return $(loc).text();
+      }
+    );
+
+    var args = ['--xpath-locator', 'file.xml'].concat(locs);
+    var files = [{
+      path: 'file.xml',
+      data: doc
+    }];
+    result = xmltool(args, files);
+    //console.log("stdout: '" + result.stdout + "'");
+    //console.log("stderr: '" + result.stderr + "'");
+
+    // Get the locations
+    var loc_lines = result.stdout.split("\n");
+    loc_lines.pop();
+    var locations = loc_lines.map(function(line) {
+        return line.split(":");
+    });
+
+
+    $('#listing-div').html(
+      $('<pre>', {
+        'id': 'listing',
+        // FIXME: for now, no line numbers on the listing, because if conflicts
+        // with the line-highlight plugin. The problem is that when you attempt
+        // to highlight a line that's below the scroll of the div, it just
+        // acts as if the div scrolling doesn't exist, and produces a rectangular
+        // "highlight" background that's far down below the bottom of the div's
+        // viewport.
+        //'class': 'line-numbers',
+        'data-line': locations.map(function(l){return l[0];}).join(","),
+        'html': $('<code>', {
+          'class': 'language-markup',
+          'text': doc
+        })
+      })
+    );
+    Prism.highlightAll();
+    $('#listing-div').show();
+
+    $('.xpath-display').each(function(i, locspan) {
+      $(locspan).wrap("<a href='#listing." + locations[i][0] + "'>")
+    });
+
+/*
+    $('.language-markup').attr('style', 
+      'max-height: ' + Math.floor($(window).height() * 0.9) + 'px;');
+*/
   }
 
 }
