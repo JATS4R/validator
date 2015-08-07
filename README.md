@@ -269,11 +269,13 @@ Can be downloaded from [this page](http://www.saxonica.com/ce/index.xml#download
 In setup.sh, this is downloaded and extracted to `lib/Saxonce`.
 
 
-### xmllint.js
+### xmltool.js
 
 For now, this is saved in this repository in the `assets` directory.
-This is a creation of Alf Eaton -- see his [hubgit/xml.js 
-repo](https://github.com/hubgit/xml.js).
+This is generated from the code in the [jats4r/xml.js](https://github.com/jats4r/xml.js)
+repository, which was forked from Alf Eaton's 
+[hubgit/xml.js](https://github.com/hubgit/xml.js) repo, which was in turn forked
+from [kripken/xml.js](https://github.com/kripken/xml.js).
 
 The setup.sh script copies this into `lib`.
 
@@ -330,6 +332,16 @@ Downloaded from
 on 2015-04-02, and included as assets/xml-commons-resolver-1.2.zip.
 
 The setup.sh script extracts this into `lib/xml-commons-resolver-1.2`.
+
+### Prism
+
+For syntax highlighting.  This was downloaded from the [Prism site](http://prismjs.com/)
+with:
+
+* Languages: only "markup"
+- [coy theme](http://prismjs.com/index.html?theme=prism-coy)
+- [line highlight plugin](http://prismjs.com/plugins/line-highlight/)
+- [line numbers plugin](http://prismjs.com/plugins/line-numbers/) 
 
 
 # Acknowledgements
