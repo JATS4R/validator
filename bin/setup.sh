@@ -12,6 +12,21 @@ cd $JATS4R_HOME
 mkdir -p lib
 
 
+# Chosen
+
+cd $JATS4R_HOME/lib
+mkdir -p chosen
+cd chosen
+if ! [ -d chosen.css ]; then
+    wget https://github.com/harvesthq/chosen/releases/download/1.4.2/chosen_v1.4.2.zip
+    if [ $? -ne 0 ]; then
+        echo "wget chosen failed; aborting"
+        exit 1
+    fi
+    unzip chosen_v1.4.2.zip
+fi
+
+
 # Saxon CE 1.1
 cd $JATS4R_HOME/lib
 if ! [ -d Saxonce ]; then
