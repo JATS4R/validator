@@ -353,6 +353,10 @@ var onSaxonLoad = function() {
   // or pressing the "Revalidate" button.
 
   function validate_session(contents) {
+      // Look for xml declaration. If one is found, change any encoding to utf-8
+      var xml_decl_re =
+        /^(<\?xml\s+.*?encoding\s*=\s*'|\")(.*?)('|\".*?\?>)/;
+      contents = contents.replace(xml_decl_re, "$1utf-8$3");
 
       // Look for a doctype declaration
       var doctype_pub_re = 
