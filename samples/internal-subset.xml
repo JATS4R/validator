@@ -4,6 +4,7 @@
   "JATS-journalpublishing1.dtd" 
 [
   <!ENTITY copy "©">
+  <!ENTITY paratext "Here is a paragraph&#xA;of text.&#xA;Sort of.">
 ]>
 
 <article dtd-version="1.0" >
@@ -27,5 +28,11 @@
   </front>
   <body>
     <p>&copy;</p>
+    <p>&paratext;</p>
+    <p>Here's an equation 
+      <mml:math id="M0">
+        <mml:mi>&#x3D5;</mml:mi>
+      </mml:math>
+    </p>
   </body>
 </article>

@@ -6,6 +6,7 @@
 <article dtd-version="1.0" >
   <front>
     <journal-meta>
+      <foo/>
     </journal-meta>
     <article-meta>
       <title-group>

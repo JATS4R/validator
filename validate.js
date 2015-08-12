@@ -20,10 +20,16 @@ var onSaxonLoad = function() {
   var dtd_database = null;
 
   // This is the input JATS file we'll be working on
-  var input_file = null;
+  var input_file;
+
+  // Last JATS URL
+  var input_url;
 
   // Console for output; see class definition below
   var results = new Results();
+
+  clear_input_file();
+  clear_input_url();
 
   // First fetch the DTDs database, then add event handlers
   fetch("dtds.yaml")
@@ -38,16 +44,26 @@ var onSaxonLoad = function() {
       $('#level_select').on('change', function(e) {
         // When the report level changes, if there's already a file
         // selected, then revalidate it.
-        if (input_file) {
+        if (input_url) {
+          console.log("validating url");
+          start_session_url();
+        }
+        else if (input_file) {
           set_drop_area();
-          start_session();
+          start_session_file();
         }
       });
 
       $('#choose_input').on('change', function(e) {
         input_file = $('#choose_input').get()[0].files[0];
         set_drop_area();
-        start_session();
+        start_session_file();
+      });
+
+      $('#jats_url').on('change', function(e) {
+        console.log("%o", e);
+        input_url = $('#jats_url').val();
+        start_session_url();
       });
 
       $('#drop_div')
@@ -57,17 +73,27 @@ var onSaxonLoad = function() {
           ignore_drag(e);
           input_file = e.originalEvent.dataTransfer.files[0];
           set_drop_area();
-          start_session();
+          start_session_file();
         });
 
       $('#revalidate').on('click', function(e) {
-        if (!input_file) {
-          set_status("Please select a file first!", ERROR);
+        if (input_url) {
+          console.log("validating url");
+          start_session_url();
+        }
+        else if (input_file) {
+          set_drop_area();
+          start_session_file();
         }
         else {
-          set_drop_area();
-          start_session();
+          set_status("Please select a file first!", ERROR);
         }
+      });
+
+      $('#sample_select').on('change', function(e) {
+        console.log("select: " + $('#sample_select').val());
+        $('#jats_url').val(e.target.value)
+                      .trigger("change");
       });
 
       // Ready to go
@@ -134,6 +160,21 @@ var onSaxonLoad = function() {
 
   /* End CC-BY licensed code. */
 
+  function clear_input_file() {
+    input_file = null;
+    $("#drop_div").html('or drop your JATS file here')
+                  .removeClass("dropped");
+    // To clear the file input control, we need to replace it with a clone,
+    // while preserving the event handlers
+    var choose_input = $('#choose_input');
+    choose_input.replaceWith( choose_input.clone( true ) );
+  }
+
+  function clear_input_url() {
+    input_url = null;
+    $('#jats_url').val('');
+  }
+  
 
   // Some classes for holding information about a dtd, as read from the dtds.yaml file
 
@@ -239,18 +280,75 @@ var onSaxonLoad = function() {
   }
 
 
-  // This gets called in response to the user choosing a file, dropping a file,
-  // or pressing the "Revalidate" button.
-
-  function start_session() {
-    // reset any vestiges of a previous session
+  // reset any vestiges of a previous session
+  function reset_session() {
     $('#listing-div').hide();
     window.location.hash='';
+  }
+
+  // This gets called in response to the user choosing a file, dropping a file,
+  // or pressing the "Revalidate" button, when the last thing validated was a file.
+
+  function start_session_file() {
+    clear_input_url();
+    reset_session();
 
     var reader = new FileReader();
     reader.onload = function() {
-      // Get the contents of the xml file
-      var contents = this.result;
+      validate_session(this.result);
+    }
+    reader.onerror = function(e) {
+      var msg = "Error attempting to read the file."
+      var error_message = e.currentTarget.error.message;
+      if (error_message) {
+        msg += "\n\nSystem message: " + error_message;
+      }
+      results.error(msg);
+      results.done();
+    }
+
+    // Read the file. This results in the onload function above being called
+    results.start_phase("Reading the XML file");
+    reader.readAsText(input_file);
+  }
+
+  function fetch_error(msg) {
+    results.error("Error attempting to fetch the file: " + msg);
+    results.done();
+  }
+
+  function start_session_url() {
+    clear_input_file();
+    reset_session();
+    results.start_phase("Fetching the XML file");
+    var headers = new Headers();
+    headers.append("Accept", "application/jats+xml;q=1, application/xml");
+    fetch(input_url, { headers: headers })
+      .then(
+        // success
+        function(response) {
+          if (response.status >= 200 && response.status < 300) {
+            return response.text();
+          }
+          else {
+            fetch_error(response.statusText);
+            return null;
+          }
+        },
+        // fetch error
+        function(e) {
+          fetch_error(e.message);
+        }
+      )
+      .then(function(content) {
+        if (content) validate_session(content);
+      });
+  }
+
+  // This gets called in response to the user choosing a file, dropping a file,
+  // or pressing the "Revalidate" button.
+
+  function validate_session(contents) {
 
       // Look for a doctype declaration
       var doctype_pub_re = 
@@ -302,20 +400,6 @@ var onSaxonLoad = function() {
           }
         );
       }
-    };
-    reader.onerror = function(e) {
-      var msg = "Error attempting to read the file."
-      var error_message = e.currentTarget.error.message;
-      if (error_message) {
-        msg += "\n\nSystem message: " + error_message;
-      }
-      results.error(msg);
-      results.done();
-    }
-
-    // Read the file. This results in the onload function above being called
-    results.start_phase("Reading the XML file");
-    reader.readAsText(input_file);
   }
 
 
@@ -324,14 +408,13 @@ var onSaxonLoad = function() {
   // If there is no DTD, this will be called with only one argument.
   function do_validate(contents, dtd_filename, dtd_contents) 
   {
-    var result = parse_and_dtd_validate(input_file.name, contents, 
-                                        dtd_filename, dtd_contents);
+    var result = parse_and_dtd_validate(contents, dtd_filename, dtd_contents);
     if (result) schematron_validate(result);
     $('#revalidate').prop('disabled', false);
   }
 
 
-  function parse_and_dtd_validate(filename, contents, dtd_filename, dtd_contents) 
+  function parse_and_dtd_validate(contents, dtd_filename, dtd_contents) 
   {
     var result = null;
 
@@ -346,10 +429,10 @@ var onSaxonLoad = function() {
       // --valid - cause xmllint to validate against the DTD that it finds from the doctype
       //     declaration.
       // --noent - tells xmlint to resolve all entity references
-      var args = ['--loaddtd', '--valid', '--noent', filename];
+      var args = ['--loaddtd', '--valid', '--noent', 'dummy.xml'];
       var files = [
         {
-          path: filename,
+          path: 'dummy.xml',
           data: contents
         },
         {
@@ -369,10 +452,10 @@ var onSaxonLoad = function() {
 
     else {
       // If no DTD:
-      var args = [filename];
+      var args = ['dummy.xml'];
       var files = [
         {
-          path: filename,
+          path: 'dummy.xml',
           data: contents
         }
       ];

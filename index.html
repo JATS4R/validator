@@ -25,7 +25,24 @@
             </td>
           </tr>
           <tr>
-            <th><label for='choose_input'>JATS file:</label></th>
+            <th><label for='choose_input'>JATS document URL:</label></th>
+            <td>
+              <!-- FIXME: weird, when I remove this invisible input element,
+                a change in jats_url causes a page reload. -->
+              <input id='foo' style='display: none;'/>
+              <input id='jats_url' type='text' size='60'/>
+            </td>
+            <td>
+              <select id='sample_select'>
+                <option value=''>Sample articles</option>
+                <option value='samples/math.xml'>math.xml</option>
+                <option value='samples/sample.xml'>sample.xml</option>
+                <option value='https://peerj.com/articles/1000'>PeerJ article</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <th><label for='choose_input'>or JATS file:</label></th>
             <td>
               <input id='choose_input' type='file'/>
             </td>
@@ -35,7 +52,7 @@
 
 
       <div class="files_wrapper">
-        <div class="xmlarea_file" id="drop_div">Drop your JATS file here</div>
+        <div class="xmlarea_file" id="drop_div">or drop your JATS file here</div>
       </div>
       <p>
         <input id='revalidate' 
