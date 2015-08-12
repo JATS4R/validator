@@ -206,7 +206,14 @@ Testing
 
 To test the online validator, use the files in the `samples` directory.
 
-Automated tests coming soon.
+Automated tests coming soon. See [issue 8](https://github.com/JATS4R/validator/issues/8).
+
+Also test with these URLs:
+
+* https://peerj.com/articles/1000 - If you load this in a browser, you'll get HTML.
+  But the JATS4R Validator adds an `Accept` header with the value of 
+  "application/jats+xml;q=1, application/xml", so the server (correctly) responds
+  with JATS XML.
 
 
 How it works
@@ -342,6 +349,11 @@ with:
 - [coy theme](http://prismjs.com/index.html?theme=prism-coy)
 - [line highlight plugin](http://prismjs.com/plugins/line-highlight/)
 - [line numbers plugin](http://prismjs.com/plugins/line-numbers/) 
+
+### Chosen jquery library
+
+For the select "sample articles" dropdown menu. See their
+[home page](http://harvesthq.github.io/chosen/).
 
 
 # Acknowledgements

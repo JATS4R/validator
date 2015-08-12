@@ -12,18 +12,6 @@ cd $JATS4R_HOME
 mkdir -p lib
 
 
-# es6-promise.min.js
-cd $JATS4R_HOME/lib
-if ! [ -e es6-promise.min.js ]; then
-    cp ../assets/es6-promise.min.js .
-fi
-
-# fetch.js
-cd $JATS4R_HOME/lib
-if ! [ -e fetch.js ]; then
-    cp ../assets/fetch.js .
-fi
-
 # Saxon CE 1.1
 cd $JATS4R_HOME/lib
 if ! [ -d Saxonce ]; then
@@ -34,21 +22,6 @@ if ! [ -d Saxonce ]; then
     fi
     unzip Saxon-CE_1.1.zip 'Saxonce/*'
     rm Saxon-CE_1.1.zip
-fi
-
-# prism
-cd $JATS4R_HOME/lib
-if ! [ -e prism.js ]; then
-    cp ../assets/prism.js .
-fi
-if ! [ -e prism.css ]; then
-    cp ../assets/prism.css .
-fi
-
-# xmllint.js
-cd $JATS4R_HOME/lib
-if ! [ -e xmltool.js ]; then
-    cp ../assets/xmltool.js .
 fi
 
 # JATS DTDs

@@ -5,7 +5,8 @@
     <meta charset="utf-8">
     <title>JATS4R Validator</title>
     <link rel='stylesheet' href='validate.css' />
-    <link rel='stylesheet' href='lib/prism.css' />
+    <link rel='stylesheet' href='assets/prism.css' />
+    <link rel="stylesheet" href="assets/chosen.css">
   </head>
   <body>
     <h1><img src='assets/JATS4R.png' height='30px'/> Validator</h1>
@@ -33,8 +34,9 @@
               <input id='jats_url' type='text' size='60'/>
             </td>
             <td>
-              <select id='sample_select'>
-                <option value=''>Sample articles</option>
+              <select id='sample_select'
+                data-placeholder="Sample articles ..." tabindex="1">
+                <option value=''></option>
                 <option value='samples/PMC4524613.xml'>PLoS One article</option>
                 <option value='samples/elife-e07025.xml'>eLife article</option>
                 <option value='samples/peerj-1000.xml'>PeerJ article</option>
@@ -94,16 +96,24 @@
     <div id="results" style='display: none;'></div>
     <div id="listing-div" style='display: none;'></div>
 
-    <script src="validate.js"></script>
-    <script src="lib/fetch.js"></script>
-    <script src="lib/es6-promise.min.js"></script>
-    <script src="lib/xmltool.js"></script>
-    <script src="lib/Saxonce/Saxonce.nocache.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript"
+            src="validate.js"></script>
+    <script type="text/javascript"
+            src="assets/fetch.js"></script>
+    <script type="text/javascript"
+            src="assets/es6-promise.min.js"></script>
+    <script type="text/javascript"
+            src="assets/xmltool.js"></script>
+    <script type="text/javascript"
+            src="lib/Saxonce/Saxonce.nocache.js"></script>
     <script type="text/javascript"
             src="http://cdnjs.cloudflare.com/ajax/libs/js-yaml/3.3.0/js-yaml.js"></script>
     <script type="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src='lib/prism.js'></script>
+            src='assets/prism.js'></script>
+    <script type="text/javascript"
+            src='assets/chosen.jquery.min.js'></script>
 
     <a href="https://github.com/jats4r/validator">
       <img style="position: absolute; top: 0; right: 0; border: 0;" 

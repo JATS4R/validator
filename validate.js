@@ -1,3 +1,7 @@
+$(document).ready(function() {
+  $('#sample_select').chosen();
+});
+
 // SAXON API: http://www.saxonica.com/ce/user-doc/1.1/html/api/
 // onSaxonLoad is called when Saxon has finished loading
 var onSaxonLoad = function() {
