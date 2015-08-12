@@ -1,0 +1,1645 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "http://jats.nlm.nih.gov/publishing/1.0/JATS-journalpublishing1.dtd">
+<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" article-type="research-article" dtd-version="1.0">
+  <front>
+    <journal-meta>
+      <journal-id journal-id-type="pmc">PeerJ</journal-id>
+      <journal-id journal-id-type="nlm-ta">PeerJ</journal-id>
+      <journal-id journal-id-type="publisher-id">PeerJ</journal-id>
+      <journal-title-group>
+        <journal-title>PeerJ</journal-title>
+      </journal-title-group>
+      <issn pub-type="epub">2167-8359</issn>
+      <publisher>
+        <publisher-name>PeerJ Inc.</publisher-name>
+        <publisher-loc>San Francisco, USA</publisher-loc>
+      </publisher>
+    </journal-meta>
+    <article-meta>
+      <article-id pub-id-type="publisher-id">1000</article-id>
+      <article-id pub-id-type="doi">10.7717/peerj.1000</article-id>
+      <article-categories>
+        <subj-group subj-group-type="categories">
+          <subject>Animal Behavior</subject>
+          <subject>Neuroscience</subject>
+          <subject>Zoology</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>Can endocranial volume be estimated accurately from external skull measurements in great-tailed grackles (<italic>Quiscalus mexicanus</italic>)?</article-title>
+      </title-group>
+      <contrib-group content-type="authors">
+        <contrib id="author-1" contrib-type="author" corresp="yes">
+          <name>
+            <surname>Logan</surname>
+            <given-names>Corina J.</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff-1">1</xref>
+          <xref ref-type="fn" rid="aufn-1">
+            <sup>*</sup>
+          </xref>
+          <email>cl417@cam.ac.uk</email>
+        </contrib>
+        <contrib id="author-2" contrib-type="author">
+          <name>
+            <surname>Palmstrom</surname>
+            <given-names>Christin R.</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff-2">2</xref>
+        </contrib>
+        <aff id="aff-1"><label>1</label><institution>SAGE Center for the Study of the Mind, University of California Santa Barbara</institution>, <addr-line>Santa Barbara, CA</addr-line>, <country>USA</country></aff>
+        <aff id="aff-2"><label>2</label><institution>College of Creative Studies, University of California Santa Barbara</institution>, <addr-line>Santa Barbara, CA</addr-line>, <country>USA</country></aff>
+      </contrib-group>
+      <contrib-group content-type="editors">
+        <contrib id="editor-1" contrib-type="editor">
+          <name>
+            <surname>Druzinsky</surname>
+            <given-names>Robert</given-names>
+          </name>
+        </contrib>
+      </contrib-group>
+      <author-notes>
+        <fn id="aufn-1" fn-type="current-aff">
+          <label>*</label>
+          <p>Current affiliation: Department of Zoology, University of Cambridge, Cambridge, UK</p>
+        </fn>
+      </author-notes>
+      <pub-date pub-type="epub" date-type="pub" iso-8601-date="2015-06-11">
+        <day>11</day>
+        <month>6</month>
+        <year iso-8601-date="2015">2015</year>
+      </pub-date>
+      <volume>3</volume>
+      <elocation-id>e1000</elocation-id>
+      <history>
+        <date date-type="received" iso-8601-date="2015-01-13">
+          <day>13</day>
+          <month>1</month>
+          <year iso-8601-date="2015">2015</year>
+        </date>
+        <date date-type="accepted" iso-8601-date="2015-05-14">
+          <day>14</day>
+          <month>5</month>
+          <year iso-8601-date="2015">2015</year>
+        </date>
+      </history>
+      <permissions>
+        <copyright-statement>© 2015 Logan et al.</copyright-statement>
+        <copyright-year>2015</copyright-year>
+        <copyright-holder>Logan et al.</copyright-holder>
+        <license license-type="open-access" xlink:href="http://creativecommons.org/licenses/by/4.0/">
+          <license-p>This is an open access article distributed under the terms of the <ext-link ext-link-type="uri" xlink:href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution License</ext-link>, which permits unrestricted use, distribution, reproduction and adaptation in any medium and for any purpose provided that it is properly attributed. For attribution, the original author(s), title, publication source (PeerJ) and either DOI or URL of the article must be cited.</license-p>
+        </license>
+      </permissions>
+      <self-uri xlink:href="https://peerj.com/articles/1000"/>
+      <abstract>
+        <p>There is an increasing need to validate and collect data approximating brain size on individuals in the field to understand what evolutionary factors drive brain size variation within and across species. We investigated whether we could accurately estimate endocranial volume (a proxy for brain size), as measured by computerized tomography (CT) scans, using external skull measurements and/or by filling skulls with beads and pouring them out into a graduated cylinder for male and female great-tailed grackles. We found that while females had higher correlations than males, estimations of endocranial volume from external skull measurements or beads did not tightly correlate with CT volumes. We found no accuracy in the ability of external skull measures to predict CT volumes because the prediction intervals for most data points overlapped extensively. We conclude that we are unable to detect individual differences in endocranial volume using external skull measurements. These results emphasize the importance of validating and explicitly quantifying the predictive accuracy of brain size proxies for each species and each sex.</p>
+      </abstract>
+      <kwd-group kwd-group-type="author">
+        <kwd>Endocranial volume</kwd>
+        <kwd>Great-tailed grackle</kwd>
+        <kwd>
+          <italic>Quiscalus mexicanus</italic>
+        </kwd>
+        <kwd>Bird</kwd>
+        <kwd>Skull measurements</kwd>
+        <kwd>Bead method</kwd>
+      </kwd-group>
+      <funding-group>
+        <award-group id="fund-1">
+          <funding-source>National Geographic Society/Waitt Grants Program</funding-source>
+          <award-id>W252-12</award-id>
+        </award-group>
+        <award-group id="fund-2">
+          <funding-source>Undergraduate Research and Creative Activities at UCSB</funding-source>
+        </award-group>
+        <funding-statement>This research was funded by the National Geographic Society/Waitt Grants Program, the SAGE Center for the Study of the Mind (CJL) and the Undergraduate Research and Creative Activities grant (CP) at the University of California Santa Barbara. The funders had no role in the study design, data collection and analysis, decision to publish, or preparation of the manuscript.</funding-statement>
+      </funding-group>
+    </article-meta>
+  </front>
+  <body>
+    <sec sec-type="intro">
+      <title>Introduction</title>
+      <p>While comparing relative brain sizes (corrected for body size) across species has led to a greater understanding of the evolutionary factors correlated with brain size at a broad taxonomic scale (e.g., <xref ref-type="bibr" rid="ref-14">Iwaniuk &amp; Nelson, 2003</xref>; <xref ref-type="bibr" rid="ref-27">Sakai et al., 2011</xref>; <xref ref-type="bibr" rid="ref-28">Sol et al., 2005</xref>), little is known about the within species causes and consequences of variation in brain sizes (see <xref ref-type="bibr" rid="ref-8">Gonda, Herczeg &amp; Merilä, 2013</xref>; <xref ref-type="bibr" rid="ref-31">Thornton &amp; Lukas, 2012</xref>). Additionally, the accuracy of brain size proxies, which are frequently used in such comparisons, is not often validated (<xref ref-type="bibr" rid="ref-10">Healy &amp; Rowe, 2007</xref>). Therefore, the accuracy of brain size estimations and how they compare to estimations in other species is questionable (<xref ref-type="bibr" rid="ref-10">Healy &amp; Rowe, 2007</xref>). Intraspecific brain size comparisons are rare perhaps due to the difficulty of obtaining data on a number of factors for the same individuals (e.g., biometric measurements, reproductive success, dominance rank, position in the social network, and cognitive abilities). Acquiring such data is key for understanding what contributes to the evolution of brain size among individuals, as well as across species (<xref ref-type="bibr" rid="ref-8">Gonda, Herczeg &amp; Merilä, 2013</xref>; <xref ref-type="bibr" rid="ref-18">Logan &amp; Clutton-Brock, 2013</xref>; <xref ref-type="bibr" rid="ref-31">Thornton &amp; Lukas, 2012</xref>).</p>
+      <p>We investigated whether endocranial volume, a proxy for brain size (<xref ref-type="bibr" rid="ref-13">Iwaniuk &amp; Nelson, 2002</xref>), can be approximated using measurements of the external skull in great-tailed grackles (<italic>Quiscalus mexicanus</italic>, JF Gmelin, 1788). Grackles are invasive, having successfully expanded their geographical range by exploiting new environments (<xref ref-type="bibr" rid="ref-24">Peer, 2011</xref>). Invasion success is considered a measure of behavioral flexibility and positively correlates with relative brain size across bird species (<xref ref-type="bibr" rid="ref-29">Sol et al., 2002</xref>). One of us (Logan) is conducting in depth investigations of great-tailed grackle cognition and behavioral flexibility in the lab and field to understand whether invasiveness directly indicates behavioral flexibility and what kinds of cognition grackles use to solve novel problems. This study system provides a rare opportunity to examine intraspecific differences in brain size, which could have implications for understanding range expansions in the context of behavioral flexibility. Finding an accurate proxy for endocranial volume would greatly ease the collection of data on brain sizes since external skull measurements could be further validated to account for head measurements that can be taken on live birds, thus allowing for correlations with a number of other factors on which data are gathered on this species.</p>
+      <p>This study is intended as a first step in validating the accuracy of using head measurements taken from live birds to predict their actual brain size, which would require two additional steps: (1) validating the link between external skull measurements and external head measurements, and (2) validating the link between endocranial volume and actual brain size. Regarding the latter validation, there is reason to believe that endocranial volume accurately approximates actual brain volume in birds because the meninges, the matter between the skull and the brain, are thinner than in mammals and the shape of the braincase in birds tightly tracks the shape of the brain (<xref ref-type="bibr" rid="ref-13">Iwaniuk &amp; Nelson, 2002</xref>). Additionally, it was previously observed in the genus <italic>Quiscalus</italic> that individual variation in endocranial volume is particularly large when compared with variation in other bird species (<italic>Quiscalus quiscala</italic>; <xref ref-type="bibr" rid="ref-13">Iwaniuk &amp; Nelson, 2002</xref>). Assuming great-tailed grackles have similar amounts of variation, our study provides an opportunity to understand how much of this variation in endocranial volume is due to variation in skull morphology (i.e., changes in skull length, width, and/or height specifically).</p>
+      <p>Great-tailed grackle body sizes are sexually dimorphic (<xref ref-type="bibr" rid="ref-15">Johnson et al., 2000</xref>), therefore we expected sex differences in endocranial volumes and we investigated proxies for each sex independently. We used endocranial volumes calculated from computerized tomography (CT) scans to represent actual endocranial volumes since this measure is the most precise. The complete area of the inside of the skull is accounted for in CT scans, while other methods do not cover the whole endocranial space (<xref ref-type="bibr" rid="ref-33">Witmer et al., 2008</xref>; <xref ref-type="bibr" rid="ref-16">Knoll et al., 2012</xref>). We compared CT volumes to skull length, width, and height measurements to determine whether the correlation between these two methods and the accuracy of external skull measures in predicting CT volumes warrants their use as a proxy for endocranial volume. We also evaluated the bead method of measuring endocranial volume, where glass beads are poured into the skull and then out into a graduated cylinder, to increase the value of our research by determining whether this widely used method (e.g., <xref ref-type="bibr" rid="ref-12">Isler et al., 2008</xref>; <xref ref-type="bibr" rid="ref-13">Iwaniuk &amp; Nelson, 2002</xref>) also accurately predicts actual endocranial volume as estimated by CT scans in this species.</p>
+    </sec>
+    <sec sec-type="methods">
+      <title>Methods</title>
+      <sec>
+        <title>Specimens</title>
+        <p>We collected data from February through September 2014, and in March 2015, on 40 great-tailed grackle skulls (<xref ref-type="supplementary-material" rid="supp-3">Table S1</xref>), 20 female and 20 male (some analyses have 19 males because on one of their skulls the bill was broken off, thus we could not acquire its skull length measurement), obtained from the Museum of Southwestern Biology (<italic>n</italic> = 24, Albuquerque, NM), the Ornithology Division of the University of Kansas (KU) Biodiversity Institute (<italic>n</italic> = 15, Lawrence, KS), and the Santa Barbara Museum of Natural History (<italic>n</italic> = 1, Santa Barbara, CA). Skulls of unknown age were aged by Andy Johnson if they were from the Museum of Southwestern Biology or by us if they were from KU. Skulls were aged using the percentage of ossification to classify each as adult (&gt;7 months old; 100% ossified unless it was collected in February–May because this would mark the start of that individual’s first breeding season after having hatched June-August in the previous year) or immature (&lt;7 months old; &lt;100% ossified when collected September–December indicating it had hatched that year; <xref ref-type="bibr" rid="ref-6">del Hoyo, Elliot &amp; Christie, 1992</xref>; <xref ref-type="bibr" rid="ref-32">Winker, 2000</xref>; <xref ref-type="bibr" rid="ref-25">Pyle, Howell &amp; DeSante, 1997</xref>).</p>
+      </sec>
+      <sec>
+        <title>Collecting endocranial volume measurements</title>
+        <sec>
+          <title>Linear measurements</title>
+          <p>Linear measurements of skulls were collected by placing calipers in locations on the skull that would also be accessible and measurable on a live bird in the field. We recorded skull length from the base of the bill to the back of the skull along the occipital crest (<xref ref-type="fig" rid="fig-1">Fig. 1A</xref>), height from the posterior edge of the foramen magnum (the posterior edge of the neck at the base of the skull on a live bird) to the top of the skull along the frontal region (<xref ref-type="fig" rid="fig-1">Fig. 1B</xref>), and width at the widest part of the braincase along the squamosal bones (<xref ref-type="fig" rid="fig-1">Fig. 1C</xref>). All measurements were taken to the nearest 0.1 mm. Research on other species has found positive correlations between actual brain mass and brain volume estimated from linear skull measurements by calculating the volume of an ellipsoid (barn swallows: <xref ref-type="bibr" rid="ref-21">Møller, 2010</xref>), and endocranial volume and the volume of a cube as estimated using head width (zebra finches: <xref ref-type="bibr" rid="ref-4">Bonaparte, Riffle-Yokoi &amp; Burley, 2011</xref>). Therefore, we estimated endocranial volume using a number of volumetric shapes and data transformations to determine which best correlated with endocranial volumes from CT scans. The volumetric shapes included were: cube (Length × Width × Height), sphere (<inline-formula><alternatives><inline-graphic xlink:href="https://peerj.com/articles/1000/ieqn-4.png"/><tex-math id="tex-ieqn-4"><![CDATA[$\frac{\mathrm{4}}{3}\pi {r}^{3}$]]></tex-math><mml:math id="mml-ieqn-4"><mml:mfrac><mml:mrow><mml:mi mathvariant="normal">4</mml:mi></mml:mrow><mml:mrow><mml:mn>3</mml:mn></mml:mrow></mml:mfrac><mml:mi>π</mml:mi><mml:msup><mml:mrow><mml:mi>r</mml:mi></mml:mrow><mml:mrow><mml:mn>3</mml:mn></mml:mrow></mml:msup></mml:math></alternatives></inline-formula>, where <inline-formula><alternatives><inline-graphic xlink:href="https://peerj.com/articles/1000/ieqn-5.png"/><tex-math id="tex-ieqn-5"><![CDATA[$r=\frac{1}{2}L$]]></tex-math><mml:math id="mml-ieqn-5"><mml:mi>r</mml:mi><mml:mo>=</mml:mo><mml:mfrac><mml:mrow><mml:mn>1</mml:mn></mml:mrow><mml:mrow><mml:mn>2</mml:mn></mml:mrow></mml:mfrac><mml:mi>L</mml:mi></mml:math></alternatives></inline-formula> or <inline-formula><alternatives><inline-graphic xlink:href="https://peerj.com/articles/1000/ieqn-6.png"/><tex-math id="tex-ieqn-6"><![CDATA[$\frac{1}{2}W$]]></tex-math><mml:math id="mml-ieqn-6"><mml:mfrac><mml:mrow><mml:mn>1</mml:mn></mml:mrow><mml:mrow><mml:mn>2</mml:mn></mml:mrow></mml:mfrac><mml:mi>W</mml:mi></mml:math></alternatives></inline-formula> or <inline-formula><alternatives><inline-graphic xlink:href="https://peerj.com/articles/1000/ieqn-7.png"/><tex-math id="tex-ieqn-7"><![CDATA[$\frac{1}{2}H$]]></tex-math><mml:math id="mml-ieqn-7"><mml:mfrac><mml:mrow><mml:mn>1</mml:mn></mml:mrow><mml:mrow><mml:mn>2</mml:mn></mml:mrow></mml:mfrac><mml:mi>H</mml:mi></mml:math></alternatives></inline-formula>), ellipsoid (<inline-formula><alternatives><inline-graphic xlink:href="https://peerj.com/articles/1000/ieqn-8.png"/><tex-math id="tex-ieqn-8"><![CDATA[$\frac{\mathrm{4}}{3}\mathrm{\pi abc}$]]></tex-math><mml:math id="mml-ieqn-8"><mml:mfrac><mml:mrow><mml:mi mathvariant="normal">4</mml:mi></mml:mrow><mml:mrow><mml:mn>3</mml:mn></mml:mrow></mml:mfrac><mml:mi mathvariant="normal">πabc</mml:mi></mml:math></alternatives></inline-formula>, where <inline-formula><alternatives><inline-graphic xlink:href="https://peerj.com/articles/1000/ieqn-9.png"/><tex-math id="tex-ieqn-9"><![CDATA[$a=\frac{1}{2}L$]]></tex-math><mml:math id="mml-ieqn-9"><mml:mi>a</mml:mi><mml:mo>=</mml:mo><mml:mfrac><mml:mrow><mml:mn>1</mml:mn></mml:mrow><mml:mrow><mml:mn>2</mml:mn></mml:mrow></mml:mfrac><mml:mi>L</mml:mi></mml:math></alternatives></inline-formula>, <inline-formula><alternatives><inline-graphic xlink:href="https://peerj.com/articles/1000/ieqn-10.png"/><tex-math id="tex-ieqn-10"><![CDATA[$b=\frac{1}{2}W$]]></tex-math><mml:math id="mml-ieqn-10"><mml:mi>b</mml:mi><mml:mo>=</mml:mo><mml:mfrac><mml:mrow><mml:mn>1</mml:mn></mml:mrow><mml:mrow><mml:mn>2</mml:mn></mml:mrow></mml:mfrac><mml:mi>W</mml:mi></mml:math></alternatives></inline-formula>, <inline-formula><alternatives><inline-graphic xlink:href="https://peerj.com/articles/1000/ieqn-11.png"/><tex-math id="tex-ieqn-11"><![CDATA[$c=\frac{1}{2}H$]]></tex-math><mml:math id="mml-ieqn-11"><mml:mi>c</mml:mi><mml:mo>=</mml:mo><mml:mfrac><mml:mrow><mml:mn>1</mml:mn></mml:mrow><mml:mrow><mml:mn>2</mml:mn></mml:mrow></mml:mfrac><mml:mi>H</mml:mi></mml:math></alternatives></inline-formula>), and cone/pyramid (<inline-formula><alternatives><inline-graphic xlink:href="https://peerj.com/articles/1000/ieqn-12.png"/><tex-math id="tex-ieqn-12"><![CDATA[$\frac{1}{3}b h$]]></tex-math><mml:math id="mml-ieqn-12"><mml:mfrac><mml:mrow><mml:mn>1</mml:mn></mml:mrow><mml:mrow><mml:mn>3</mml:mn></mml:mrow></mml:mfrac><mml:mi>b</mml:mi><mml:mi>h</mml:mi></mml:math></alternatives></inline-formula>, where <italic>b</italic> = <italic>W</italic>, <italic>h</italic> = <italic>H</italic>). We included log, natural log, and exponential transformations of the data, and also allowed polynomial terms.</p>
+          <fig id="fig-1">
+            <object-id pub-id-type="doi">10.7717/peerj.1000/fig-1</object-id>
+            <label>Figure 1</label>
+            <caption>
+              <title>Skull length, height, and width.</title>
+              <p>Measuring skull length (A), skull height (B), replicating the height that can be measured on live birds, and skull width (C) at the widest part of the braincase.</p>
+            </caption>
+            <graphic mimetype="image" mime-subtype="png" xlink:href="https://peerj.com/articles/1000/fig-1.png"/>
+          </fig>
+        </sec>
+        <sec>
+          <title>CT scans</title>
+          <p>Skulls were CT scanned at the Pueblo Radiology Medical Group in Santa Barbara, California using a Siemans 16-slice Somatom Sensation 16 (1 mm slices, 100 Kv, 150 MAs, 380 mm FOV, soft tissue window, analyzed with bone algorithm on). Endocranial volume (cm<sup>3</sup>) was calculated using the DICOM viewer OsiriX v5.8.5 (32-bit, Pixmeo SARL, Switzerland; <xref ref-type="supplementary-material" rid="supp-1">Figs. S1</xref> and <xref ref-type="supplementary-material" rid="supp-2">S2</xref>) for 1 mm cross-sectional slices (regular) and for 1 mm cross-sectional slices that were taken with the CT scanner bed moved 0.5 mm forward (offset), using the average endocranial volume <inline-formula><alternatives><inline-graphic xlink:href="https://peerj.com/articles/1000/ieqn-16.png"/><tex-math id="tex-ieqn-16"><![CDATA[$(\frac{\mathrm{regular}+\mathrm{offset}}{2})$]]></tex-math><mml:math id="mml-ieqn-16"><mml:mfenced separators="" open="(" close=")"><mml:mfrac><mml:mrow><mml:mi mathvariant="normal">regular</mml:mi><mml:mo>+</mml:mo><mml:mi mathvariant="normal">offset</mml:mi></mml:mrow><mml:mrow><mml:mn>2</mml:mn></mml:mrow></mml:mfrac></mml:mfenced></mml:math></alternatives></inline-formula> in analyses. The offset was added to increase the precision of the endocranial volume measurements since grackle craniums are small (approximately 20 mm in length), resulting in about 20 slices per scan (one slice every 1 mm). The offset allowed us to measure more area (one slice every 0.5 mm) by increasing the number of slices to approximately 40 per skull.</p>
+        </sec>
+        <sec>
+          <title>Beads</title>
+          <p>Endocranial volume was measured by pouring 1 mm diameter glass beads (BioSpec Products, catalog number 11079110) into the cranium through the foramen magnum until full. The skull was repeatedly shaken to settle the beads and then filled again until the beads reached the posterior foramen magnum without falling out (<xref ref-type="fig" rid="fig-2">Fig. 2</xref>). The volume was calculated by pouring the beads out of the skull and into a graduated cylinder (5 ml in 0.1 ml graduations, World Precision Instruments, Inc., Sarasota, Florida, USA, catalog number CG-0160; note that 1 ml = 1 cm<sup>3</sup>). In cross-species comparisons, there is mixed evidence about whether pouring the beads into a graduated cylinder introduces error when compared with pouring the beads onto a scale and converting their mass into volume (4% difference: <xref ref-type="bibr" rid="ref-20">Miller, 1997</xref>, 0% difference: <xref ref-type="bibr" rid="ref-12">Isler et al., 2008</xref>). The skulls in this study were measured with an average error of 2% (i.e., there was a 2% difference in volume between two sets of volume measurements carried out on a subset of 12 skulls), which is small in comparison to the variance between skulls (intra-class correlation coefficient = 0.94; <xref ref-type="bibr" rid="ref-11">Hutcheon, Chiolero &amp; Hanley, 2010</xref>). Therefore, the error should not affect the power to detect a correlation with the more precise CT method (intra-class correlation coefficient = 0.98) of measuring skulls.</p>
+          <fig id="fig-2">
+            <object-id pub-id-type="doi">10.7717/peerj.1000/fig-2</object-id>
+            <label>Figure 2</label>
+            <caption>
+              <title>Bead method.</title>
+              <p>Skull holes are plugged with cotton and then the cranium is filled with glass beads.</p>
+            </caption>
+            <graphic mimetype="image" mime-subtype="png" xlink:href="https://peerj.com/articles/1000/fig-2.png"/>
+          </fig>
+        </sec>
+      </sec>
+      <sec>
+        <title>Statistical analyses</title>
+        <p>The female and male data (analyzed separately) were normally distributed (Anderson Darling normality test: females: skull height <italic>p</italic> = 0.27, length <italic>p</italic> = 0.30, width <italic>p</italic> = 0.86; males: skull height <italic>p</italic> = 0.35, length <italic>p</italic> = 0.63, width <italic>p</italic> = 0.38). We defined statistical significance as <italic>p</italic> &lt; 0.05 throughout the paper. Two sets of linear, bead, and CT scan measurements were taken on a subset of skulls on different days by Palmstom to quantify the random measurement error (intraobserver reliability). We used intra-class correlation coefficients (ICC) to determine the precision of our estimates using the equation in Fig. 2 in Hutcheon and colleagues (<xref ref-type="bibr" rid="ref-11">2010</xref>): <inline-formula><alternatives><inline-graphic xlink:href="https://peerj.com/articles/1000/ieqn-27.png"/><tex-math id="tex-ieqn-27"><![CDATA[$\mathrm{true}\hspace{0.167em} \mathrm{slope}\times \frac{\mathrm{variance}\hspace{0.167em} (\mathrm{true}\hspace{0.167em} X \hspace{0.167em} \mathrm{values})}{\mathrm{variance}\hspace{0.167em} (\mathrm{true}\hspace{0.167em} X \hspace{0.167em} \mathrm{values})\hspace{0.167em} +\hspace{0.167em} \mathrm{variance}\hspace{0.167em} (\mathrm{random}\hspace{0.167em} \mathrm{error})}$]]></tex-math><mml:math id="mml-ieqn-27"><mml:mi mathvariant="normal">true</mml:mi><mml:mi> </mml:mi><mml:mi mathvariant="normal">slope</mml:mi><mml:mo>×</mml:mo><mml:mfrac><mml:mrow><mml:mi mathvariant="normal">variance</mml:mi><mml:mi> </mml:mi><mml:mfenced separators="" open="(" close=")"><mml:mi mathvariant="normal">true</mml:mi><mml:mi> </mml:mi><mml:mi>X</mml:mi><mml:mi> </mml:mi><mml:mi mathvariant="normal">values</mml:mi></mml:mfenced></mml:mrow><mml:mrow><mml:mi mathvariant="normal">variance</mml:mi><mml:mi> </mml:mi><mml:mfenced separators="" open="(" close=")"><mml:mi mathvariant="normal">true</mml:mi><mml:mi> </mml:mi><mml:mi>X</mml:mi><mml:mi> </mml:mi><mml:mi mathvariant="normal">values</mml:mi></mml:mfenced><mml:mi> </mml:mi><mml:mo>+</mml:mo><mml:mi> </mml:mi><mml:mi mathvariant="normal">variance</mml:mi><mml:mi> </mml:mi><mml:mfenced separators="" open="(" close=")"><mml:mi mathvariant="normal">random</mml:mi><mml:mi> </mml:mi><mml:mi mathvariant="normal">error</mml:mi></mml:mfenced></mml:mrow></mml:mfrac></mml:math></alternatives></inline-formula> (we assumed that variance in the observed values was equal to the variance in the true values). This ICC is a measure of consistency, not agreement since it does not include rater effects (<xref ref-type="bibr" rid="ref-2">Auerbach, La Porte &amp; Caputo, 2004</xref>).</p>
+        <p>We used generalized linear models (GLMs) to determine how well linear and bead measurements correlated with volumes from CT scans, while examining whether the age of the individual at death and the year the skull was collected improved the model fit. GLMs were carried out in R v3.1.2 (<xref ref-type="bibr" rid="ref-26">R Core Team, 2014</xref>) using the MCMCglmm function (MCMCglmm package; <xref ref-type="bibr" rid="ref-9">Hadfield, 2010</xref>), while applying the dredge function (MuMIn package; <xref ref-type="bibr" rid="ref-3">Barton, 2012</xref>) to select the best-fitting model using the Akaike weight (<xref ref-type="bibr" rid="ref-1">Akaike, 1981</xref>; <xref ref-type="bibr" rid="ref-5">Burnham &amp; Anderson, 2002</xref>). We considered the best-fitting model to be strongly supported and reliable if its Akaike weight was ≥0.9 as suggested by <xref ref-type="bibr" rid="ref-5">Burnham &amp; Anderson (2002)</xref> since this would indicate that the likelihood of the model given the data is very high. Female and male data were analyzed in separate models. Full models included (1) endocranial volumes from CT scans as the response variable with the following explanatory variables: volume of a cube or sphere or ellipsoid or cone + age and the interaction with year collected; or (2) endocranial volumes from CT scans as the response variable with the following explanatory variables: skull length + skull width + skull height + age and the interaction with year collected. GLMs were conducted on the best-fitting model for each sex to explore whether the adjusted coefficient of determination (adjusted <italic>r</italic><sup>2</sup>) improved by transforming the endocranial volume proxy (explanatory variable) in the following ways: squared, cubed, quadratic, exponential, square root, log, log base 10, and a polynomial with a degree of two or three. Of these, the model with the highest adjusted <italic>r</italic><sup>2</sup> was chosen as the final best-fitting model for that sex and included in the results below. Interpretations of correlation strengths were taken from <xref ref-type="bibr" rid="ref-30">Taylor (1990)</xref>: ≤0.35 = weak correlation, 0.36–0.67 = moderate, 0.68–0.89 = high, 0.90–1.00 = very high. We set the minimum criteria for a correlation of sufficient strength such that it might be predictive at <italic>r</italic><sup>2</sup> ≥ 0.88, which is equivalent to Pearson’s <italic>r</italic> set to alpha = 0.05 or <italic>r</italic> ≥ 0.95, adjusted for the random measurement error in the response variable (CT measurements), which has an intra-class correlation coefficient of 0.99 (0.95∗0.99 = 0.94, 0.94<sup>2</sup> = 0.88; <xref ref-type="bibr" rid="ref-11">Hutcheon, Chiolero &amp; Hanley, 2010</xref>).</p>
+        <p>Since we want to predict CT volumes from linear skull measures, we validated whether this was possible by generating prediction intervals with 95% confidence levels. We applied the predict function in the MCMCglmm package to the best-fitting model for each sex and evaluated whether fitted values (predicted CT volumes) had credible intervals small enough such that there was little to no overlap with other fitted values, thus allowing the discrimination of individual differences.</p>
+      </sec>
+    </sec>
+    <sec sec-type="results">
+      <title>Results</title>
+      <sec>
+        <title>Intraobserver reliability</title>
+        <p>There was very high within-method consistency (precision) between the two sets of CT and bead volume measurements, but no consistency for linear volume (LWH) measurements when sexes were analyzed together and separately (<xref ref-type="table" rid="table-1">Table 1</xref>). There was high (sexes combined) to very high (sexes analyzed separately) consistency when comparing the two sets of skull width measurements, high consistency for skull length (when sexes were separate and combined), and moderate (males and sexes combined) to very high (females) consistency for skull height (<xref ref-type="table" rid="table-1">Table 1</xref>).</p>
+        <table-wrap id="table-1">
+          <object-id pub-id-type="doi">10.7717/peerj.1000/table-1</object-id>
+          <label>Table 1</label>
+          <caption>
+            <title>Intraobserver reliability.</title>
+            <p>Summary data and results.</p>
+          </caption>
+          <alternatives>
+            <graphic mimetype="image" mime-subtype="png" xlink:href="https://peerj.com/articles/1000/table-1.png"/>
+            <table>
+              <colgroup>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>Variable</th>
+                  <th align="center" colspan="3">Measurement 1</th>
+                  <th align="center" colspan="5">Measurement 2</th>
+                  <th align="center" colspan="3">ICC</th>
+                </tr>
+                <tr>
+                  <th/>
+                  <th>Female</th>
+                  <th>Male</th>
+                  <th>Both</th>
+                  <th>Female</th>
+                  <th>
+                    <italic>n</italic>
+                  </th>
+                  <th>Male</th>
+                  <th>
+                    <italic>n</italic>
+                  </th>
+                  <th>Both</th>
+                  <th>Female</th>
+                  <th>Male</th>
+                  <th>Both</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Volume CT</td>
+                  <td>2.30 ± 0.15</td>
+                  <td>2.56 ± 0.06</td>
+                  <td>2.43±0.17</td>
+                  <td>2.38 ± 0.17</td>
+                  <td>4</td>
+                  <td>2.48 ± 0.08</td>
+                  <td>4</td>
+                  <td>2.38 ± 0.16</td>
+                  <td>0.99</td>
+                  <td>0.99</td>
+                  <td>0.95</td>
+                </tr>
+                <tr>
+                  <td>Volume LWH</td>
+                  <td>13,814 ± 1,415</td>
+                  <td>15,605 ± 1,276</td>
+                  <td>14,650 ± 1,417</td>
+                  <td>13,779 ± 1,233</td>
+                  <td>5</td>
+                  <td>15,320 ± 785</td>
+                  <td>7</td>
+                  <td>14,672 ± 1,218</td>
+                  <td>0.009</td>
+                  <td>0.003</td>
+                  <td>0.003</td>
+                </tr>
+                <tr>
+                  <td>Volume bead</td>
+                  <td>2.72 ± 0.15</td>
+                  <td>2.93 ± 0.15</td>
+                  <td>2.88 ± 0.21</td>
+                  <td>2.68 ± 0.19</td>
+                  <td>5</td>
+                  <td>2.91 ± 0.13</td>
+                  <td>7</td>
+                  <td>2.84 ± 0.21</td>
+                  <td>0.92</td>
+                  <td>0.94</td>
+                  <td>0.94</td>
+                </tr>
+                <tr>
+                  <td>Skull Length</td>
+                  <td>29.04 ± 0.98</td>
+                  <td>30.06 ± 0.81</td>
+                  <td>29.72 ± 0.99</td>
+                  <td>29.40 ± 1.27</td>
+                  <td>5</td>
+                  <td>30.24 ± 0.78</td>
+                  <td>7</td>
+                  <td>29.94 ± 1.00</td>
+                  <td>0.83</td>
+                  <td>0.76</td>
+                  <td>0.82</td>
+                </tr>
+                <tr>
+                  <td>Skull Width</td>
+                  <td>23.83 ± 0.86</td>
+                  <td>23.99 ± 0.36</td>
+                  <td>23.83 ± 0.67</td>
+                  <td>23.39 ± 0.90</td>
+                  <td>5</td>
+                  <td>24.01 ± 0.39</td>
+                  <td>7</td>
+                  <td>23.81 ± 0.69</td>
+                  <td>0.92</td>
+                  <td>0.92</td>
+                  <td>0.88</td>
+                </tr>
+                <tr>
+                  <td>Skull Height</td>
+                  <td>20.24 ± 0.87</td>
+                  <td>20.89 ± 1.44</td>
+                  <td>20.65 ± 1.18</td>
+                  <td>19.96 ± 0.48</td>
+                  <td>5</td>
+                  <td>21.09 ± 0.54</td>
+                  <td>7</td>
+                  <td>20.68 ± 0.76</td>
+                  <td>0.91</td>
+                  <td>0.51</td>
+                  <td>0.65</td>
+                </tr>
+              </tbody>
+            </table>
+          </alternatives>
+          <table-wrap-foot>
+            <fn id="table-1fn">
+              <p>
+                <bold>Notes.</bold>
+              </p>
+            </fn>
+            <fn id="table-1fn1" fn-type="other">
+              <p>
+                <def-list id="dl1">
+                  <def-item>
+                    <term>Measurements</term>
+                    <def>
+                      <p>mean ± standard deviation</p>
+                    </def>
+                  </def-item>
+                  <def-item>
+                    <term>Both</term>
+                    <def>
+                      <p>data from both sexes combined</p>
+                    </def>
+                  </def-item>
+                  <def-item>
+                    <term>ICC</term>
+                    <def>
+                      <p>intra-class correlation</p>
+                    </def>
+                  </def-item>
+                </def-list>
+                <def-list id="dl2">
+                  <term-head>Units of measurement</term-head>
+                  <def-item>
+                    <term>CT</term>
+                    <def>
+                      <p>cm<sup>3</sup></p>
+                    </def>
+                  </def-item>
+                  <def-item>
+                    <term>bead</term>
+                    <def>
+                      <p>ml</p>
+                    </def>
+                  </def-item>
+                  <def-item>
+                    <term>LWH</term>
+                    <def>
+                      <p>mm<sup>3</sup></p>
+                    </def>
+                  </def-item>
+                  <def-item>
+                    <term>length/width/height</term>
+                    <def>
+                      <p>mm</p>
+                    </def>
+                  </def-item>
+                </def-list>
+              </p>
+            </fn>
+          </table-wrap-foot>
+        </table-wrap>
+      </sec>
+      <sec>
+        <title>Correlations between methods</title>
+        <p>None of the models using linear measurements to explain variation in CT volumes were likely given the data, as indicated by the low Akaike weights of the best-fitting models (&lt;0.90; <xref ref-type="table" rid="table-2">Table 2</xref>; <xref ref-type="bibr" rid="ref-5">Burnham &amp; Anderson, 2002</xref>). Regardless, we used the best-fitting models to examine these relationships further. The volume of a sphere was the best-fitting shape for both sexes (the radius was based on skull width for males and skull height for females). The best-fitting female model showed a positive relationship between CT volumes and volumes from using the skull height as the radius for a sphere, volumes were larger for immatures than for adults, and volumes slightly decreased over the years collected (<xref ref-type="table" rid="table-2">Table 2</xref>, model 1; <xref ref-type="fig" rid="fig-3">Fig. 3A</xref>). The best-fitting male model showed a positive correlation between CT volumes and volumes using a quadratic polynomial of the skull width as the radius for a sphere, volumes were slightly larger for immatures than for adults, and volumes decreased slightly over the years collected (<xref ref-type="table" rid="table-2">Table 2</xref>, model 2; <xref ref-type="fig" rid="fig-3">Fig. 3B</xref>). Transformations of the explanatory volume variables or substituting volume for individual linear measurements (length, width, height, or some combination of these) did not improve the adjusted <italic>r</italic><sup>2</sup> for females. Volumes from CT scans were moderately (males) to highly (females) correlated with spherical volumes from linear measurements (<xref ref-type="table" rid="table-2">Table 2</xref>).</p>
+        <fig id="fig-3">
+          <object-id pub-id-type="doi">10.7717/peerj.1000/fig-3</object-id>
+          <label>Figure 3</label>
+          <caption>
+            <title>Plots of the volumes of spheres and volumes calculated from CT scans for females and males.</title>
+            <p>Correlations between CT volumes and the volume of a sphere as calculated from linear measurements for female (A) and male (B) adults (small circles) and immatures (large circles), with the year the skull was collected represented by a red-blue spectrum (earlier years are redder and recent years are bluer). Note that regression lines only reflect the relationship between spherical volume and CT volume and do not correct for age or year (factors in the best-fitting model for both sexes) as in the GLMs. Skulls were aged as described in the methods.</p>
+          </caption>
+          <graphic mimetype="image" mime-subtype="png" xlink:href="https://peerj.com/articles/1000/fig-3.png"/>
+        </fig>
+        <table-wrap id="table-2">
+          <object-id pub-id-type="doi">10.7717/peerj.1000/table-2</object-id>
+          <label>Table 2</label>
+          <caption>
+            <title>Model results.</title>
+            <p>Outputs for the best-fitting female and male models from dredge in R. Note that these models were the best-fitting relative to other models not shown here and the models here cannot be compared with each other.</p>
+          </caption>
+          <alternatives>
+            <graphic mimetype="image" mime-subtype="png" xlink:href="https://peerj.com/articles/1000/table-2.png"/>
+            <table>
+              <colgroup>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>Method</th>
+                  <th>Sex</th>
+                  <th>Model</th>
+                  <th>Akaike weight</th>
+                  <th>Adjusted <italic>r</italic><sup>2</sup></th>
+                  <th>
+                    <italic>p</italic>
+                  </th>
+                  <th><italic>y</italic> =</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td rowspan="2">CT-sphere</td>
+                  <td>Female</td>
+                  <td>1</td>
+                  <td>0.60</td>
+                  <td>0.80</td>
+                  <td>&lt;0.0001</td>
+                  <td style="padding-left:1pc;">0.00002 × VolumeSphere  + 1.10 × Age − 0.007 ×  Year  + 1.44</td>
+                </tr>
+                <tr>
+                  <td>Male</td>
+                  <td>2</td>
+                  <td>0.26</td>
+                  <td>0.39</td>
+                  <td>0.02</td>
+                  <td style="padding-left:1pc;">0.47 × VolumeSphere  + 0.19 × VolumeSphere<sup>2</sup>  + 0.12 × Age − 0.003 × Year  + 5.25</td>
+                </tr>
+                <tr>
+                  <td rowspan="2">CT-bead</td>
+                  <td>Female</td>
+                  <td>3</td>
+                  <td>0.74</td>
+                  <td>0.77</td>
+                  <td>&lt;0.0001</td>
+                  <td style="padding-left:1pc;">0.37 × VolumeBead  − 0.0005 × Year + 11.24</td>
+                </tr>
+                <tr>
+                  <td>Male</td>
+                  <td>4</td>
+                  <td>0.45</td>
+                  <td>0.68</td>
+                  <td>&lt;0.0001</td>
+                  <td style="padding-left:1pc;">0.66 × VolumeBead − 0.09 × Age  + 0.66</td>
+                </tr>
+              </tbody>
+            </table>
+          </alternatives>
+        </table-wrap>
+        <p>None of the models using bead volumes to explain variation in CT volumes were strongly supported given the data as indicated by their low Akaike weights for the best-fitting models (&lt;0.90; <xref ref-type="table" rid="table-2">Table 2</xref>; <xref ref-type="bibr" rid="ref-5">Burnham &amp; Anderson, 2002</xref>). Nonetheless, the best-fitting female model showed that endocranial volumes decreased slightly over time (<xref ref-type="table" rid="table-2">Table 2</xref>, model 3; <xref ref-type="fig" rid="fig-4">Fig. 4A</xref>), while the best-fitting male model included age, with immatures having smaller volumes than adults (<xref ref-type="table" rid="table-2">Table 2</xref>, model 4; <xref ref-type="fig" rid="fig-4">Fig. 4B</xref>). Volumes from CT scans were highly positively correlated with volumes from the bead method for both sexes (<xref ref-type="table" rid="table-2">Table 2</xref>).</p>
+        <fig id="fig-4">
+          <object-id pub-id-type="doi">10.7717/peerj.1000/fig-4</object-id>
+          <label>Figure 4</label>
+          <caption>
+            <title>Plots of the bead volumes and CT volumes for females and males.</title>
+            <p>Correlations between CT volumes and bead volumes for female (A) and male (B) adults (small circles) and immatures (large circles), with the year the skull was collected represented by a red-blue spectrum (earlier years are redder and recent years are bluer). Note that regression lines only reflect the relationship between bead volume and CT volume and do not correct for age (in the best-fitting male model) or year (in the best-fitting female model) as in the GLMs. Skulls were aged as described in the methods.</p>
+          </caption>
+          <graphic mimetype="image" mime-subtype="png" xlink:href="https://peerj.com/articles/1000/fig-4.png"/>
+        </fig>
+        <p>None of the correlations between CT volumes and linear measures met our minimum criteria (<italic>r</italic><sup>2</sup> ≥ 0.88) for a strong enough relationship such that they might predict endocranial volumes from the linear measurements of skulls. Since we want to predict CT volumes from linear measures, we determined whether this was possible by generating prediction intervals for the best-fitting female and male models for the linear measurements (models 1 and 2) and bead method (models 3 and 4; <xref ref-type="table" rid="table-2">Table 2</xref>). We found that the lower and upper limits of the 95% credible intervals of the predicted values for both sexes show extensive overlap such that individual differences would not be able to be resolved if a new, unvalidated data point was obtained (<xref ref-type="table" rid="table-3">Table 3</xref>).</p>
+        <table-wrap id="table-3">
+          <object-id pub-id-type="doi">10.7717/peerj.1000/table-3</object-id>
+          <label>Table 3</label>
+          <caption>
+            <title>Prediction analysis results.</title>
+            <p>Predicted CT volume (fitted value) and the predicted intervals (with lower and upper bounds) in which these new data points would occur with 95% credible intervals based on inputs from linear measures or the bead method in the best-fitting female and male models for each method.</p>
+          </caption>
+          <alternatives>
+            <graphic mimetype="image" mime-subtype="png" xlink:href="https://peerj.com/articles/1000/table-3.png"/>
+            <table>
+              <colgroup>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+              </colgroup>
+              <thead>
+                <tr>
+                  <th align="center" colspan="6">Linear measurements</th>
+                  <th align="center" colspan="6">Bead method</th>
+                </tr>
+                <tr>
+                  <th align="center" colspan="3">Males</th>
+                  <th align="center" colspan="3">Females</th>
+                  <th align="center" colspan="3">Males</th>
+                  <th align="center" colspan="3">Females</th>
+                </tr>
+                <tr>
+                  <th>Fitted value</th>
+                  <th>Lower</th>
+                  <th>Upper</th>
+                  <th>Fitted value</th>
+                  <th>Lower</th>
+                  <th>Upper</th>
+                  <th>Fitted value</th>
+                  <th>Lower</th>
+                  <th>Upper</th>
+                  <th>Fitted value</th>
+                  <th>Lower</th>
+                  <th>Upper</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>2.72</td>
+                  <td>2.37</td>
+                  <td>3.07</td>
+                  <td>2.23</td>
+                  <td>2.03</td>
+                  <td>2.42</td>
+                  <td>2.61</td>
+                  <td>2.42</td>
+                  <td>2.80</td>
+                  <td>2.30</td>
+                  <td>2.07</td>
+                  <td>2.48</td>
+                </tr>
+                <tr>
+                  <td>2.41</td>
+                  <td>2.17</td>
+                  <td>2.73</td>
+                  <td>2.08</td>
+                  <td>1.86</td>
+                  <td>2.29</td>
+                  <td>2.43</td>
+                  <td>2.23</td>
+                  <td>2.61</td>
+                  <td>2.21</td>
+                  <td>1.99</td>
+                  <td>2.42</td>
+                </tr>
+                <tr>
+                  <td>2.40</td>
+                  <td>2.12</td>
+                  <td>2.69</td>
+                  <td>1.87</td>
+                  <td>1.61</td>
+                  <td>2.07</td>
+                  <td>2.37</td>
+                  <td>2.18</td>
+                  <td>2.55</td>
+                  <td>1.90</td>
+                  <td>1.63</td>
+                  <td>2.11</td>
+                </tr>
+                <tr>
+                  <td>2.60</td>
+                  <td>2.33</td>
+                  <td>2.92</td>
+                  <td>1.99</td>
+                  <td>1.78</td>
+                  <td>2.22</td>
+                  <td>2.70</td>
+                  <td>2.52</td>
+                  <td>2.90</td>
+                  <td>2.02</td>
+                  <td>1.78</td>
+                  <td>2.26</td>
+                </tr>
+                <tr>
+                  <td>2.42</td>
+                  <td>2.10</td>
+                  <td>2.70</td>
+                  <td>2.20</td>
+                  <td>2.02</td>
+                  <td>2.39</td>
+                  <td>2.50</td>
+                  <td>2.34</td>
+                  <td>2.68</td>
+                  <td>2.05</td>
+                  <td>1.81</td>
+                  <td>2.30</td>
+                </tr>
+                <tr>
+                  <td>2.52</td>
+                  <td>2.22</td>
+                  <td>2.83</td>
+                  <td>2.30</td>
+                  <td>2.10</td>
+                  <td>2.51</td>
+                  <td>2.55</td>
+                  <td>2.35</td>
+                  <td>2.75</td>
+                  <td>2.42</td>
+                  <td>2.22</td>
+                  <td>2.62</td>
+                </tr>
+                <tr>
+                  <td>2.77</td>
+                  <td>2.45</td>
+                  <td>3.07</td>
+                  <td>2.43</td>
+                  <td>2.23</td>
+                  <td>2.60</td>
+                  <td>2.76</td>
+                  <td>2.54</td>
+                  <td>2.94</td>
+                  <td>2.39</td>
+                  <td>2.16</td>
+                  <td>2.59</td>
+                </tr>
+                <tr>
+                  <td>2.67</td>
+                  <td>2.41</td>
+                  <td>2.94</td>
+                  <td>2.39</td>
+                  <td>2.20</td>
+                  <td>2.58</td>
+                  <td>2.70</td>
+                  <td>2.50</td>
+                  <td>2.89</td>
+                  <td>2.28</td>
+                  <td>2.07</td>
+                  <td>2.52</td>
+                </tr>
+                <tr>
+                  <td>2.35</td>
+                  <td>2.06</td>
+                  <td>2.64</td>
+                  <td>2.32</td>
+                  <td>2.14</td>
+                  <td>2.53</td>
+                  <td>2.37</td>
+                  <td>2.17</td>
+                  <td>2.56</td>
+                  <td>2.31</td>
+                  <td>2.11</td>
+                  <td>2.54</td>
+                </tr>
+                <tr>
+                  <td>2.55</td>
+                  <td>2.30</td>
+                  <td>2.84</td>
+                  <td>2.51</td>
+                  <td>2.30</td>
+                  <td>2.71</td>
+                  <td>2.50</td>
+                  <td>2.31</td>
+                  <td>2.67</td>
+                  <td>2.57</td>
+                  <td>2.31</td>
+                  <td>2.81</td>
+                </tr>
+                <tr>
+                  <td>2.46</td>
+                  <td>2.21</td>
+                  <td>2.72</td>
+                  <td>2.51</td>
+                  <td>2.30</td>
+                  <td>2.71</td>
+                  <td>2.43</td>
+                  <td>2.25</td>
+                  <td>2.63</td>
+                  <td>2.43</td>
+                  <td>2.20</td>
+                  <td>2.64</td>
+                </tr>
+                <tr>
+                  <td>2.64</td>
+                  <td>2.40</td>
+                  <td>2.92</td>
+                  <td>2.39</td>
+                  <td>2.19</td>
+                  <td>2.59</td>
+                  <td>2.63</td>
+                  <td>2.45</td>
+                  <td>2.82</td>
+                  <td>2.32</td>
+                  <td>2.10</td>
+                  <td>2.53</td>
+                </tr>
+                <tr>
+                  <td>2.53</td>
+                  <td>2.24</td>
+                  <td>2.77</td>
+                  <td>2.48</td>
+                  <td>2.27</td>
+                  <td>2.70</td>
+                  <td>2.44</td>
+                  <td>2.26</td>
+                  <td>2.63</td>
+                  <td>2.46</td>
+                  <td>2.20</td>
+                  <td>2.70</td>
+                </tr>
+                <tr>
+                  <td>2.58</td>
+                  <td>2.31</td>
+                  <td>2.85</td>
+                  <td>2.40</td>
+                  <td>2.21</td>
+                  <td>2.60</td>
+                  <td>2.37</td>
+                  <td>2.18</td>
+                  <td>2.57</td>
+                  <td>2.32</td>
+                  <td>2.11</td>
+                  <td>2.52</td>
+                </tr>
+                <tr>
+                  <td>2.55</td>
+                  <td>2.31</td>
+                  <td>2.85</td>
+                  <td>2.32</td>
+                  <td>2.13</td>
+                  <td>2.52</td>
+                  <td>2.47</td>
+                  <td>2.28</td>
+                  <td>2.67</td>
+                  <td>2.31</td>
+                  <td>2.11</td>
+                  <td>2.56</td>
+                </tr>
+                <tr>
+                  <td>2.64</td>
+                  <td>2.39</td>
+                  <td>2.94</td>
+                  <td>2.41</td>
+                  <td>2.23</td>
+                  <td>2.60</td>
+                  <td>2.76</td>
+                  <td>2.57</td>
+                  <td>2.97</td>
+                  <td>2.43</td>
+                  <td>2.20</td>
+                  <td>2.64</td>
+                </tr>
+                <tr>
+                  <td>2.54</td>
+                  <td>2.29</td>
+                  <td>2.82</td>
+                  <td>2.36</td>
+                  <td>2.16</td>
+                  <td>2.55</td>
+                  <td>2.61</td>
+                  <td>2.40</td>
+                  <td>2.80</td>
+                  <td>2.43</td>
+                  <td>2.22</td>
+                  <td>2.66</td>
+                </tr>
+                <tr>
+                  <td>2.55</td>
+                  <td>2.24</td>
+                  <td>2.80</td>
+                  <td>2.42</td>
+                  <td>2.21</td>
+                  <td>2.60</td>
+                  <td>2.67</td>
+                  <td>2.49</td>
+                  <td>2.87</td>
+                  <td>2.43</td>
+                  <td>2.20</td>
+                  <td>2.65</td>
+                </tr>
+                <tr>
+                  <td>2.52</td>
+                  <td>2.26</td>
+                  <td>2.80</td>
+                  <td>2.32</td>
+                  <td>2.13</td>
+                  <td>2.52</td>
+                  <td>2.48</td>
+                  <td>2.27</td>
+                  <td>2.68</td>
+                  <td>2.36</td>
+                  <td>2.15</td>
+                  <td>2.57</td>
+                </tr>
+                <tr>
+                  <td>2.51</td>
+                  <td>2.24</td>
+                  <td>2.80</td>
+                  <td>2.02</td>
+                  <td>1.82</td>
+                  <td>2.13</td>
+                  <td>2.57</td>
+                  <td>2.38</td>
+                  <td>2.74</td>
+                  <td>1.98</td>
+                  <td>1.74</td>
+                  <td>2.18</td>
+                </tr>
+              </tbody>
+            </table>
+          </alternatives>
+        </table-wrap>
+      </sec>
+      <sec>
+        <title>Comparing method means</title>
+        <p>Endocranial volume means were significantly different from each other when comparing across methods (mean ± standard deviation: females: CT 2.29 cm<sup>3</sup> ± 0.20, sphere 32,459.1 mm<sup>3</sup> ± 4,344.7, bead 2.60 ml ± 0.28; males: CT 2.54 cm<sup>3</sup> ± 0.15, sphere 59,292.1 mm<sup>3</sup> ± 2,360.4, bead 2.91 ml ± 0.21; Welch two sample <italic>t</italic>-test: females: CT <italic>x</italic> Sphere <italic>t</italic> = 31, <italic>p</italic> &lt; 0.0001, df = 19; sphere <italic>x</italic> bead <italic>t</italic> =  − 31, <italic>p</italic> &lt; 0.0001, df = 19; bead <italic>x</italic> CT <italic>t</italic> = 4, <italic>p</italic> = 0.0003, df = 34; males: CT <italic>x</italic> sphere <italic>t</italic> = 96, <italic>p</italic> &lt; 0.0001, df = 19; sphere <italic>x</italic> bead <italic>t</italic> =  − 96, <italic>p</italic> &lt; 0.0001, df = 19; bead <italic>x</italic> CT <italic>t</italic> = 6, <italic>p</italic> &lt; 0.0001, df = 35).</p>
+      </sec>
+    </sec>
+    <sec sec-type="discussion">
+      <title>Discussion</title>
+      <p>While female great-tailed grackle endocranial volumes from linear measurements were highly correlated with volumes from CT scans, which we consider a more accurate proxy for brain size than bead volume (<xref ref-type="bibr" rid="ref-33">Witmer et al., 2008</xref>; <xref ref-type="bibr" rid="ref-16">Knoll et al., 2012</xref>), the correlation did not meet our criteria of having a coefficient of determination (<italic>r</italic><sup>2</sup>) equal to or greater than 0.88—a level of correlation that might be strong enough to allow for the resolution of individual differences in endocranial volumes. This correlation was only moderate in males, which is likely due to the sexual dimorphism in this species. Our sample includes individuals from a range of populations in which the extent of sexual dimorphism might vary. If, in some populations, there has been strong selection for males to increase in body size, then the skeletal measures will not reflect brain size accurately because, in many instances, skeletal size changes faster than brain size as has been found in primates (<xref ref-type="bibr" rid="ref-22">Montgomery, 2011</xref>). Perhaps additional biometric measurements would explain more of the variation in their endocranial volumes from CT scans; however, we only had access to skulls for most of the specimens and therefore could not test this hypothesis.</p>
+      <p>We were more interested in whether a given value of an external skull measurement could accurately predict actual endocranial volume from CT scans, rather than setting a subjective criterion about how high <italic>r</italic><sup>2</sup> should be, especially given the extensive debate around the latter approach (e.g., <xref ref-type="bibr" rid="ref-17">Legates &amp; McCabe Jr, 1999</xref>; <xref ref-type="bibr" rid="ref-23">Müller &amp; Büttner, 1994</xref>). In particular, <italic>r</italic><sup>2</sup> “[…] describes the proportion of the <italic>total</italic> variance in the observed data that can be explained by the model” (<xref ref-type="bibr" rid="ref-17">Legates &amp; McCabe Jr, 1999</xref>, p. 233, emphasis added) and thus does not allow one to investigate differences in the variance of individual data points. Our predictive analyses showed that prediction intervals for new data points overlapped to such a degree (within 95% credible intervals) that it was not possible to distinguish among individuals, as we would need to when collecting linear measurements on new individuals in the field. We must conclude that external skull measurements are not accurate enough to estimate endocranial volume in great-tailed grackles.</p>
+      <p>Predictive analyses are crucial for determining the accuracy of predicting individual data points by a particular method and should be applied extensively in future research, rather than relying solely on correlation coefficients (<italic>r</italic>) or coefficients of determination (<italic>r</italic><sup>2</sup>). The omission of such an analysis leaves data uninterpretable for its purported use of discerning intraspecific differences in a morphological feature. Additionally, we caution against using a proxy validated in one species as evidence that the same proxy will apply to other species (e.g., great tits: <xref ref-type="bibr" rid="ref-7">Dreyer, 2012</xref>). Until intraspecific validations of brain size proxies using skull or head measurements have been validated across species, we cannot assume that what works (or not) for one species will work (or not) for another.</p>
+      <p>The bead method was highly correlated with CT volumes in both sexes, however, it also did not meet our minimum criteria (<italic>r</italic><sup>2</sup> ≥ 0.88), and prediction intervals extensively overlapped for individual data points. Great-tailed grackles and common grackles are among the species with the largest ranges in endocranial volumes (as measured using the bead method) when compared with most other species in <xref ref-type="bibr" rid="ref-13">Iwaniuk &amp; Nelson</xref>’s (<xref ref-type="bibr" rid="ref-13">2002</xref>) study on 81 bird species. Both grackle species had large standard deviations when compared with mean volumes (common grackles: mean ± SD = 2.59 ml ± 0.37, <italic>n</italic> = 10, <xref ref-type="bibr" rid="ref-13">Iwaniuk &amp; Nelson, 2002</xref>; great-tailed grackles: female 2.60 ml ± 0.28, <italic>n</italic> = 20, male 2.91 ml ± 0.21, <italic>n</italic> = 20, this study). It appears that grackle endocranial volumes are more variable than those of many other species. This is not likely due to variation in skull morphology since we did not find a perfect correlation between endocranial volume and external skull measurements. Therefore, we caution against using external skull measurements to estimate endocranial volume without proper validation.</p>
+      <p>To infer differences in brain size among individuals of the same species, and of the same sex, there must be a high degree of accuracy to have the ability to detect actual individual differences (<xref ref-type="bibr" rid="ref-17">Legates &amp; McCabe Jr, 1999</xref>; <xref ref-type="bibr" rid="ref-18">Logan &amp; Clutton-Brock, 2013</xref>). Our results highlight the need to validate brain size and/or endocranial volume proxies and their predictive power for each species under investigation, and for each sex if they are sexually dimorphic. It is unfortunate that there is not an easier, more accurate way to approximate brain size in the field where we have the potential to understand how evolutionary factors drive brain size variation within species. However, this study accentuates the importance of knowing how accurate brain size measures and proxies are when including such data in analyses.</p>
+    </sec>
+    <sec sec-type="supplementary-material" id="supplemental-information">
+      <title>Supplemental Information</title>
+      <supplementary-material id="supp-1" xlink:href="https://peerj.com/articles/1000/GrackleSkullsInCTscanner.JPG">
+        <object-id pub-id-type="doi">10.7717/peerj.1000/supp-1</object-id>
+        <label>Figure S1</label>
+        <caption>
+          <title>Skulls in the CT scanner</title>
+          <p>Grackle skulls on the CT scanner bed about to be scanned.</p>
+        </caption>
+      </supplementary-material>
+      <supplementary-material id="supp-2" mimetype="application" mime-subtype="pdf" xlink:href="https://peerj.com/articles/1000/OsiriXpic.pdf">
+        <object-id pub-id-type="doi">10.7717/peerj.1000/supp-2</object-id>
+        <label>Figure S2</label>
+        <caption>
+          <title>CT scan of grackle skulls</title>
+          <p>Screenshot of a CT scan showing five grackle skulls using the software OsiriX.</p>
+        </caption>
+      </supplementary-material>
+      <supplementary-material id="supp-3" mimetype="application" mime-subtype="vnd.openxmlformats-officedocument.wordprocessingml.document" xlink:href="https://peerj.com/articles/1000/Supplemental_Table_S1.docx">
+        <object-id pub-id-type="doi">10.7717/peerj.1000/supp-3</object-id>
+        <label>Table S1</label>
+        <caption>
+          <title>Skull data</title>
+          <p>Archive data for each <italic>Quiscalus mexicanus</italic> skull measured (SBMNH, Santa Barbara Museum of Natural History; MSB, Museum of Southwestern Biology, KU, University of Kansas Biodiversity Institute and Natural History Museum). ∗, <italic>Quiscalus mexicanus</italic>.</p>
+        </caption>
+      </supplementary-material>
+    </sec>
+  </body>
+  <back>
+    <ack>
+      <p>We thank Scott Grafton at the University of California Santa Barbara (UCSB) and Lawrence Harter and Chuck Scudelari at the Pueblo Radiology Medical Group for providing access to the CT scanner; Mario Mendoza at UCSB for scan planning; Sabrina Cruz and Kerri Moore at the Pueblo Radiology Medical Group for scanning; Steve Rothstein for advice and sponsoring CP’s grant; and Mireia Beas-Moix and the Cheadle Center for Biodiversity and Ecological Restoration at UCSB for hosting the skull loans; Dieter Lukas for analysis assistance; and Jay Taylor and an anonymous reviewer for feedback on a previous version of this manuscript. We are grateful for skull loans from the Museum of Southwestern Biology (and to Andy Johnson for aging their skulls), Krista Fahy and the Santa Barbara Museum of Natural History, and the Ornithology Division of the KU Biodiversity Institute.</p>
+    </ack>
+    <sec sec-type="additional-information">
+      <title>Additional Information and Declarations</title>
+      <fn-group content-type="competing-interests">
+        <title>Competing Interests</title>
+        <fn id="conflict-1" fn-type="conflict">
+          <p>The authors declare there are no competing interests.</p>
+        </fn>
+      </fn-group>
+      <fn-group content-type="author-contributions">
+        <title>Author Contributions</title>
+        <fn id="contribution-1" fn-type="con">
+          <p><xref ref-type="contrib" rid="author-1">Corina J. Logan</xref> conceived and designed the experiments, analyzed the data, contributed reagents/materials/analysis tools, wrote the paper, prepared figures and/or tables, reviewed drafts of the paper.</p>
+        </fn>
+        <fn id="contribution-2" fn-type="con">
+          <p><xref ref-type="contrib" rid="author-2">Christin R. Palmstrom</xref> performed the experiments, contributed reagents/materials/analysis tools, reviewed drafts of the paper.</p>
+        </fn>
+      </fn-group>
+      <fn-group content-type="other">
+        <title>Animal Ethics</title>
+        <fn id="addinfo-1" fn-type="other">
+          <p>The following information was supplied relating to ethical approvals (i.e., approving body and any reference numbers):</p>
+          <p>No approval was necessary since we used skulls from museum collections.</p>
+        </fn>
+      </fn-group>
+      <fn-group content-type="other">
+        <title>Data Deposition</title>
+        <fn id="addinfo-2" fn-type="other">
+          <p>The following information was supplied regarding the deposition of related data:</p>
+          <p>The data is online at the knb data repository (<uri xlink:href="https://knb.ecoinformatics.org/#view/doi:10.5063/F1668B3W">https://knb.ecoinformatics.org/#view/doi:10.5063/F1668B3W</uri>; <xref ref-type="bibr" rid="ref-19">Logan &amp; Palmstrom, 2015</xref>).</p>
+        </fn>
+      </fn-group>
+    </sec>
+    <ref-list content-type="authoryear">
+      <title>References</title>
+      <ref id="ref-1">
+        <label>Akaike (1981)</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Akaike</surname>
+              <given-names>H</given-names>
+            </name>
+          </person-group>
+          <article-title>Likelihood of a model and information criteria</article-title>
+          <source>Journal of Econometrics</source>
+          <year iso-8601-date="1981">1981</year>
+          <volume>16</volume>
+          <fpage>3</fpage>
+          <lpage>14</lpage>
+          <pub-id pub-id-type="doi">10.1016/0304-4076(81)90071-3</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="ref-2">
+        <label>Auerbach, La Porte &amp; Caputo (2004)</label>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Auerbach</surname>
+              <given-names>C</given-names>
+            </name>
+            <name>
+              <surname>La Porte</surname>
+              <given-names>HH</given-names>
+            </name>
+            <name>
+              <surname>Caputo</surname>
+              <given-names>RK</given-names>
+            </name>
+          </person-group>
+          <person-group person-group-type="editor">
+            <name>
+              <surname>Roberts</surname>
+              <given-names>AR</given-names>
+            </name>
+            <name>
+              <surname>Yeager</surname>
+              <given-names>KR</given-names>
+            </name>
+          </person-group>
+          <source>Evidence-based practice manual: research and outcome measures in health and human services</source>
+          <year iso-8601-date="2004">2004</year>
+          <publisher-loc>Oxford</publisher-loc>
+          <publisher-name>Oxford University Press</publisher-name>
+        </element-citation>
+      </ref>
+      <ref id="ref-3">
+        <label>Barton (2012)</label>
+        <element-citation publication-type="software">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Barton</surname>
+              <given-names>K</given-names>
+            </name>
+          </person-group>
+          <source>MuMIn: Multi-model inference</source>
+          <edition designator="1.7.7">R package version 1.7.7</edition>
+          <year iso-8601-date="2012">2012</year>
+          <comment><italic>Available at <uri xlink:href="http://CRAN.R-project.org/package=MuMIn">http://CRAN.R-project.org/package=MuMIn</uri></italic> (accessed 3 January 2015)</comment>
+        </element-citation>
+      </ref>
+      <ref id="ref-4">
+        <label>Bonaparte, Riffle-Yokoi &amp; Burley (2011)</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Bonaparte</surname>
+              <given-names>KM</given-names>
+            </name>
+            <name>
+              <surname>Riffle-Yokoi</surname>
+              <given-names>C</given-names>
+            </name>
+            <name>
+              <surname>Burley</surname>
+              <given-names>NT</given-names>
+            </name>
+          </person-group>
+          <article-title>Getting a head start: diet, sub-adult growth, and associative learning in a seed-eating passerine</article-title>
+          <source>PLoS ONE</source>
+          <issue>9</issue>
+          <year iso-8601-date="2011">2011</year>
+          <volume>6</volume>
+          <elocation-id>e23775</elocation-id>
+          <pub-id pub-id-type="doi">10.1371/journal.pone.0023775</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="ref-5">
+        <label>Burnham &amp; Anderson (2002)</label>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Burnham</surname>
+              <given-names>KP</given-names>
+            </name>
+            <name>
+              <surname>Anderson</surname>
+              <given-names>DR</given-names>
+            </name>
+          </person-group>
+          <source>Model selection and multimodel inference: a practical information-theoretic approach</source>
+          <year iso-8601-date="2002">2002</year>
+          <publisher-loc>New York</publisher-loc>
+          <publisher-name>Springer</publisher-name>
+        </element-citation>
+      </ref>
+      <ref id="ref-6">
+        <label>del Hoyo, Elliot &amp; Christie (1992)</label>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>del Hoyo</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Elliot</surname>
+              <given-names>A</given-names>
+            </name>
+            <name>
+              <surname>Christie</surname>
+              <given-names>DA</given-names>
+            </name>
+          </person-group>
+          <source>Handbook of the birds of the world</source>
+          <year iso-8601-date="1992">1992</year>
+          <publisher-loc>Barcelona</publisher-loc>
+          <publisher-name>Lynx Edicions</publisher-name>
+        </element-citation>
+      </ref>
+      <ref id="ref-7">
+        <label>Dreyer (2012)</label>
+        <element-citation publication-type="thesis">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Dreyer</surname>
+              <given-names>S</given-names>
+            </name>
+          </person-group>
+          <article-title>Cranium size and fitness measures in a wild population of great tits (<italic>Parus major</italic>)</article-title>
+          <source>Masters thesis</source>
+          <year iso-8601-date="2012">2012</year>
+          <institution>University of Oslo</institution>
+        </element-citation>
+      </ref>
+      <ref id="ref-8">
+        <label>Gonda, Herczeg &amp; Merilä (2013)</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Gonda</surname>
+              <given-names>A</given-names>
+            </name>
+            <name>
+              <surname>Herczeg</surname>
+              <given-names>G</given-names>
+            </name>
+            <name>
+              <surname>Merilä</surname>
+              <given-names>J</given-names>
+            </name>
+          </person-group>
+          <article-title>Evolutionary ecology of intraspecific brain size variation: a review</article-title>
+          <source>Ecology and Evolution</source>
+          <year iso-8601-date="2013">2013</year>
+          <volume>3</volume>
+          <fpage>2751</fpage>
+          <lpage>2764</lpage>
+          <pub-id pub-id-type="doi">10.1002/ece3.627</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="ref-9">
+        <label>Hadfield (2010)</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Hadfield</surname>
+              <given-names>JD</given-names>
+            </name>
+          </person-group>
+          <article-title>MCMC methods for multi-response generalized linear mixed models: the MCMCglmm R Package</article-title>
+          <source>Journal of Statistical Software</source>
+          <year iso-8601-date="2010">2010</year>
+          <volume>33</volume>
+          <fpage>1</fpage>
+          <lpage>22</lpage>
+          <comment><italic>Available at <uri xlink:href="http://www.jstatsoft.org/v33/i02/">http://www.jstatsoft.org/v33/i02/</uri></italic> (accessed 3 January 2015)</comment>
+        </element-citation>
+      </ref>
+      <ref id="ref-10">
+        <label>Healy &amp; Rowe (2007)</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Healy</surname>
+              <given-names>SD</given-names>
+            </name>
+            <name>
+              <surname>Rowe</surname>
+              <given-names>C</given-names>
+            </name>
+          </person-group>
+          <article-title>A critique of comparative studies of brain size</article-title>
+          <source>Proceedings of the Royal Society B</source>
+          <year iso-8601-date="2007">2007</year>
+          <volume>274</volume>
+          <fpage>453</fpage>
+          <lpage>464</lpage>
+          <pub-id pub-id-type="doi">10.1098/rspb.2006.3748</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="ref-11">
+        <label>Hutcheon, Chiolero &amp; Hanley (2010)</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Hutcheon</surname>
+              <given-names>JA</given-names>
+            </name>
+            <name>
+              <surname>Chiolero</surname>
+              <given-names>A</given-names>
+            </name>
+            <name>
+              <surname>Hanley</surname>
+              <given-names>JA</given-names>
+            </name>
+          </person-group>
+          <article-title>Random measurement error and regression dilution bias</article-title>
+          <source>BMJ</source>
+          <year iso-8601-date="2010">2010</year>
+          <volume>340</volume>
+          <fpage>c2289</fpage>
+          <pub-id pub-id-type="doi">10.1136/bmj.c2289</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="ref-12">
+        <label>Isler et al. (2008)</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Isler</surname>
+              <given-names>K</given-names>
+            </name>
+            <name>
+              <surname>Christopher Kirk</surname>
+              <given-names>E</given-names>
+            </name>
+            <name>
+              <surname>Miller</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Albrecht</surname>
+              <given-names>GA</given-names>
+            </name>
+            <name>
+              <surname>Gelvin</surname>
+              <given-names>BR</given-names>
+            </name>
+            <name>
+              <surname>Martin</surname>
+              <given-names>RD</given-names>
+            </name>
+          </person-group>
+          <article-title>Endocranial volumes of primate species: scaling analyses using a comprehensive and reliable data set</article-title>
+          <source>Journal of Human Evolution</source>
+          <year iso-8601-date="2008">2008</year>
+          <volume>55</volume>
+          <fpage>967</fpage>
+          <lpage>978</lpage>
+          <pub-id pub-id-type="doi">10.1016/j.jhevol.2008.08.004</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="ref-13">
+        <label>Iwaniuk &amp; Nelson (2002)</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Iwaniuk</surname>
+              <given-names>AN</given-names>
+            </name>
+            <name>
+              <surname>Nelson</surname>
+              <given-names>JE</given-names>
+            </name>
+          </person-group>
+          <article-title>Can endocranial volume be used as an estimate of brain size in birds?</article-title>
+          <source>Canadian Journal of Zoology</source>
+          <year iso-8601-date="2002">2002</year>
+          <volume>80</volume>
+          <fpage>16</fpage>
+          <lpage>23</lpage>
+          <pub-id pub-id-type="doi">10.1139/z01-204</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="ref-14">
+        <label>Iwaniuk &amp; Nelson (2003)</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Iwaniuk</surname>
+              <given-names>AN</given-names>
+            </name>
+            <name>
+              <surname>Nelson</surname>
+              <given-names>JE</given-names>
+            </name>
+          </person-group>
+          <article-title>Developmental differences are correlated with relative brain size in birds: a comparative analysis</article-title>
+          <source>Canadian Journal of Zoology</source>
+          <year iso-8601-date="2003">2003</year>
+          <volume>81</volume>
+          <fpage>1913</fpage>
+          <lpage>1928</lpage>
+          <pub-id pub-id-type="doi">10.1139/z03-190</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="ref-15">
+        <label>Johnson et al. (2000)</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Johnson</surname>
+              <given-names>K</given-names>
+            </name>
+            <name>
+              <surname>DuVal</surname>
+              <given-names>E</given-names>
+            </name>
+            <name>
+              <surname>Kielt</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Hughes</surname>
+              <given-names>C</given-names>
+            </name>
+          </person-group>
+          <article-title>Male mating strategies and the mating system of great-tailed grackles</article-title>
+          <source>Behavioral Ecology</source>
+          <year iso-8601-date="2000">2000</year>
+          <volume>11</volume>
+          <fpage>132</fpage>
+          <lpage>141</lpage>
+          <pub-id pub-id-type="doi">10.1093/beheco/11.2.132</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="ref-16">
+        <label>Knoll et al. (2012)</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Knoll</surname>
+              <given-names>F</given-names>
+            </name>
+            <name>
+              <surname>Witmer</surname>
+              <given-names>LM</given-names>
+            </name>
+            <name>
+              <surname>Ortega</surname>
+              <given-names>F</given-names>
+            </name>
+            <name>
+              <surname>Ridgely</surname>
+              <given-names>RC</given-names>
+            </name>
+            <name>
+              <surname>Schwarz-Wings</surname>
+              <given-names>D</given-names>
+            </name>
+          </person-group>
+          <article-title>The braincase of the basal sauropod dinosaur Spinophorosaurus and 3D reconstructions of the cranial endocast and inner ear</article-title>
+          <source>PLoS ONE</source>
+          <year iso-8601-date="2012">2012</year>
+          <volume>7</volume>
+          <elocation-id>e30060</elocation-id>
+          <pub-id pub-id-type="doi">10.1371/journal.pone.0030060</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="ref-17">
+        <label>Legates &amp; McCabe Jr (1999)</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Legates</surname>
+              <given-names>DR</given-names>
+            </name>
+            <name>
+              <surname>McCabe</surname>
+              <given-names>GJ</given-names>
+              <suffix>Jr</suffix>
+            </name>
+          </person-group>
+          <article-title>Evaluating the use of ‘goodness-of-fit’ measures in hydrologic and hydroclimatic model validation</article-title>
+          <source>Water Resources Research</source>
+          <year iso-8601-date="1999">1999</year>
+          <volume>35</volume>
+          <fpage>233</fpage>
+          <lpage>241</lpage>
+          <pub-id pub-id-type="doi">10.1029/1998WR900018</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="ref-18">
+        <label>Logan &amp; Clutton-Brock (2013)</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Logan</surname>
+              <given-names>CJ</given-names>
+            </name>
+            <name>
+              <surname>Clutton-Brock</surname>
+              <given-names>TH</given-names>
+            </name>
+          </person-group>
+          <article-title>Validating methods for estimating endocranial volume in individual red deer (<italic>Cervus elaphus</italic>)</article-title>
+          <source>Behavioral Processes</source>
+          <year iso-8601-date="2013">2013</year>
+          <volume>92</volume>
+          <fpage>143</fpage>
+          <lpage>146</lpage>
+          <pub-id pub-id-type="doi">10.1016/j.beproc.2012.10.015</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="ref-19">
+        <label>Logan &amp; Palmstrom (2015)</label>
+        <element-citation publication-type="other">
+          <person-group>
+            <name>
+              <surname>Logan</surname>
+              <given-names>C</given-names>
+            </name>
+            <name>
+              <surname>Palmstrom</surname>
+              <given-names>C</given-names>
+            </name>
+          </person-group>
+          <article-title>Skull measurements from 42 great-tailed grackles (<italic>Quiscalus mexicanus</italic>) from Central and North America. The Knowledge Network for Biocomplexity (KNB)</article-title>
+          <year iso-8601-date="2015">2015</year>
+          <comment>
+            <italic>Available at <uri xlink:href="https://knb.ecoinformatics.org/#view/doi:10.5063/F1668B3W">https://knb.ecoinformatics.org/#view/doi:10.5063/F1668B3W</uri></italic>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="ref-20">
+        <label>Miller (1997)</label>
+        <element-citation publication-type="thesis">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Miller</surname>
+              <given-names>JMA</given-names>
+            </name>
+          </person-group>
+          <article-title>A hierarchical analysis of primate brain size and body size: patterns of morphometric variation</article-title>
+          <source>PhD dissertation</source>
+          <year iso-8601-date="1997">1997</year>
+          <institution>University of Southern California, Los Angeles</institution>
+        </element-citation>
+      </ref>
+      <ref id="ref-21">
+        <label>Møller (2010)</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Møller</surname>
+              <given-names>AP</given-names>
+            </name>
+          </person-group>
+          <article-title>Brain size, head size and behaviour of a passerine bird</article-title>
+          <source>Journal of Evolutionary Biology</source>
+          <issue>3</issue>
+          <year iso-8601-date="2010">2010</year>
+          <volume>23</volume>
+          <fpage>625</fpage>
+          <lpage>635</lpage>
+          <pub-id pub-id-type="doi">10.1111/j.1420-9101.2009.01928.x</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="ref-22">
+        <label>Montgomery (2011)</label>
+        <element-citation publication-type="thesis">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Montgomery</surname>
+              <given-names>SH</given-names>
+            </name>
+          </person-group>
+          <article-title>The primate brain: evolutionary history and genetics</article-title>
+          <source>PhD dissertation</source>
+          <year iso-8601-date="2011">2011</year>
+          <institution>University of Cambridge</institution>
+        </element-citation>
+      </ref>
+      <ref id="ref-23">
+        <label>Müller &amp; Büttner (1994)</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Müller</surname>
+              <given-names>R</given-names>
+            </name>
+            <name>
+              <surname>Büttner</surname>
+              <given-names>P</given-names>
+            </name>
+          </person-group>
+          <article-title>A critical discussion of intraclass correlation coefficients</article-title>
+          <source>Statistics in Medicine</source>
+          <year iso-8601-date="1994">1994</year>
+          <volume>13</volume>
+          <fpage>2465</fpage>
+          <lpage>2476</lpage>
+          <pub-id pub-id-type="doi">10.1002/sim.4780132310</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="ref-24">
+        <label>Peer (2011)</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Peer</surname>
+              <given-names>BD</given-names>
+            </name>
+          </person-group>
+          <article-title>Invasion of the Emperor’s grackle</article-title>
+          <source>Ardeola</source>
+          <year iso-8601-date="2011">2011</year>
+          <volume>58</volume>
+          <fpage>405</fpage>
+          <lpage>409</lpage>
+          <pub-id pub-id-type="doi">10.13157/arla.58.2.2011.405</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="ref-25">
+        <label>Pyle, Howell &amp; DeSante (1997)</label>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Pyle</surname>
+              <given-names>P</given-names>
+            </name>
+            <name>
+              <surname>Howell</surname>
+              <given-names>SN</given-names>
+            </name>
+            <name>
+              <surname>DeSante</surname>
+              <given-names>DF</given-names>
+            </name>
+          </person-group>
+          <source>Identification guide to North American birds</source>
+          <year iso-8601-date="1997">1997</year>
+          <publisher-loc>Bolinas</publisher-loc>
+          <publisher-name>Slate Creek Press</publisher-name>
+          <fpage>421</fpage>
+          <lpage>422</lpage>
+        </element-citation>
+      </ref>
+      <ref id="ref-26">
+        <label>R Core Team (2014)</label>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <collab>
+              <institution>R Core Team</institution>
+            </collab>
+          </person-group>
+          <source>R: a language and environment for statistical computing</source>
+          <year iso-8601-date="2014">2014</year>
+          <publisher-loc>Vienna</publisher-loc>
+          <publisher-name>R Foundation for Statistical Computing</publisher-name>
+          <comment><italic>Available at <uri xlink:href="http://www.R-project.org">http://www.R-project.org</uri></italic> (accessed 3 January 2015)</comment>
+        </element-citation>
+      </ref>
+      <ref id="ref-27">
+        <label>Sakai et al. (2011)</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Sakai</surname>
+              <given-names>ST</given-names>
+            </name>
+            <name>
+              <surname>Arsznov</surname>
+              <given-names>BM</given-names>
+            </name>
+            <name>
+              <surname>Lundrigan</surname>
+              <given-names>B</given-names>
+            </name>
+            <name>
+              <surname>Holekamp</surname>
+              <given-names>KE</given-names>
+            </name>
+          </person-group>
+          <article-title>Brain size and social complexity: a computed tomography study in hyaenidae</article-title>
+          <source>Brain, Behavior and Evolution</source>
+          <year iso-8601-date="2011">2011</year>
+          <volume>77</volume>
+          <fpage>91</fpage>
+          <lpage>104</lpage>
+          <pub-id pub-id-type="doi">10.1159/000323849</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="ref-28">
+        <label>Sol et al. (2005)</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Sol</surname>
+              <given-names>D</given-names>
+            </name>
+            <name>
+              <surname>Duncan</surname>
+              <given-names>RP</given-names>
+            </name>
+            <name>
+              <surname>Blackburn</surname>
+              <given-names>TM</given-names>
+            </name>
+            <name>
+              <surname>Cassey</surname>
+              <given-names>P</given-names>
+            </name>
+            <name>
+              <surname>Lefebvre</surname>
+              <given-names>L</given-names>
+            </name>
+          </person-group>
+          <article-title>Big brains, enhanced cognition, and response of birds to novel environments</article-title>
+          <source>Proceedings of the National Academy of Sciences of the United States of America</source>
+          <year iso-8601-date="2005">2005</year>
+          <volume>102</volume>
+          <fpage>5460</fpage>
+          <lpage>5465</lpage>
+          <pub-id pub-id-type="doi">10.1073/pnas.0408145102</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="ref-29">
+        <label>Sol et al. (2002)</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Sol</surname>
+              <given-names>D</given-names>
+            </name>
+            <name>
+              <surname>Timmermans</surname>
+              <given-names>S</given-names>
+            </name>
+            <name>
+              <surname>Lefebvre</surname>
+              <given-names>L</given-names>
+            </name>
+          </person-group>
+          <article-title>Behavioural flexibility and invasion success in birds</article-title>
+          <source>Animal Behaviour</source>
+          <year iso-8601-date="2002">2002</year>
+          <volume>63</volume>
+          <fpage>495</fpage>
+          <lpage>502</lpage>
+          <pub-id pub-id-type="doi">10.1006/anbe.2001.1953</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="ref-30">
+        <label>Taylor (1990)</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Taylor</surname>
+              <given-names>R</given-names>
+            </name>
+          </person-group>
+          <article-title>Interpretation of the correlation coefcient: A basic review</article-title>
+          <source>Journal of Diagnostic Medical Sonography</source>
+          <year iso-8601-date="1990">1990</year>
+          <volume>6</volume>
+          <fpage>35</fpage>
+          <lpage>39</lpage>
+          <pub-id pub-id-type="doi">10.1177/875647939000600106</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="ref-31">
+        <label>Thornton &amp; Lukas (2012)</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Thornton</surname>
+              <given-names>A</given-names>
+            </name>
+            <name>
+              <surname>Lukas</surname>
+              <given-names>D</given-names>
+            </name>
+          </person-group>
+          <article-title>Individual variation in cognitive performance: developmental and evolutionary perspectives</article-title>
+          <source>Philosophical Transactions of the Royal Society B</source>
+          <year iso-8601-date="2012">2012</year>
+          <volume>367</volume>
+          <fpage>2773</fpage>
+          <lpage>2783</lpage>
+          <pub-id pub-id-type="doi">10.1098/rstb.2012.0214</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="ref-32">
+        <label>Winker (2000)</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Winker</surname>
+              <given-names>K</given-names>
+            </name>
+          </person-group>
+          <article-title>Obtaining, preserving, and preparing bird specimens</article-title>
+          <source>Journal of Field Ornithology</source>
+          <year iso-8601-date="2000">2000</year>
+          <volume>71</volume>
+          <fpage>250</fpage>
+          <lpage>297</lpage>
+          <pub-id pub-id-type="doi">10.1648/0273-8570-71.2.250</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="ref-33">
+        <label>Witmer et al. (2008)</label>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Witmer</surname>
+              <given-names>LM</given-names>
+            </name>
+            <name>
+              <surname>Ridgely</surname>
+              <given-names>RC</given-names>
+            </name>
+            <name>
+              <surname>Dufeau</surname>
+              <given-names>DL</given-names>
+            </name>
+            <name>
+              <surname>Semones</surname>
+              <given-names>MC</given-names>
+            </name>
+          </person-group>
+          <article-title>Using CT to peer into the past: 3D visualization of the brain and ear regions of birds, crocodiles, and nonavian dinosaurs</article-title>
+          <source>Anatomical imaging</source>
+          <year iso-8601-date="2008">2008</year>
+          <publisher-loc>Tokyo</publisher-loc>
+          <publisher-name>Springer</publisher-name>
+          <fpage>67</fpage>
+          <lpage>87</lpage>
+        </element-citation>
+      </ref>
+    </ref-list>
+  </back>
+</article>
