@@ -355,15 +355,15 @@ var onSaxonLoad = function() {
   function validate_session(contents) {
       // Look for xml declaration. If one is found, change any encoding to utf-8
       var xml_decl_re =
-        /^(<\?xml\s+.*?encoding\s*=\s*'|\")(.*?)('|\".*?\?>)/;
-      contents = contents.replace(xml_decl_re, "$1utf-8$3");
+        /^(<\?xml\s+.*?encoding\s*=\s*('|\"))(.*?)(('|\").*?\?>)/;
+      contents = contents.replace(xml_decl_re, "$1utf-8$4");
 
       // Look for a doctype declaration
       var doctype_pub_re = 
-        /<!DOCTYPE\s+\S+\s+PUBLIC\s+\"(.*?)\"\s+\"(.*?)\"\s*(\[[\s\S]*?\]\s*)?>/;
+        /<!DOCTYPE\s+\S+\s+PUBLIC\s+('|\")(.*?)('|\")\s+('|\")(.*?)('|\")\s*(\[[\s\S]*?\]\s*)?>/;
       if (m = contents.match(doctype_pub_re)) {
-        var fpi = m[1];
-        var sysid = m[2];
+        var fpi = m[2];
+        var sysid = m[5];
 
         var dtd = dtd_database.dtd_by_fpi[fpi] || null;
         if (!dtd) {
