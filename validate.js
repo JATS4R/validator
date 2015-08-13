@@ -60,8 +60,14 @@ var onSaxonLoad = function() {
 
       $('#choose_input').on('change', function(e) {
         input_file = $('#choose_input').get()[0].files[0];
-        set_drop_area();
-        start_session_file();
+        if (input_file) {
+          set_drop_area();
+          start_session_file();        
+        }
+        else {
+          clear_input_file();
+          reset_session();
+        }
       });
 
       $('#jats_url').on('change', function(e) {
@@ -101,7 +107,8 @@ var onSaxonLoad = function() {
       });
 
       // Ready to go
-      set_status('Choose a JATS XML file to validate.');
+      results.reset();
+//      set_status('Choose a JATS XML file to validate.');
 
       //test_results();
     });
@@ -221,7 +228,15 @@ var onSaxonLoad = function() {
     var phase_level;    // level of the most severe message in this phase
     var report_level;   // value of the user-controlled select box
 
-    self.start_phase = function(p, id) {
+    self.reset = function() {
+      phase = null;
+      results_area.html('');
+      results_area.hide();
+      set_status('Choose a JATS XML file to validate.');
+    }
+
+    self.start_phase = function(p, id, cont) {
+      console.log("start_phase: " + p);
       results_area.show();
       if (!phase) {
         var lsv = $('#level_select').val();
@@ -235,11 +250,14 @@ var onSaxonLoad = function() {
       }
       phase_level = GOOD;
       phase = $('<div class="phase"><h2>' + p + '</h2></div>');
-      if (typeof id !== "undefined") {
+      if (typeof id !== "undefined" && id) {
         phase.attr('id', id);
       }
       results_area.append(phase);
       set_status(p, BUSY);
+      if (typeof(cont) !== "undefined") {
+        setTimeout(cont, 100);
+      }
     }
 
     self.done = function() {
@@ -289,6 +307,7 @@ var onSaxonLoad = function() {
   function reset_session() {
     $('#listing-div').hide();
     window.location.hash='';
+    results.reset();
   }
 
   // This gets called in response to the user choosing a file, dropping a file,
@@ -313,8 +332,10 @@ var onSaxonLoad = function() {
     }
 
     // Read the file. This results in the onload function above being called
-    results.start_phase("Reading the XML file");
-    reader.readAsText(input_file);
+    results.start_phase("Reading the XML file", null, function() {
+      console.log('status = ' + document.getElementById('status').innerHTML);
+      reader.readAsText(input_file);
+    });
   }
 
   function fetch_error(msg) {
