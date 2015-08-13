@@ -235,6 +235,40 @@ var onSaxonLoad = function() {
       set_status('Choose a JATS XML file to validate.');
     }
 
+    // start_phase_p returns a Promise, because we're using setTimeout to
+    // make sure that the page is rendered and visible to the user, before
+    // embarking on very cpu-intensive processing
+
+    var PHASE_DELAY = 100;   // in milliseconds
+    self.start_phase_p = function(p, id) {
+      return new Promise(function(resolve, reject) {
+        console.log("start_phase_p: " + p);
+        results_area.show();
+        if (!phase) {
+          var lsv = $('#level_select').val();
+
+          report_level = 
+              lsv == "errors" ? ERROR
+            : lsv == "warnings" ? WARN
+            : INFO;
+          results_area.html('');
+          level = GOOD;
+        }
+        phase_level = GOOD;
+        phase = $('<div class="phase"><h2>' + p + '</h2></div>');
+        if (typeof id !== "undefined" && id) {
+          phase.attr('id', id);
+        }
+        results_area.append(phase);
+        set_status(p, BUSY);
+
+        setTimeout(function() {
+          resolve();
+        }, PHASE_DELAY);
+      })
+    }
+
+
     self.start_phase = function(p, id, cont) {
       console.log("start_phase: " + p);
       results_area.show();
@@ -332,10 +366,10 @@ var onSaxonLoad = function() {
     }
 
     // Read the file. This results in the onload function above being called
-    results.start_phase("Reading the XML file", null, function() {
-      console.log('status = ' + document.getElementById('status').innerHTML);
-      reader.readAsText(input_file);
-    });
+    results.start_phase_p("Reading the XML file")
+      .then(function() {
+        reader.readAsText(input_file);
+      });
   }
 
   function fetch_error(msg) {
@@ -346,28 +380,30 @@ var onSaxonLoad = function() {
   function start_session_url() {
     clear_input_file();
     reset_session();
-    results.start_phase("Fetching the XML file");
-    var headers = new Headers();
-    headers.append("Accept", "application/jats+xml;q=1, application/xml");
-    fetch(input_url, { headers: headers })
-      .then(
-        // success
-        function(response) {
-          if (response.status >= 200 && response.status < 300) {
-            return response.text();
-          }
-          else {
-            fetch_error(response.statusText);
-            return null;
-          }
-        },
-        // fetch error
-        function(e) {
-          fetch_error(e.message);
-        }
-      )
-      .then(function(content) {
-        if (content) validate_session(content);
+    results.start_phase_p("Fetching the XML file")
+      .then(function() {
+        var headers = new Headers();
+        headers.append("Accept", "application/jats+xml;q=1, application/xml");
+        fetch(input_url, { headers: headers })
+          .then(
+            // success
+            function(response) {
+              if (response.status >= 200 && response.status < 300) {
+                return response.text();
+              }
+              else {
+                fetch_error(response.statusText);
+                return null;
+              }
+            },
+            // fetch error
+            function(e) {
+              fetch_error(e.message);
+            }
+          )
+          .then(function(content) {
+            if (content) validate_session(content);
+          });
       });
   }
 
@@ -438,128 +474,133 @@ var onSaxonLoad = function() {
   // If there is no DTD, this will be called with only one argument.
   function do_validate(contents, dtd_filename, dtd_contents) 
   {
-    var result = parse_and_dtd_validate(contents, dtd_filename, dtd_contents);
-    if (result) schematron_validate(result);
-    $('#revalidate').prop('disabled', false);
+    parse_and_dtd_validate(contents, dtd_filename, dtd_contents)
+      .then(function(results) {
+        schematron_validate(results);
+        $('#revalidate').prop('disabled', false);
+      });
   }
 
 
   function parse_and_dtd_validate(contents, dtd_filename, dtd_contents) 
   {
-    var result = null;
     var to_validate = typeof(dtd_filename) !== "undefined";
     var msg = "Parsing " + (to_validate ? "and validating against the DTD" : "");
-    results.start_phase(msg);
+    return results.start_phase_p(msg)
+      .then(function() {
 
-    if (to_validate) {
-      // If there is a DTD, invoke xmllint with:
-      // --loaddtd - this causes the DTD specified in the doctype declaration
-      //     to be loaded when parsing. This is necessary to resolve entity references.
-      //     But note that this is redundant, because --valid causes the DTD to be loaded,
-      //     too.
-      // --valid - cause xmllint to validate against the DTD that it finds from the doctype
-      //     declaration.
-      // --noent - tells xmlint to resolve all entity references
-      var args = ['--loaddtd', '--valid', '--noent', 'dummy.xml'];
-      var files = [
-        {
-          path: 'dummy.xml',
-          data: contents
-        },
-        {
-          path: dtd_filename,
-          data: dtd_contents
+        if (to_validate) {
+          // If there is a DTD, invoke xmllint with:
+          // --loaddtd - this causes the DTD specified in the doctype declaration
+          //     to be loaded when parsing. This is necessary to resolve entity references.
+          //     But note that this is redundant, because --valid causes the DTD to be loaded,
+          //     too.
+          // --valid - cause xmllint to validate against the DTD that it finds from the doctype
+          //     declaration.
+          // --noent - tells xmlint to resolve all entity references
+          var args = ['--loaddtd', '--valid', '--noent', 'dummy.xml'];
+          var files = [
+            {
+              path: 'dummy.xml',
+              data: contents
+            },
+            {
+              path: dtd_filename,
+              data: dtd_contents
+            }
+          ];
         }
-      ];
-    }
-    else {
-      // If no DTD:
-      var args = ['dummy.xml'];
-      var files = [
-        {
-          path: 'dummy.xml',
-          data: contents
+        else {
+          // If no DTD:
+          var args = ['dummy.xml'];
+          var files = [
+            {
+              path: 'dummy.xml',
+              data: contents
+            }
+          ];
         }
-      ];
-    }
 
-    try {
-      result = xmltool(args, files);
-    }
-    catch(e) {
+        try {
+          var result = xmltool(args, files);
+        }
+        catch(e) {
+          results.error(
+            $('<div>Failed XML parsing and/or DTD validation. Error message from ' +
+              'the parser was: ' +
+              '<pre>' + e + '</pre></div>'));
+          results.done();
+          result = null;
+        }
 
-      results.error(
-        $('<div>Failed XML parsing and/or DTD validation. Error message from ' +
-          'the parser was: ' +
-          '<pre>' + e + '</pre></div>'));
-      results.done();
-      result = null;
-    }
+        if (result.stderr.length) {
+          results.error($('<div>Failed ' + msg +
+            '<pre>' + result.stderr + '</pre></div>'));
+          results.done();
+          result = null;
+        }
 
-    if (result.stderr.length) {
-      results.error($('<div>Failed ' + msg +
-        '<pre>' + result.stderr + '</pre></div>'));
-      results.done();
-      result = null;
-    }
-
-    return result;
+        return result;
+      });
   }
 
   // Finally, do the Schematron validation with Saxon CE
   function schematron_validate(result) 
   {
-    results.start_phase("Checking JATS for Reuse rules", "schematron-results");
+    results.start_phase_p("Checking JATS for Reuse rules", "schematron-results")
+      .then(function() {
 
-    var doc, pe;
-    var parse_error = false;
-    try {
-      doc = Saxon.parseXML(result.stdout);
-    }
-    catch (e) {
-      parse_error = true;
-    }
-    if (!doc) { parse_error = true; }
-    if (!parse_error) {
-      pe = doc.querySelector("parsererror");
-    }
-    if (parse_error || pe) {
-      if (!pe) { pe = "Unable to parse the input XML file."; }
-      results.error("Error parsing input file: " + pe);
-      results.done();
-    }
 
-    else {
-      // FIXME:  need to parameterize the version number
-      var level = $('#level_select').val();
-      Saxon.run({
-        stylesheet: 'generated-xsl/0.1/' + xslt[level],
-        source: doc,
-        method: 'transformToDocument',
-        success: function(processor) {
-          // Convert the output SVRL to HTML. When done, this calls updateHTMLDocument,
-          // which uses the @href attribute in the <xsl:result-document> element in the
-          // stylesheet to update the #result element in the HTML page.
-          // I guess this blocks until done.
-          Saxon.run({
-            stylesheet: 'svrl-to-html.xsl',
-            source: processor.getResultDocument(),
-            method: 'updateHTMLDocument'
-          });
-
-          do_xpath_locations(result.stdout);
-
-          var sr = $('#schematron-results');
-          var level = 
-              sr.find("td.error").length != 0 ? ERROR
-            : sr.find("td.warn").length != 0 ? WARN
-            : sr.find("td.info").length != 0 ? INFO
-            : GOOD;
-          results.bump_level(level);
+        var doc, pe;
+        var parse_error = false;
+        try {
+          doc = Saxon.parseXML(result.stdout);
+        }
+        catch (e) {
+          parse_error = true;
+        }
+        if (!doc) { parse_error = true; }
+        if (!parse_error) {
+          pe = doc.querySelector("parsererror");
+        }
+        if (parse_error || pe) {
+          if (!pe) { pe = "Unable to parse the input XML file."; }
+          results.error("Error parsing input file: " + pe);
           results.done();
         }
+
+        else {
+          // FIXME:  need to parameterize the version number
+          var level = $('#level_select').val();
+          Saxon.run({
+            stylesheet: 'generated-xsl/0.1/' + xslt[level],
+            source: doc,
+            method: 'transformToDocument',
+            success: function(processor) {
+              // Convert the output SVRL to HTML. When done, this calls updateHTMLDocument,
+              // which uses the @href attribute in the <xsl:result-document> element in the
+              // stylesheet to update the #result element in the HTML page.
+              // I guess this blocks until done.
+              Saxon.run({
+                stylesheet: 'svrl-to-html.xsl',
+                source: processor.getResultDocument(),
+                method: 'updateHTMLDocument'
+              });
+
+              do_xpath_locations(result.stdout);
+
+              var sr = $('#schematron-results');
+              var level = 
+                  sr.find("td.error").length != 0 ? ERROR
+                : sr.find("td.warn").length != 0 ? WARN
+                : sr.find("td.info").length != 0 ? INFO
+                : GOOD;
+              results.bump_level(level);
+              results.done();
+            }
+          });
+        }
       });
-    }
   }
 
   function do_xpath_locations(doc) {
