@@ -241,6 +241,7 @@ var onSaxonLoad = function() {
       results_area.append(phase);
       set_status(p, BUSY);
     }
+
     self.done = function() {
       phase = null;
       var message = 
@@ -425,10 +426,11 @@ var onSaxonLoad = function() {
   function parse_and_dtd_validate(contents, dtd_filename, dtd_contents) 
   {
     var result = null;
+    var to_validate = typeof(dtd_filename) !== "undefined";
+    var msg = "Parsing " + (to_validate ? "and validating against the DTD" : "");
+    results.start_phase(msg);
 
-    if (typeof(dtd_filename) !== "undefined") {
-      results.start_phase("Validating against the DTD");
-
+    if (to_validate) {
       // If there is a DTD, invoke xmllint with:
       // --loaddtd - this causes the DTD specified in the doctype declaration
       //     to be loaded when parsing. This is necessary to resolve entity references.
@@ -448,16 +450,7 @@ var onSaxonLoad = function() {
           data: dtd_contents
         }
       ];
-      result = xmltool(args, files);
-
-      if (result.stderr.length) {
-        results.error($('<div>Failed DTD validation: ' +
-          '<pre>' + result.stderr + '</pre></div>'));
-        results.done();
-        result = null;
-      }
     }
-
     else {
       // If no DTD:
       var args = ['dummy.xml'];
@@ -467,14 +460,26 @@ var onSaxonLoad = function() {
           data: contents
         }
       ];
-      result = xmltool(args, files);
+    }
 
-      if (result.stderr.length) {
-        results.error($('<div>Failed parsing: ' +
-          '<pre>' + result.stderr + '</pre></div>'));
-        results.done();
-        result = null;
-      }
+    try {
+      result = xmltool(args, files);
+    }
+    catch(e) {
+
+      results.error(
+        $('<div>Failed XML parsing and/or DTD validation. Error message from ' +
+          'the parser was: ' +
+          '<pre>' + e + '</pre></div>'));
+      results.done();
+      result = null;
+    }
+
+    if (result.stderr.length) {
+      results.error($('<div>Failed ' + msg +
+        '<pre>' + result.stderr + '</pre></div>'));
+      results.done();
+      result = null;
     }
 
     return result;
