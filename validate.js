@@ -117,24 +117,6 @@ var onSaxonLoad = function() {
   //----------------------------------------------------------------
   // Functions
 
-  // Test the Results class - not called in production
-  function test_results() {
-    results.start_phase("Doing something");
-    results.info("Info 1");
-    results.info($('<div>Info 2</div>'));
-
-    results.start_phase("Something new, now");
-    results.info("Info 3");
-    results.warn("Warning 1");
-
-    results.start_phase("Yet another thing");
-    results.info("Info 4");
-    results.warn("Warning 2");
-    results.error($('<div>Error 1</div>'));
-
-    results.done();
-  }
-
   // Set the status. Values for level are one of NEUTRAL (default), GOOD, INFO, 
   // WARN, or ERROR. Most of the time, this is called from the results
   // object.
@@ -235,14 +217,14 @@ var onSaxonLoad = function() {
       set_status('Choose a JATS XML file to validate.');
     }
 
-    // start_phase_p returns a Promise, because we're using setTimeout to
+    // start_phase returns a Promise, because we're using setTimeout to
     // make sure that the page is rendered and visible to the user, before
     // embarking on very cpu-intensive processing
 
     var PHASE_DELAY = 100;   // in milliseconds
-    self.start_phase_p = function(p, id) {
+    self.start_phase = function(p, id) {
       return new Promise(function(resolve, reject) {
-        console.log("start_phase_p: " + p);
+        console.log("start_phase: " + p);
         results_area.show();
         if (!phase) {
           var lsv = $('#level_select').val();
@@ -266,32 +248,6 @@ var onSaxonLoad = function() {
           resolve();
         }, PHASE_DELAY);
       })
-    }
-
-
-    self.start_phase = function(p, id, cont) {
-      console.log("start_phase: " + p);
-      results_area.show();
-      if (!phase) {
-        var lsv = $('#level_select').val();
-
-        report_level = 
-            lsv == "errors" ? ERROR
-          : lsv == "warnings" ? WARN
-          : INFO;
-        results_area.html('');
-        level = GOOD;
-      }
-      phase_level = GOOD;
-      phase = $('<div class="phase"><h2>' + p + '</h2></div>');
-      if (typeof id !== "undefined" && id) {
-        phase.attr('id', id);
-      }
-      results_area.append(phase);
-      set_status(p, BUSY);
-      if (typeof(cont) !== "undefined") {
-        setTimeout(cont, 100);
-      }
     }
 
     self.done = function() {
@@ -366,7 +322,7 @@ var onSaxonLoad = function() {
     }
 
     // Read the file. This results in the onload function above being called
-    results.start_phase_p("Reading the XML file")
+    results.start_phase("Reading the XML file")
       .then(function() {
         reader.readAsText(input_file);
       });
@@ -380,7 +336,7 @@ var onSaxonLoad = function() {
   function start_session_url() {
     clear_input_file();
     reset_session();
-    results.start_phase_p("Fetching the XML file")
+    results.start_phase("Fetching the XML file")
       .then(function() {
         var headers = new Headers();
         headers.append("Accept", "application/jats+xml;q=1, application/xml");
@@ -486,7 +442,7 @@ var onSaxonLoad = function() {
   {
     var to_validate = typeof(dtd_filename) !== "undefined";
     var msg = "Parsing " + (to_validate ? "and validating against the DTD" : "");
-    return results.start_phase_p(msg)
+    return results.start_phase(msg)
       .then(function() {
 
         if (to_validate) {
@@ -547,7 +503,7 @@ var onSaxonLoad = function() {
   // Finally, do the Schematron validation with Saxon CE
   function schematron_validate(result) 
   {
-    results.start_phase_p("Checking JATS for Reuse rules", "schematron-results")
+    results.start_phase("Checking JATS for Reuse rules", "schematron-results")
       .then(function() {
 
 
