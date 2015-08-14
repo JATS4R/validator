@@ -46,6 +46,7 @@ var onSaxonLoad = function() {
       // Set event handlers
 
       $('#level_select').on('change', function(e) {
+
         // When the report level changes, if there's already a file
         // selected, then revalidate it.
         if (input_url) {
@@ -71,7 +72,6 @@ var onSaxonLoad = function() {
       });
 
       $('#jats_url').on('change', function(e) {
-        console.log("%o", e);
         input_url = $('#jats_url').val();
         start_session_url();
       });
@@ -101,21 +101,14 @@ var onSaxonLoad = function() {
       });
 
       $('#sample_select').on('change', function(e) {
-        console.log("select: " + $('#sample_select').val());
         $('#jats_url').val(e.target.value)
                       .trigger("change");
       });
 
       // Ready to go
       results.reset();
-//      set_status('Choose a JATS XML file to validate.');
-
-      //test_results();
     });
 
-
-  //----------------------------------------------------------------
-  // Functions
 
   // Set the status. Values for level are one of NEUTRAL (default), GOOD, INFO, 
   // WARN, or ERROR. Most of the time, this is called from the results
@@ -192,14 +185,22 @@ var onSaxonLoad = function() {
     self.filename = path.replace(/.*\//, "");;
   }
 
-  // Class to handle the results output and status message
-  // This is used as follows:
-  //   results.start_phase(p) - The first time this is called, it kicks
-  //       off a validation session
-  //   results.info(m), results.warn(m), results.error(m) - generate messages
-  //   results.start_phase(p) - Start a new phase
-  //   ...
-  //   results.done() - Finish up, reset back to the initial state
+
+  // Class to handle the results output and status message. In general, this
+  // manages the state of the machine. Use as follows:
+  //   // The first time this is called for a validation session, it
+  //   // resets all the status/results displays
+  //   results.start_phase("Now doing ...")
+  //     .then(function() {
+  //       ...
+  //       results.info(m), results.warn(m), results.error(m) - generate messages
+  //       ...
+  //       results.start_phase("Doing something else ...")
+  //         .then(function() {
+  //           ...
+  //           results.done();  // Finish up, reset back to the initial state
+  //         })
+  //     })
 
   function Results() {
     var self = this;
@@ -210,6 +211,10 @@ var onSaxonLoad = function() {
     var phase_level;    // level of the most severe message in this phase
     var report_level;   // value of the user-controlled select box
 
+    self.busy = function() {
+      return phase != null;
+    }
+
     self.reset = function() {
       phase = null;
       results_area.html('');
@@ -218,17 +223,17 @@ var onSaxonLoad = function() {
     }
 
     // start_phase returns a Promise, because we're using setTimeout to
-    // make sure that the page is rendered and visible to the user, before
-    // embarking on very cpu-intensive processing
+    // make sure that the status update is rendered and visible to the user, 
+    // before embarking on very cpu-intensive processing. Otherwise, the
+    // display freezes.
 
     var PHASE_DELAY = 100;   // in milliseconds
     self.start_phase = function(p, id) {
       return new Promise(function(resolve, reject) {
-        console.log("start_phase: " + p);
+        //console.log("start_phase: " + p);
         results_area.show();
         if (!phase) {
           var lsv = $('#level_select').val();
-
           report_level = 
               lsv == "errors" ? ERROR
             : lsv == "warnings" ? WARN
@@ -243,7 +248,7 @@ var onSaxonLoad = function() {
         }
         results_area.append(phase);
         set_status(p, BUSY);
-
+        // Go to sleep to give the display time to update
         setTimeout(function() {
           resolve();
         }, PHASE_DELAY);
@@ -292,12 +297,21 @@ var onSaxonLoad = function() {
     }
   }
 
-
-  // reset any vestiges of a previous session
+  // Reset any vestiges of a previous session
   function reset_session() {
     $('#listing-div').hide();
-    window.location.hash='';
+    window.location.hash = '';
     results.reset();
+  }
+
+  function disable_controls() {
+    $('#revalidate, #level_select, #choose_input').prop('disabled', true);
+    $('#sample_select').prop('disabled', true).trigger("chosen:updated");
+  }
+
+  function enable_controls() {
+    $('#revalidate, #level_select, #choose_input').prop('disabled', false);
+    $('#sample_select').prop('disabled', false).trigger("chosen:updated");
   }
 
   // This gets called in response to the user choosing a file, dropping a file,
@@ -306,6 +320,7 @@ var onSaxonLoad = function() {
   function start_session_file() {
     clear_input_url();
     reset_session();
+    disable_controls();
 
     var reader = new FileReader();
     reader.onload = function() {
@@ -336,13 +351,15 @@ var onSaxonLoad = function() {
   function start_session_url() {
     clear_input_file();
     reset_session();
+    disable_controls();
+
     results.start_phase("Fetching the XML file")
       .then(function() {
         var headers = new Headers();
         headers.append("Accept", "application/jats+xml;q=1, application/xml");
         fetch(input_url, { headers: headers })
           .then(
-            // success
+            // fetch success
             function(response) {
               if (response.status >= 200 && response.status < 300) {
                 return response.text();
@@ -433,7 +450,7 @@ var onSaxonLoad = function() {
     parse_and_dtd_validate(contents, dtd_filename, dtd_contents)
       .then(function(results) {
         schematron_validate(results);
-        $('#revalidate').prop('disabled', false);
+        enable_controls();
       });
   }
 
@@ -609,10 +626,10 @@ var onSaxonLoad = function() {
       $(locspan).wrap("<a href='#listing." + locations[i][0] + "'>")
     });
 
-/*
-    $('.language-markup').attr('style', 
-      'max-height: ' + Math.floor($(window).height() * 0.9) + 'px;');
-*/
+    // This set the height of the listing to be about the same as the viewport,
+    // but I took it out.
+    //$('.language-markup').attr('style', 
+    //  'max-height: ' + Math.floor($(window).height() * 0.9) + 'px;');
   }
 
 }
