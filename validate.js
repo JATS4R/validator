@@ -232,6 +232,8 @@ var onSaxonLoad = function() {
       return new Promise(function(resolve, reject) {
         //console.log("start_phase: " + p);
         results_area.show();
+
+        // If phase is null, then we're starting a new session
         if (!phase) {
           var lsv = $('#level_select').val();
           report_level = 
@@ -240,6 +242,7 @@ var onSaxonLoad = function() {
             : INFO;
           results_area.html('');
           level = GOOD;
+          disable_controls();
         }
         phase_level = GOOD;
         phase = $('<div class="phase"><h2>' + p + '</h2></div>');
@@ -263,6 +266,7 @@ var onSaxonLoad = function() {
         : level == WARN ? " with warnings."
         : " with errors.";
       set_status("Finished" + message, level);
+      enable_controls();
     }
 
     // Takes the argument passed to one of info(), warn(), or error(), and makes
@@ -314,68 +318,72 @@ var onSaxonLoad = function() {
     $('#sample_select').prop('disabled', false).trigger("chosen:updated");
   }
 
+  // Adapt the JavaScript File Reader interface to use Promises.
+  function read_file(filename) {
+    return new Promise(function(resolve, reject) {
+      var reader = new FileReader();
+      reader.onload = function() {
+        resolve(this.result);
+      }
+      reader.onerror = function(e) {
+        reject(e);
+      }
+      reader.readAsText(filename);
+    });
+  }
+
+
   // This gets called in response to the user choosing a file, dropping a file,
   // or pressing the "Revalidate" button, when the last thing validated was a file.
 
   function start_session_file() {
     clear_input_url();
     reset_session();
-    disable_controls();
-
-    var reader = new FileReader();
-    reader.onload = function() {
-      validate_session(this.result);
-    }
-    reader.onerror = function(e) {
-      var msg = "Error attempting to read the file."
-      var error_message = e.currentTarget.error.message;
-      if (error_message) {
-        msg += "\n\nSystem message: " + error_message;
-      }
-      results.error(msg);
-      results.done();
-    }
+    //disable_controls();
 
     // Read the file. This results in the onload function above being called
     results.start_phase("Reading the XML file")
       .then(function() {
-        reader.readAsText(input_file);
+        return read_file(input_file);
+      })
+      .then(function(content) {
+        validate_session(content);
+      })
+      .catch(function(err) {
+        var msg = "Error attempting to read the file."
+        var error_message = err.message;
+        if (error_message) {
+          msg += "\n\nSystem message: " + error_message;
+        }
+        results.error(msg);
+        results.done();
+        //enable_controls();
       });
-  }
-
-  function fetch_error(msg) {
-    results.error("Error attempting to fetch the file: " + msg);
-    results.done();
   }
 
   function start_session_url() {
     clear_input_file();
     reset_session();
-    disable_controls();
+    //disable_controls();
 
     results.start_phase("Fetching the XML file")
       .then(function() {
         var headers = new Headers();
         headers.append("Accept", "application/jats+xml;q=1, application/xml");
         fetch(input_url, { headers: headers })
-          .then(
-            // fetch success
-            function(response) {
-              if (response.status >= 200 && response.status < 300) {
-                return response.text();
-              }
-              else {
-                fetch_error(response.statusText);
-                return null;
-              }
-            },
-            // fetch error
-            function(e) {
-              fetch_error(e.message);
+          .then(function(response) {
+            if (response.status < 200 || response.status >= 300) {
+              throw Error("Bad response when fetching the XML file: " +
+                response.status + " - " + response.statusText);
             }
-          )
+            return response.text();
+          })
           .then(function(content) {
-            if (content) validate_session(content);
+            validate_session(content);
+          })
+          .catch(function(err) {
+            results.error("Error attempting to fetch the file: " + err.message);
+            results.done();
           });
       });
   }
@@ -384,61 +392,64 @@ var onSaxonLoad = function() {
   // or pressing the "Revalidate" button.
 
   function validate_session(contents) {
-      // Look for xml declaration. If one is found, change any encoding to utf-8
-      var xml_decl_re =
-        /^(<\?xml\s+.*?encoding\s*=\s*('|\"))(.*?)(('|\").*?\?>)/;
-      contents = contents.replace(xml_decl_re, "$1utf-8$4");
+    // Look for xml declaration. If one is found, change any encoding to utf-8
+    var xml_decl_re =
+      /^(<\?xml\s+.*?encoding\s*=\s*('|\"))(.*?)(('|\").*?\?>)/;
+    contents = contents.replace(xml_decl_re, "$1utf-8$4");
 
-      // Look for a doctype declaration
-      var doctype_pub_re = 
-        /<!DOCTYPE\s+\S+\s+PUBLIC\s+('|\")(.*?)('|\")\s+('|\")(.*?)('|\")\s*(\[[\s\S]*?\]\s*)?>/;
-      if (m = contents.match(doctype_pub_re)) {
-        var fpi = m[2];
-        var sysid = m[5];
+    // Look for a doctype declaration
+    var doctype_pub_re = 
+      /<!DOCTYPE\s+\S+\s+PUBLIC\s+('|\")(.*?)('|\")\s+('|\")(.*?)('|\")\s*(\[[\s\S]*?\]\s*)?>/;
+    if (m = contents.match(doctype_pub_re)) {
+      var fpi = m[2];
+      var sysid = m[5];
 
-        var dtd = dtd_database.dtd_by_fpi[fpi] || null;
-        if (!dtd) {
-          results.error("Bad doctype declaration. " +
-            "Unrecognized public identifier: '" + fpi + "'");
-        }
-
-      }
-      else {
-        var doctype_sys_re = 
-          /<!DOCTYPE\s+\S+\s+SYSTEM\s+\"(.*?)\"\s*(\[[\s\S]*?\]\s*)?>/;
-        if (m = contents.match(doctype_sys_re)) {
-          results.error(
-            "A doctype declaration was found that only contains a SYSTEM identifer. " +
-            "Documents conforming to JATS4R that use DTDs are required to include " +
-            "a PUBLIC identifier.");
-        }
-        else {
-          results.info(
-            "No doctype declaration was found, so DTD validation was skipped");
-        }
-      }
-
+      var dtd = dtd_database.dtd_by_fpi[fpi] || null;
       if (!dtd) {
-        do_validate(contents);
+        results.error("Bad doctype declaration. " +
+          "Unrecognized public identifier: '" + fpi + "'");
       }
-
+    }
+    else {
+      var doctype_sys_re = 
+        /<!DOCTYPE\s+\S+\s+SYSTEM\s+\"(.*?)\"\s*(\[[\s\S]*?\]\s*)?>/;
+      if (m = contents.match(doctype_sys_re)) {
+        results.error(
+          "A doctype declaration was found that only contains a SYSTEM identifer. " +
+          "Documents conforming to JATS4R that use DTDs are required to include " +
+          "a PUBLIC identifier.");
+      }
       else {
-        // Fetch the flattened DTD
-        fetch("dtds/" + dtd.path).then(function(response) {
+        results.info(
+          "No doctype declaration was found, so DTD validation was skipped");
+      }
+    }
+
+    if (!dtd) {
+      do_validate(contents);
+    }
+
+    else {
+      // Fetch the flattened DTD
+      fetch("dtds/" + dtd.path)
+        .then(function(response) {
+          if (response.status < 200 || response.status >= 300)
+            throw Error("Bad response when fetching the DTD: " +
+              response.status + " - " + response.statusText);
           return response.text();
         })
-        .then(
-          function(dtd_contents) {
-            // We use the public identifier from the doctype declaration to find the DTD,
-            // but xmllint fetches it by system identifier. So, we store whatever the system
-            // identifier is, for use by that call.
-            do_validate(contents, sysid, dtd_contents);
-          },
-          function(err) {
-            console.error(err);
-          }
-        );
-      }
+        .then(function(dtd_contents) {
+          // We use the public identifier from the doctype declaration to find the DTD,
+          // but xmllint fetches it by system identifier. So, we store whatever the system
+          // identifier is, for use by that call.
+          do_validate(contents, sysid, dtd_contents);
+        })
+        .catch(function(err) {
+          results.error(err.message);
+          results.done();
+          //enable_controls();
+        });
+    }
   }
 
 
@@ -450,7 +461,7 @@ var onSaxonLoad = function() {
     parse_and_dtd_validate(contents, dtd_filename, dtd_contents)
       .then(function(results) {
         schematron_validate(results);
-        enable_controls();
+        //enable_controls();
       });
   }
 
