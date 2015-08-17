@@ -46,11 +46,12 @@ var onSaxonLoad = function() {
       // Set event handlers
 
       $('#level_select').on('change', function(e) {
+        if (results.busy()) return;
 
         // When the report level changes, if there's already a file
         // selected, then revalidate it.
         if (input_url) {
-          console.log("validating url");
+          //console.log("validating url");
           start_session_url();
         }
         else if (input_file) {
@@ -60,6 +61,7 @@ var onSaxonLoad = function() {
       });
 
       $('#choose_input').on('change', function(e) {
+        if (results.busy()) return;
         input_file = $('#choose_input').get()[0].files[0];
         if (input_file) {
           set_drop_area();
@@ -72,6 +74,7 @@ var onSaxonLoad = function() {
       });
 
       $('#jats_url').on('change', function(e) {
+        if (results.busy()) return;
         input_url = $('#jats_url').val();
         start_session_url();
       });
@@ -80,6 +83,7 @@ var onSaxonLoad = function() {
         .bind('dragenter', ignore_drag)
         .bind('dragover', ignore_drag)
         .bind('drop', function(e) {
+          if (results.busy()) return;
           ignore_drag(e);
           input_file = e.originalEvent.dataTransfer.files[0];
           set_drop_area();
@@ -87,8 +91,9 @@ var onSaxonLoad = function() {
         });
 
       $('#revalidate').on('click', function(e) {
+        if (results.busy()) return;
         if (input_url) {
-          console.log("validating url");
+          //console.log("validating url");
           start_session_url();
         }
         else if (input_file) {
@@ -101,6 +106,7 @@ var onSaxonLoad = function() {
       });
 
       $('#sample_select').on('change', function(e) {
+        if (results.busy()) return;
         $('#jats_url').val(e.target.value)
                       .trigger("change");
       });
@@ -358,8 +364,13 @@ var onSaxonLoad = function() {
         results.error(msg);
         results.done();
         //enable_controls();
-      });
+      })
+    ;
   }
+
+  // Start a new session to validate from a URL.
+  // This fires off an asyncronous processing chain, and then returns right
+  // away.
 
   function start_session_url() {
     clear_input_file();
@@ -370,28 +381,37 @@ var onSaxonLoad = function() {
       .then(function() {
         var headers = new Headers();
         headers.append("Accept", "application/jats+xml;q=1, application/xml");
-        fetch(input_url, { headers: headers })
-          .then(function(response) {
-            if (response.status < 200 || response.status >= 300) {
-              throw Error("Bad response when fetching the XML file: " +
-                response.status + " - " + response.statusText);
-            }
-            return response.text();
-          })
-          .then(function(content) {
-            validate_session(content);
-          })
-          .catch(function(err) {
-            results.error("Error attempting to fetch the file: " + err.message);
-            results.done();
-          });
-      });
+        return fetch(input_url, { headers: headers });
+      })
+      .then(function(response) {
+        if (response.status < 200 || response.status >= 300) {
+          throw Error("Bad response when fetching the XML file: " +
+            response.status + " - " + response.statusText);
+        }
+        return response.text();
+      })
+      .then(function(content) {
+        validate_session(content);
+      })
+      .catch(function(err) {
+        results.error("Error attempting to fetch the file: " + err.message);
+        results.done();
+      })
+    ;
   }
 
-  // This gets called in response to the user choosing a file, dropping a file,
-  // or pressing the "Revalidate" button.
+  // Start validating some XML content.
+  // This gets called whenever we are starting a new validation session, either from
+  // a file or a URL.
+
+  // This does some work on the XML and doctype declarations, and then kicks off an
+  // asynchronous processing chain (either through do_validate(), or first through
+  // fetching the DTDs) and returns right away.
+
+  // This does not throw any errors.
 
   function validate_session(contents) {
+    //console.log("validate_session");
     // Look for xml declaration. If one is found, change any encoding to utf-8
     var xml_decl_re =
       /^(<\?xml\s+.*?encoding\s*=\s*('|\"))(.*?)(('|\").*?\?>)/;
@@ -447,8 +467,8 @@ var onSaxonLoad = function() {
         .catch(function(err) {
           results.error(err.message);
           results.done();
-          //enable_controls();
-        });
+        })
+      ;
     }
   }
 
@@ -456,15 +476,28 @@ var onSaxonLoad = function() {
   // This function gets called when we've finished reading the DTD, or, if
   // there is no DTD, immediately after the instance document is read. 
   // If there is no DTD, this will be called with only one argument.
+
+  // This kicks off an asynchronous processing chain, and then returns right 
+  // away.
+
+  // This does not throw any errors.
+
   function do_validate(contents, dtd_filename, dtd_contents) 
   {
     parse_and_dtd_validate(contents, dtd_filename, dtd_contents)
       .then(function(results) {
-        schematron_validate(results);
-        //enable_controls();
+        //console.log("parse_and_dtd_validate results: " + results);
+        if (results) schematron_validate(results);
       });
   }
 
+
+  // Parse the XML file, and validate it against the DTD, using xmllint.
+
+  // This creates a start_phase Promise, and returns it, immediately. 
+
+  // This does not throw any errors, but the then() method on the promise might
+  // return null, if there's an error with DTD validation
 
   function parse_and_dtd_validate(contents, dtd_filename, dtd_contents) 
   {
@@ -529,12 +562,18 @@ var onSaxonLoad = function() {
   }
 
   // Finally, do the Schematron validation with Saxon CE
+
+  // This creates a start_phase Promise, and returns it, immediately. 
+
+  // This does not throw any errors. When the then() method returns, processing
+  // for this session is done.
+
   function schematron_validate(result) 
   {
     results.start_phase("Checking JATS for Reuse rules", "schematron-results")
       .then(function() {
 
-
+        // Run the Saxon parser and then the schematron validator. This blocks.
         var doc, pe;
         var parse_error = false;
         try {
@@ -556,7 +595,9 @@ var onSaxonLoad = function() {
         else {
           // FIXME:  need to parameterize the version number
           var level = $('#level_select').val();
-          Saxon.run({
+          //console.log("About to Saxon.run");
+
+          var run_result = Saxon.run({
             stylesheet: 'generated-xsl/0.1/' + xslt[level],
             source: doc,
             method: 'transformToDocument',
@@ -580,6 +621,11 @@ var onSaxonLoad = function() {
                 : sr.find("td.info").length != 0 ? INFO
                 : GOOD;
               results.bump_level(level);
+              results.done();
+            },
+            errorHandler: function(e) {
+              results.error("Server error while attempting to validate JATS4R rules. " + 
+                            "Please report this as an issue on GitHub.");
               results.done();
             }
           });
