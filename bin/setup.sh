@@ -13,11 +13,10 @@ mkdir -p lib
 
 
 # Chosen
-
 cd $JATS4R_HOME/lib
-mkdir -p chosen
-cd chosen
-if ! [ -d chosen.css ]; then
+if ! [ -d chosen ]; then
+    mkdir -p chosen
+    cd chosen
     wget https://github.com/harvesthq/chosen/releases/download/1.4.2/chosen_v1.4.2.zip
     if [ $? -ne 0 ]; then
         echo "wget chosen failed; aborting"
@@ -26,6 +25,15 @@ if ! [ -d chosen.css ]; then
     unzip chosen_v1.4.2.zip
 fi
 
+# Spin.js
+cd $JATS4R_HOME/lib
+if ! [ -e spin.min.js ]; then
+    wget https://raw.githubusercontent.com/fgnass/spin.js/2.3.2/spin.min.js
+    if [ $? -ne 0 ]; then
+        echo "wget spin.min.js failed; aborting"
+        exit 1
+    fi
+fi
 
 # Saxon CE 1.1
 cd $JATS4R_HOME/lib
