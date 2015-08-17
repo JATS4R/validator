@@ -1,3 +1,5 @@
+
+
 $(document).ready(function() {
   $('#sample_select').chosen();
 });
@@ -34,6 +36,34 @@ var onSaxonLoad = function() {
 
   clear_input_file();
   clear_input_url();
+
+  // Spinner, from spin.js (http://fgnass.github.io/spin.js/)
+  var spinner_opts = {
+      lines: 13      // The number of lines to draw
+    , length: 28     // The length of each line
+    , width: 14      // The line thickness
+    , radius: 42     // The radius of the inner circle
+    , scale: 1       // Scales overall size of the spinner
+    , corners: 1     // Corner roundness (0..1)
+    , color: '#000'  // #rgb or #rrggbb or array of colors
+    , opacity: 0.25  // Opacity of the lines
+    , rotate: 0      // The rotation offset
+    , direction: 1   // 1: clockwise, -1: counterclockwise
+    , speed: 1       // Rounds per second
+    , trail: 60      // Afterglow percentage
+    , fps: 20        // Frames per second when using setTimeout() as a fallback for CSS
+    , zIndex: 2e9    // The z-index (defaults to 2000000000)
+    , className: 'spinner' // The CSS class to assign to the spinner
+    , top: '50%'     // Top position relative to parent
+    , left: '50%'    // Left position relative to parent
+    , shadow: false  // Whether to render a shadow
+    , hwaccel: false // Whether to use hardware acceleration
+    , position: 'absolute' // Element positioning
+    }
+  var spinner_target = document.getElementById('spinner')
+  var spinner = new Spinner(spinner_opts).spin(spinner_target);
+
+
 
   // First fetch the DTDs database, then add event handlers
   fetch("dtds.yaml")
@@ -224,8 +254,13 @@ var onSaxonLoad = function() {
     self.reset = function() {
       phase = null;
       results_area.html('');
+
+      results_area.attr('style', 
+        'max-height: ' + Math.floor($(window).height() * 0.5) + 'px;');
+
       results_area.hide();
       set_status('Choose a JATS XML file to validate.');
+      spinner.stop();
     }
 
     // start_phase returns a Promise, because we're using setTimeout to
@@ -241,6 +276,7 @@ var onSaxonLoad = function() {
 
         // If phase is null, then we're starting a new session
         if (!phase) {
+          spinner.spin(spinner_target);
           var lsv = $('#level_select').val();
           report_level = 
               lsv == "errors" ? ERROR
@@ -273,6 +309,7 @@ var onSaxonLoad = function() {
         : " with errors.";
       set_status("Finished" + message, level);
       enable_controls();
+      spinner.stop();
     }
 
     // Takes the argument passed to one of info(), warn(), or error(), and makes
