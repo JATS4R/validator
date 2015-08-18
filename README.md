@@ -6,7 +6,7 @@ This is the code repository for the JATS4R client-side validator, deployed to
 
 This was the subject of a paper presented at Balisage, 2015:
 [A client-side JATS4R validator using 
-Saxon-CE](http://www.balisage.net/Proceedings/vol15/html/Beck01/BalisageVol15-Beck01.html)
+Saxon-CE](http://www.balisage.net/Proceedings/vol15/html/Beck01/BalisageVol15-Beck01.html).
 
 
 Contents
