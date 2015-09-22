@@ -15,7 +15,7 @@ $ua->timeout(10);
 
 my $dtds_yaml = do {
     local $/ = undef;
-    open my $file, "<", '../dtds.yaml'
+    open my $file, "<", '../jats-schema.yaml'
         or return 0;
     <$file>;
 };

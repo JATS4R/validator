@@ -24,7 +24,7 @@ jats_dtd_base = os.environ.get('JATS_DTD_BASE') or "."
 flat_base = 'dtds'
 
 # Read the YAML database
-with open("dtds.yaml", "r") as stream:
+with open("jats-schema.yaml", "r") as stream:
     dtds_db = yaml.load(stream)
 
 dtds = dtds_db['dtds']
