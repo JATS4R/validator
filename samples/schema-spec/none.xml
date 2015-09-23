@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<article dtd-version="1.0" >
+  <front>
+    <journal-meta>
+      <journal-id></journal-id>
+      <issn></issn>
+    </journal-meta>
+    <article-meta>
+      <title-group>
+        <article-title>Archival DTD Test Article</article-title>
+        <subtitle>(Just a small one for parsing)</subtitle>
+      </title-group>
+      <pub-date>
+        <year>2015</year>
+      </pub-date>
+    </article-meta>
+  </front>
+  <body>
+  </body>
+</article>
