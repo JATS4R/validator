@@ -66,7 +66,7 @@ var onSaxonLoad = function() {
 
 
   // First fetch the DTDs database, then add event handlers
-  fetch("dtds.yaml")
+  fetch("jats-schema.yaml")
     .then(function(response) {
       return response.text();
     })
@@ -198,17 +198,29 @@ var onSaxonLoad = function() {
   }
   
 
-  // Some classes for holding information about a dtd, as read from the dtds.yaml file
+  // Some classes for holding information about a dtd, as read from the jats-schema.yaml file
 
   function DtdDatabase(db) {
     var self = this;
     self.db = db;
 
     var dtd_by_fpi = {};
-    db.dtds.forEach(function(dtd_data) {
-      dtd_by_fpi[dtd_data.fpi] = new Dtd(dtd_data);
+    var dtd_by_sysid = {};
+    var dtd_by_rng = {};
+    var dtd_by_xsd = {};
+
+    db.dtds.forEach(function(d) {
+      var dtd = new Dtd(d)
+      dtd_by_fpi[d.fpi] = dtd;
+      dtd_by_sysid[d.system_id] = dtd;
+      if (d.rng) dtd_by_rng[d.rng] = dtd;
+      if (d.xsd) dtd_by_xsd[d.xsd] = dtd;
     });
+
     self.dtd_by_fpi = dtd_by_fpi;
+    self.dtd_by_sysid = dtd_by_sysid;
+    self.dtd_by_rng = dtd_by_rng;
+    self.dtd_by_xsd = dtd_by_xsd;
   }
 
   function Dtd(dtd_data) {
@@ -448,41 +460,165 @@ var onSaxonLoad = function() {
   // This does not throw any errors.
 
   function validate_session(contents) {
+    var m;
+
     //console.log("validate_session");
-    // Look for xml declaration. If one is found, change any encoding to utf-8
+    // Look for xml declaration. If one is found, change any encoding specifier
+    // to utf-8. This is necessary, because the document will always be passed
+    // to libxml as utf-8, and the declaration here must match.
     var xml_decl_re =
       /^(<\?xml\s+.*?encoding\s*=\s*('|\"))(.*?)(('|\").*?\?>)/;
     contents = contents.replace(xml_decl_re, "$1utf-8$4");
 
-    // Look for a doctype declaration
+
+    // Look for <?xml-model?> PIs
+    var xml_model_pis = [];
+    var xml_model_regexp = 
+      /<\?xml-model\s+([\s\S]*?)\s*\?>/g;
+    if (m = contents.match(xml_model_regexp)) {
+      for (var i = 0; i < m.length; ++i) {
+        xml_model_pis.push(jats4r_utils.parse_pi(m[i]));
+      }
+    }
+    console.log("xml-model pis: %o", xml_model_pis);
+
+    var jats4r_version = null;
+    var dtd = null;
+
+    // Call this function every time we get a reference to a new jats schema,
+    // by whatever mechanism.
+    function check_same_schema(new_jats_schema) {
+      if (dtd) {
+        if (new_jats_schema.data.system_id != dtd.data.system_id) {
+          results.error(
+            "Multiple ways of referencing a JATS schema were found, and they do not match. " +
+            "For the purposes of this validation, the first specification " +
+            "will be used."
+          );
+        }
+        else {
+          results.info(
+            "Multiple ways of referencing a JATS schema were found, and they match."
+          );
+        }
+      }
+      else {
+        dtd = new_jats_schema;
+      }
+    }
+
+    var s;
+    xml_model_pis.forEach(function(pi) {
+      var m;
+      if (!pi.href) return;
+      var schematypens = pi.schematypens ? pi.schematypens : '';
+      var type = pi.type ? pi.type : '';
+
+      // Check JATS4R <?xml-model?> PI
+      if ( schematypens == "http://purl.oclc.org/dsdl/schematron" &&
+           (m = pi.href.match(/http:\/\/jats4r\.org\//)) )
+      {
+        // We know they're *trying* to use this PI, make sure it's strictly correct:
+        if (! (m = pi.href.match(/^http:\/\/jats4r\.org\/schema\/(\d+\.\d+)\/jats4r\.sch$/)) ) {
+          results.error(
+            "The JATS4R xml-model processing instruction seems to be in the wrong form. " +
+            "Please check that the href pseudo-attribute is strictly of the form, for example, " +
+            "<blockquote><pre>http://jats4r.org/schema/1.0/jats4r.sch</pre></blockquote>"
+          );
+        }
+        else if (jats4r_version) {
+          results.error(
+            "Two JATS4R xml-model processing instructions encountered!"
+          );
+        }
+        else {
+          jats4r_version = m[1];
+        }
+      }
+
+      // Check for xml-model calling out one of DTD, RNG, or XSD
+      else if (type == "application/xml-dtd") {
+        s = dtd_database.dtd_by_sysid[pi.href] || null;
+        if (!s) {
+          results.error("Bad xml-model processing instruction. " +
+            "Unrecognized URL: '" + pi.href + "'");
+        }
+        else check_same_schema(s);
+      }
+      else if (schematypens == "http://relaxng.org/ns/structure/1.0") {
+        s = dtd_database.dtd_by_rng[pi.href] || null;
+        console.log("got an rng: %o", s);
+        if (s) check_same_schema(s);
+        console.log("dtd is %o", dtd);
+      }
+      else if (schematypens == "http://www.w3.org/2001/XMLSchema") {
+        s = dtd_database.dtd_by_xsd[pi.href] || null;
+        if (s) check_same_schema(s);
+      }
+    });
+
+    if (!jats4r_version) {
+      results.warn(
+        "JATS4R-compliant articles should use the xml-model processing instruction to " +
+        "specify that they comply with our recommendations. For example: " + 
+        "<blockquote><pre>&lt;?xml-model href=\"http://jats4r.org/schema/1.0/jats4r.sch\"\n" +
+        "  schematypens=\"http://purl.oclc.org/dsdl/schematron\" title=\"JATS4R 1.0\"?></pre></blockquote>"
+      );
+    }
+
+    // Look for a doctype declaration. (Note that in these regexps we use
+    // "[\s\S]" instead of ".", to make sure it matches newlines.)
     var doctype_pub_re = 
       /<!DOCTYPE\s+\S+\s+PUBLIC\s+('|\")(.*?)('|\")\s+('|\")(.*?)('|\")\s*(\[[\s\S]*?\]\s*)?>/;
     if (m = contents.match(doctype_pub_re)) {
+
       var fpi = m[2];
       var sysid = m[5];
 
-      var dtd = dtd_database.dtd_by_fpi[fpi] || null;
-      if (!dtd) {
+      s = dtd_database.dtd_by_fpi[fpi] || null;
+      if (!s) {
         results.error("Bad doctype declaration. " +
           "Unrecognized public identifier: '" + fpi + "'");
+      }
+      else if (s.data.system_id != sysid) {
+        results.error(
+          "<p>Bad doctype declaration: the public and system identifiers don't match.</p>\n" +
+          "<blockquote>\n" + 
+          "<p>Based on the public identifier of '" + fpi + "', we were expecting a " +
+          "system identifier of '" + s.data.system_id + "'. However, this document " +
+          "has '" + sysid + "'. JATS4R requires that, when using a doctype declaration, " +
+          "you should use the full URI of the system identifier.</p>\n" +
+          "</blockquote>"
+        );
+      }
+      else {
+          check_same_schema(s);
       }
     }
     else {
       var doctype_sys_re = 
-        /<!DOCTYPE\s+\S+\s+SYSTEM\s+\"(.*?)\"\s*(\[[\s\S]*?\]\s*)?>/;
+        /<!DOCTYPE\s+\S+\s+SYSTEM\s+('|\")(.*?)('|\")\s*(\[[\s\S]*?\]\s*)?>/;
       if (m = contents.match(doctype_sys_re)) {
         results.error(
           "A doctype declaration was found that only contains a SYSTEM identifer. " +
           "Documents conforming to JATS4R that use DTDs are required to include " +
           "a PUBLIC identifier.");
       }
-      else {
-        results.info(
-          "No doctype declaration was found, so DTD validation was skipped");
-      }
     }
 
+
+    // FIXME: to do: check for XSD attributes on the root element
+
+
+
+    // Check the rules for schema specifications:
+    // * If there is more than one spec for JATS, they must all agree
+
+
+
     if (!dtd) {
+      results.info(
+        "No JATS schema specification was found, so <em>JATS</em> validation will be skipped");
       do_validate(contents);
     }
 

@@ -8,8 +8,8 @@
   "http://jats.nlm.nih.gov/publishing/1.0/JATS-journalpublishing1.dtd">
 
 <article dtd-version="1.0"
-  xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"
-  xs:noNamespaceSchemaLocation=
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation=
     "http://jats.nlm.nih.gov/publishing/1.0/xsd/JATS-journalpublishing1.xsd">
   <front>
     <journal-meta>
