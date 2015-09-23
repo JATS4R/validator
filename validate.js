@@ -471,17 +471,6 @@ var onSaxonLoad = function() {
     contents = contents.replace(xml_decl_re, "$1utf-8$4");
 
 
-    // Look for <?xml-model?> PIs
-    var xml_model_pis = [];
-    var xml_model_regexp = 
-      /<\?xml-model\s+([\s\S]*?)\s*\?>/g;
-    if (m = contents.match(xml_model_regexp)) {
-      for (var i = 0; i < m.length; ++i) {
-        xml_model_pis.push(jats4r_utils.parse_pi(m[i]));
-      }
-    }
-    console.log("xml-model pis: %o", xml_model_pis);
-
     var jats4r_version = null;
     var dtd = null;
 
@@ -506,6 +495,19 @@ var onSaxonLoad = function() {
         dtd = new_jats_schema;
       }
     }
+
+
+    // Look for <?xml-model?> PIs
+    // --------------------------
+    var xml_model_pis = [];
+    var xml_model_regexp = 
+      /<\?xml-model\s+([\s\S]*?)\s*\?>/g;
+    if (m = contents.match(xml_model_regexp)) {
+      for (var i = 0; i < m.length; ++i) {
+        xml_model_pis.push(jats4r_utils.parse_pi(m[i]));
+      }
+    }
+    console.log("xml-model pis: %o", xml_model_pis);
 
     var s;
     xml_model_pis.forEach(function(pi) {
@@ -566,7 +568,11 @@ var onSaxonLoad = function() {
       );
     }
 
-    // Look for a doctype declaration. (Note that in these regexps we use
+
+    // Look for a doctype declaration 
+    // ------------------------------
+
+    // (Note that in these regexps we use
     // "[\s\S]" instead of ".", to make sure it matches newlines.)
     var doctype_pub_re = 
       /<!DOCTYPE\s+\S+\s+PUBLIC\s+('|\")(.*?)('|\")\s+('|\")(.*?)('|\")\s*(\[[\s\S]*?\]\s*)?>/;
@@ -607,7 +613,33 @@ var onSaxonLoad = function() {
     }
 
 
-    // FIXME: to do: check for XSD attributes on the root element
+    // Look for XSD attributes on the root element
+    var xsd_uri = null;
+    var root_elem_re = /<\s*article\s+([\s\S]*?)>/;
+    if (m = contents.match(root_elem_re)) {
+      var root_attrs = jats4r_utils.parse_attrs(m[1]);
+      // iterate through the attributes to see if an XSD namespace prefix was set
+      var xsi_namespace = "http://www.w3.org/2001/XMLSchema-instance";
+      var xsi_prefix = null;
+      for (a in root_attrs) {
+        if (a.startsWith("xmlns:") && root_attrs[a] == xsi_namespace) {
+          xsi_prefix = a.substr(6);
+          break;
+        }
+      }
+      // now iterate again to see if a schema instance was specified
+      for (a in root_attrs) {
+        if (a = xsi_prefix + ":noNamespaceSchemaLocation") {
+          xsd_uri = root_attrs[a];
+          break;
+        }
+      }
+    }
+    if (xsd_uri) {
+      s = dtd_database.dtd_by_xsd[xsd_uri] || null;
+      if (s) check_same_schema(s);
+    }
+
 
 
 
