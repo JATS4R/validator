@@ -72,17 +72,9 @@ var onSaxonLoad = function() {
 
 
   // First fetch the DTDs database, then add event handlers
-/*
-  fetch("jats-schema.yaml")
-    .then(function(response) {
-      return response.text();
-    })
-    .then(function(yaml_str) {
-      jats_schema_db = new jats4r.jats_schema.JatsSchemaDb(jsyaml.load(yaml_str));
-*/
-
   jats4r.jats_schema.read_database("jats-schema.yaml")
     .then(function(db) {
+      // FIXME: couldn't I set this inside the jats-schema module?
       jats4r.jats_schema_db = db;
 
       // Set event handlers
@@ -481,21 +473,21 @@ var onSaxonLoad = function() {
 
     // FIXME: I'm going to want to store the schema ref, so I know what type
     // of validation to do.
-    var jats_schema = null,
+    var jats_schema_ref = null,
         count = 0,
         diffs = false;
 
     schema_refs.forEach(function(sr) {
       if (sr.is_jats) {
         count++;
-        if (count == 1) jats_schema = sr.schema;
+        if (count == 1) jats_schema_ref = sr;
         else if (!diffs) {
-          if (sr.schema.fpi != jats_schema.fpi) diffs = true;
+          if (sr.schema.fpi != jats_schema_ref.schema.fpi) diffs = true;
         }
       }
     });
 
-    if (!jats_schema) {
+    if (!jats_schema_ref) {
       results.warn(
         "<p>No reference to any JATS schema (doctype declaration, xml-model " +
         "processing instruction, or xsd attributes on the root node) were " +
@@ -521,50 +513,16 @@ var onSaxonLoad = function() {
     }
 
 
-
-
-    // Look for XSD attributes on the root element
-    var xsd_uri = null;
-    var root_elem_re = /<\s*article\s+([\s\S]*?)>/;
-    if (m = contents.match(root_elem_re)) {
-      var root_attrs = jats4r.parser.parse_attrs(m[1]);
-      // iterate through the attributes to see if an XSD namespace prefix was set
-      var xsi_namespace = "http://www.w3.org/2001/XMLSchema-instance";
-      var xsi_prefix = null;
-      for (a in root_attrs) {
-        if (a.startsWith("xmlns:") && root_attrs[a] == xsi_namespace) {
-          xsi_prefix = a.substr(6);
-          break;
-        }
-      }
-      // now iterate again to see if a schema instance was specified
-      for (a in root_attrs) {
-        if (a = xsi_prefix + ":noNamespaceSchemaLocation") {
-          xsd_uri = root_attrs[a];
-          break;
-        }
-      }
-    }
-    if (xsd_uri) {
-      s = jats4r.jats_schema_db.schema_by_xsd[xsd_uri] || null;
-      if (s) check_same_schema(s);
-    }
-
-
-
-
-    // Check the rules for schema specifications:
-    // * If there is more than one spec for JATS, they must all agree
-
-
-
-    if (!jats_schema) {
+    if (!jats_schema_ref) {
       do_validate(contents);
     }
 
     else {
+      // Here is the schema we will use:
+      var schema = jats_schema_ref.schema;
+
       // Fetch the flattened DTD
-      fetch("dtds/" + jats_schema.path)
+      fetch("jats-schema/" + schema.dtd_repo_path())
         .then(function(response) {
           if (response.status < 200 || response.status >= 300)
             throw Error("Bad response when fetching the DTD: " +
@@ -575,7 +533,7 @@ var onSaxonLoad = function() {
           // We use the public identifier from the doctype declaration to find the DTD,
           // but xmllint fetches it by system identifier. So, we store whatever the system
           // identifier is, for use by that call.
-          do_validate(contents, jats_schema.system_id, schema_contents);
+          do_validate(contents, schema.dtd.sysid, schema_contents);
         })
         .catch(function(err) {
           results.error(err.message);

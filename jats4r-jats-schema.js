@@ -21,35 +21,39 @@ jats4r.jats_schema = (function() {
     var self = this;
     self.db = db;      // original yaml file data
 
-    var schema_by_fpi = {};
-    var schema_by_sysid = {};
-    var schema_by_rng = {};
-    var schema_by_xsd = {};
+    var by_fpi = {};
+    var by_sysid = {};
+    var by_rng_uri = {};
+    var by_xsd_uri = {};
 
-    db.dtds.forEach(function(d) {
-      var dtd = new Schema(d)
-      schema_by_fpi[d.fpi] = dtd;
-      schema_by_sysid[d.system_id] = dtd;
-      if (d.rng) schema_by_rng[d.rng] = dtd;
-      if (d.xsd) schema_by_xsd[d.xsd] = dtd;
+    db.schema.forEach(function(d) {
+      var s = new Schema(d)
+      by_fpi[s.fpi] = s;
+      by_sysid[s.dtd.sysid] = s;
+      if (s.rng && s.rng.uri) by_rng_uri[s.rng.uri] = s;
+      if (s.xsd && s.xsd.uri) by_xsd_uri[s.xsd.uri] = s;
     });
 
-    self.schema_by_fpi = schema_by_fpi;
-    self.schema_by_sysid = schema_by_sysid;
-    self.schema_by_rng = schema_by_rng;
-    self.schema_by_xsd = schema_by_xsd;
+    self.get_by_fpi = function(fpi) {
+      return by_fpi[fpi];
+    }
+    self.get_by_sysid = function(sysid) {
+      return by_sysid[sysid];
+    }
+    self.get_by_rng_uri = function(rng_uri) {
+      return by_rng_uri[rng_uri];
+    }
+    self.get_by_xsd_uri = function(xsd_uri) {
+      return by_xsd_uri[xsd_uri];
+    }
   }
 
-  function Schema(s) {
+  function Schema(d) {
     var self = this;
-
-    self.path = s.path;
-    self.fpi = s.fpi;
-    self.system_id = s.system_id;
-    self.rng = s.rng || null;
-    self.xsd = s.xsd || null;
-    //self.dir = path.replace(/(.*)\/.*/, "$1");
-    //self.filename = path.replace(/.*\//, "");
+    $.extend(true, self, d);
+    self.dtd_repo_path = function() {
+      return self.repo_base_path + '/' + self.dtd.repo_path;
+    }
   }
 
   return {

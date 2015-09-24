@@ -46,17 +46,17 @@ jats4r.parser = (function() {
       var fpi = m[2];
       var sysid = m[5];
 
-      s = schema_db.schema_by_fpi[fpi] || null;
+      s = schema_db.get_by_fpi(fpi) || null;
       if (!s) {
         results.error("Bad doctype declaration. " +
           "Unrecognized public identifier: '" + fpi + "'");
       }
-      else if (s.system_id != sysid) {
+      else if (s.dtd.sysid != sysid) {
         results.error(
           "<p>Bad doctype declaration: the public and system identifiers don't match.</p>\n" +
           "<blockquote>\n" + 
           "<p>Based on the public identifier of '" + fpi + "', we were expecting a " +
-          "system identifier of '" + s.system_id + "'. However, this document " +
+          "system identifier of '" + s.dtd.sysid + "'. However, this document " +
           "has '" + sysid + "'. JATS4R requires that, when using a doctype declaration, " +
           "you should use the full URI of the system identifier.</p>\n" +
           "</blockquote>"
@@ -127,7 +127,7 @@ jats4r.parser = (function() {
 
       // Check for xml-model calling out one of DTD, RNG, or XSD
       else if (type == "application/xml-dtd") {
-        s = schema_db.schema_by_sysid[pi.href] || null;
+        s = schema_db.get_by_sysid(pi.href) || null;
         if (!s) {
           results.error("Bad xml-model processing instruction. " +
             "This references a DTD, but the DTD is not one of the recognized JATS " +
@@ -141,7 +141,7 @@ jats4r.parser = (function() {
         }
       }
       else if (schematypens == "http://relaxng.org/ns/structure/1.0") {
-        s = schema_db.schema_by_rng[pi.href] || null;
+        s = schema_db.get_by_rng_uri(pi.href) || null;
         if (s) {
           schema_ref.is_jats = true;
           schema_ref.ref_type = 'rng';
@@ -150,7 +150,7 @@ jats4r.parser = (function() {
         }
       }
       else if (schematypens == "http://www.w3.org/2001/XMLSchema") {
-        s = schema_db.schema_by_xsd[pi.href] || null;
+        s = schema_db.get_by_xsd_uri(pi.href) || null;
         if (s) {
           schema_ref.is_jats = true;
           schema_ref.ref_type = 'xsd';
@@ -188,11 +188,11 @@ jats4r.parser = (function() {
       }
     }
     if (xsd_uri) {
-      s = schema_db.schema_by_xsd[xsd_uri] || null;
+      s = schema_db.get_by_xsd_uri(xsd_uri) || null;
       if (s) {
         schema_refs.push({
           type: 'xsd-attrs',
-          is_jats: true;
+          is_jats: true,
           ref_type: 'xsd',
           schema: s,
         });
