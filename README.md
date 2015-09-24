@@ -19,6 +19,8 @@ Contents
 * [Schema sources](#schema-sources)
 * [Generating XSLTs from Schematron sources](#generating-xslts-from-schematron-sources)
 * [Testing](#testing)
+* [How it works](#how-it-works)
+* [Limitations](#limitations)
 * [Dependencies](#dependencies)
 
 
@@ -233,6 +235,17 @@ validator using Saxon-CE". The following is the data-flow diagram from that pape
 illustrating in a compact form what is happening under the hood.
 
 ![Data flow diagram](https://raw.githubusercontent.com/JATS4R/validator/master/assets/jats4r-validator-data-flow-small.png)
+
+
+Limitations
+-----------
+
+Since it runs on the client, and we don't have access to all the features of
+libxml, the first phase, in which the tool looks for `<?xml-model?>` processing
+instructions and the doctype declaration, is done with a custom parser, that is
+not very robust. Therefore, some things will be missed: for example, if a
+processing instruction (PI) is "commented out", this validator will not notice the
+comment delimiters, and will treat the PI as though it weren't.
 
 
 Dependencies

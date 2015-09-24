@@ -1,4 +1,31 @@
-jats4r_utils = (function() {
+// This module contains functions for parsing the XML header.
+// parse_header() looks at everything up to and including the opening tag,
+// and, among other things, makes a list of schema references.
+
+if (typeof jats4r == "undefined") jats4r = {};
+
+jats4r.parser = (function() {
+
+  function parse_header(contents) {
+    var m, i;
+
+    // Look for <?xml-model?> PIs
+    // --------------------------
+    var xml_model_pis = [];
+    var xml_model_regexp = 
+      /<\?xml-model\s+([\s\S]*?)\s*\?>/g;
+    if (m = contents.match(xml_model_regexp)) {
+      for (i = 0; i < m.length; ++i) {
+        xml_model_pis.push(jats4r.parser.parse_pi(m[i]));
+      }
+    }
+    console.log("xml-model pis: %o", xml_model_pis);
+
+
+
+
+  }
+
 
   // Parse a PI
   function parse_pi(str) {

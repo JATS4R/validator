@@ -1,4 +1,11 @@
+// Main validator module.  Data is passed among modules using the global `jats4r`
+// object:
+//   - parser - functions defined in jats4r-parser.js
+//   - jats_schema - functions defined in jats4r-jats-schema.js
+//   - jats_schema_db - the JatsSchemaDb object, which has data from 
+//     jats-schema.yaml, and various accessor methods.
 
+if (typeof jats4r == "undefined") jats4r = {};
 
 $(document).ready(function() {
   $('#sample_select').chosen();
@@ -21,9 +28,6 @@ var onSaxonLoad = function() {
       ERROR = 4,
       BUSY = 5;
 
-
-  // Singleton DtdDatabase object (see below for the class definition)  
-  var dtd_database = null;
 
   // This is the input JATS file we'll be working on
   var input_file;
@@ -66,12 +70,18 @@ var onSaxonLoad = function() {
 
 
   // First fetch the DTDs database, then add event handlers
+/*
   fetch("jats-schema.yaml")
     .then(function(response) {
       return response.text();
     })
     .then(function(yaml_str) {
-      dtd_database = new DtdDatabase(jsyaml.load(yaml_str));
+      jats_schema_db = new jats4r.jats_schema.JatsSchemaDb(jsyaml.load(yaml_str));
+*/
+
+  jats4r.jats_schema.read_database("jats-schema.yaml")
+    .then(function(db) {
+      jats4r.jats_schema_db = db;
 
       // Set event handlers
 
@@ -198,40 +208,6 @@ var onSaxonLoad = function() {
   }
   
 
-  // Some classes for holding information about a dtd, as read from the jats-schema.yaml file
-
-  function DtdDatabase(db) {
-    var self = this;
-    self.db = db;
-
-    var dtd_by_fpi = {};
-    var dtd_by_sysid = {};
-    var dtd_by_rng = {};
-    var dtd_by_xsd = {};
-
-    db.dtds.forEach(function(d) {
-      var dtd = new Dtd(d)
-      dtd_by_fpi[d.fpi] = dtd;
-      dtd_by_sysid[d.system_id] = dtd;
-      if (d.rng) dtd_by_rng[d.rng] = dtd;
-      if (d.xsd) dtd_by_xsd[d.xsd] = dtd;
-    });
-
-    self.dtd_by_fpi = dtd_by_fpi;
-    self.dtd_by_sysid = dtd_by_sysid;
-    self.dtd_by_rng = dtd_by_rng;
-    self.dtd_by_xsd = dtd_by_xsd;
-  }
-
-  function Dtd(dtd_data) {
-    var self = this;
-    self.data = dtd_data;
-
-    var path = dtd_data.path;
-    self.path = path;
-    self.dir = path.replace(/(.*)\/.*/, "$1");
-    self.filename = path.replace(/.*\//, "");;
-  }
 
 
   // Class to handle the results output and status message. In general, this
@@ -504,7 +480,7 @@ var onSaxonLoad = function() {
       /<\?xml-model\s+([\s\S]*?)\s*\?>/g;
     if (m = contents.match(xml_model_regexp)) {
       for (var i = 0; i < m.length; ++i) {
-        xml_model_pis.push(jats4r_utils.parse_pi(m[i]));
+        xml_model_pis.push(jats4r.parser.parse_pi(m[i]));
       }
     }
     console.log("xml-model pis: %o", xml_model_pis);
@@ -540,7 +516,7 @@ var onSaxonLoad = function() {
 
       // Check for xml-model calling out one of DTD, RNG, or XSD
       else if (type == "application/xml-dtd") {
-        s = dtd_database.dtd_by_sysid[pi.href] || null;
+        s = jats4r.jats_schema_db.schema_by_sysid[pi.href] || null;
         if (!s) {
           results.error("Bad xml-model processing instruction. " +
             "Unrecognized URL: '" + pi.href + "'");
@@ -548,13 +524,13 @@ var onSaxonLoad = function() {
         else check_same_schema(s);
       }
       else if (schematypens == "http://relaxng.org/ns/structure/1.0") {
-        s = dtd_database.dtd_by_rng[pi.href] || null;
+        s = jats4r.jats_schema_db.schema_by_rng[pi.href] || null;
         console.log("got an rng: %o", s);
         if (s) check_same_schema(s);
         console.log("dtd is %o", dtd);
       }
       else if (schematypens == "http://www.w3.org/2001/XMLSchema") {
-        s = dtd_database.dtd_by_xsd[pi.href] || null;
+        s = jats4r.jats_schema_db.schema_by_xsd[pi.href] || null;
         if (s) check_same_schema(s);
       }
     });
@@ -581,7 +557,7 @@ var onSaxonLoad = function() {
       var fpi = m[2];
       var sysid = m[5];
 
-      s = dtd_database.dtd_by_fpi[fpi] || null;
+      s = jats4r.jats_schema_db.schema_by_fpi[fpi] || null;
       if (!s) {
         results.error("Bad doctype declaration. " +
           "Unrecognized public identifier: '" + fpi + "'");
@@ -617,7 +593,7 @@ var onSaxonLoad = function() {
     var xsd_uri = null;
     var root_elem_re = /<\s*article\s+([\s\S]*?)>/;
     if (m = contents.match(root_elem_re)) {
-      var root_attrs = jats4r_utils.parse_attrs(m[1]);
+      var root_attrs = jats4r.parser.parse_attrs(m[1]);
       // iterate through the attributes to see if an XSD namespace prefix was set
       var xsi_namespace = "http://www.w3.org/2001/XMLSchema-instance";
       var xsi_prefix = null;
@@ -636,7 +612,7 @@ var onSaxonLoad = function() {
       }
     }
     if (xsd_uri) {
-      s = dtd_database.dtd_by_xsd[xsd_uri] || null;
+      s = jats4r.jats_schema_db.schema_by_xsd[xsd_uri] || null;
       if (s) check_same_schema(s);
     }
 
@@ -663,11 +639,11 @@ var onSaxonLoad = function() {
               response.status + " - " + response.statusText);
           return response.text();
         })
-        .then(function(dtd_contents) {
+        .then(function(schema_contents) {
           // We use the public identifier from the doctype declaration to find the DTD,
           // but xmllint fetches it by system identifier. So, we store whatever the system
           // identifier is, for use by that call.
-          do_validate(contents, sysid, dtd_contents);
+          do_validate(contents, sysid, schema_contents);
         })
         .catch(function(err) {
           results.error(err.message);
@@ -687,11 +663,11 @@ var onSaxonLoad = function() {
 
   // This does not throw any errors.
 
-  function do_validate(contents, dtd_filename, dtd_contents) 
+  function do_validate(contents, schema_filename, schema_contents) 
   {
-    parse_and_dtd_validate(contents, dtd_filename, dtd_contents)
+    parse_and_schema_validate(contents, schema_filename, schema_contents)
       .then(function(results) {
-        //console.log("parse_and_dtd_validate results: " + results);
+        //console.log("parse_and_schema_validate results: " + results);
         if (results) schematron_validate(results);
       });
   }
@@ -704,9 +680,9 @@ var onSaxonLoad = function() {
   // This does not throw any errors, but the then() method on the promise might
   // return null, if there's an error with DTD validation
 
-  function parse_and_dtd_validate(contents, dtd_filename, dtd_contents) 
+  function parse_and_schema_validate(contents, schema_filename, schema_contents) 
   {
-    var to_validate = typeof(dtd_filename) !== "undefined";
+    var to_validate = typeof(schema_filename) !== "undefined";
     var msg = "Parsing " + (to_validate ? "and validating against the DTD" : "");
     return results.start_phase(msg)
       .then(function() {
@@ -727,8 +703,8 @@ var onSaxonLoad = function() {
               data: contents
             },
             {
-              path: dtd_filename,
-              data: dtd_contents
+              path: schema_filename,
+              data: schema_contents
             }
           ];
         }
