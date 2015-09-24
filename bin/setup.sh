@@ -49,30 +49,16 @@ fi
 
 # JATS DTDs
 
-cd $JATS4R_HOME/lib
-
+cd $JATS4R_HOME
+# Verify that the submodules are here
 if ! [ -d nlm-dtd ]; then
-    COMMIT=c8ad958f6190313807b2aa376a38537148f6c7d6
-    wget https://github.com/ncbi/nlm-dtd/archive/$COMMIT.zip
-    if [ $? -ne 0 ]; then
-        echo "wget failed; aborting"
-        exit 1
-    fi
-    unzip $COMMIT.zip
-    rm $COMMIT.zip
-    mv nlm-dtd-$COMMIT nlm-dtd
+    echo "nlm-dtd not found. Did you use `--recursive` when you cloned this repo?"
+    exit 1
 fi
 
 if ! [ -d niso-jats ]; then
-    COMMIT=1b907a30b52e272203217c62b0e04898da74b33d
-    wget https://github.com/ncbi/niso-jats/archive/$COMMIT.zip
-    if [ $? -ne 0 ]; then
-        echo "wget failed; aborting"
-        exit 1
-    fi
-    unzip $COMMIT.zip
-    rm $COMMIT.zip
-    mv niso-jats-$COMMIT niso-jats
+    echo "nlm-dtd not found. Did you use `--recursive` when you cloned this repo?"
+    exit 1
 fi
 
 # DtdAnalyzer
@@ -92,7 +78,7 @@ export PATH=$PATH:$DTDANALYZER_HOME
 # Generate flattened DTDs in the `dtds` subdirectory
 cd $JATS4R_HOME
 if ! [ -d dtds ]; then
-    JATS_DTD_BASE=lib python3 bin/flatten.py
+    JATS_DTD_BASE=. python3 bin/flatten.py
     if [ $? -ne 0 ]; then
         echo "flatten failed; aborting"
         exit 1

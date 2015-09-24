@@ -37,22 +37,22 @@ dtds:
     path: nlm-dtd/archiving/3.0/oasis-dtd/archive-oasis-article3.dtd
     system_id: http://dtd.nlm.nih.gov/archiving/3.0/archive-oasis-article3.dtd
   - fpi: -//NLM//DTD Article Authoring DTD v2.1 20050630//EN
-    path: nlm-dtd/articleauthoring/2.1/dtd/articleauthoring.dtd
+    path: nlm-dtd/article_authoring/2.1/dtd/articleauthoring.dtd
     rng: http://dtd.nlm.nih.gov/articleauthoring/2.1/rng/articleauthoring.rng
     system_id: http://dtd.nlm.nih.gov/articleauthoring/2.1/articleauthoring.dtd
     xsd: http://dtd.nlm.nih.gov/articleauthoring/2.1/xsd/articleauthoring.xsd
   - fpi: -//NLM//DTD Article Authoring DTD v2.2 20060430//EN
-    path: nlm-dtd/articleauthoring/2.2/dtd/articleauthoring.dtd
+    path: nlm-dtd/article_authoring/2.2/dtd/articleauthoring.dtd
     rng: http://dtd.nlm.nih.gov/articleauthoring/2.2/rng/articleauthoring.rng
     system_id: http://dtd.nlm.nih.gov/articleauthoring/2.2/articleauthoring.dtd
     xsd: http://dtd.nlm.nih.gov/articleauthoring/2.2/xsd/articleauthoring.xsd
   - fpi: -//NLM//DTD Article Authoring DTD v2.3 20070202//EN
-    path: nlm-dtd/articleauthoring/2.3/dtd/articleauthoring.dtd
+    path: nlm-dtd/article_authoring/2.3/dtd/articleauthoring.dtd
     rng: http://dtd.nlm.nih.gov/articleauthoring/2.3/rng/articleauthoring.rng
     system_id: http://dtd.nlm.nih.gov/articleauthoring/2.3/articleauthoring.dtd
     xsd: http://dtd.nlm.nih.gov/articleauthoring/2.3/xsd/articleauthoring.xsd
   - fpi: -//NLM//DTD Article Authoring DTD v3.0 20080202//EN
-    path: nlm-dtd/articleauthoring/3.0/dtd/articleauthoring3.dtd
+    path: nlm-dtd/article_authoring/3.0/dtd/articleauthoring3.dtd
     rng: http://dtd.nlm.nih.gov/articleauthoring/3.0/rng/articleauthoring3.rng
     system_id: http://dtd.nlm.nih.gov/articleauthoring/3.0/articleauthoring3.dtd
     xsd: http://dtd.nlm.nih.gov/articleauthoring/3.0/xsd/articleauthoring3.xsd

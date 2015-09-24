@@ -63,9 +63,16 @@ a system with a web server such as Apache. Find a convenient location served by
 that server, and execute the following:
 
 ```
-git clone https://github.com/JATS4R/validator.git
+git clone --recursive https://github.com/JATS4R/validator.git
 cd validator
 source bin/setenv.sh   # sets environment variables
+
+# Set up python environment
+virtualenv -p python3 venv
+source venv/bin/activate
+pip install pyyaml
+pip install rnginline 
+
 setup.sh               # extracts libraries, etc., and processes schematron
 ```
 
