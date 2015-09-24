@@ -40,14 +40,16 @@ jats4r.jats_schema = (function() {
     self.schema_by_xsd = schema_by_xsd;
   }
 
-  function Schema(schema_data) {
+  function Schema(s) {
     var self = this;
-    self.data = schema_data;
 
-    var path = schema_data.path;
-    self.path = path;
-    self.dir = path.replace(/(.*)\/.*/, "$1");
-    self.filename = path.replace(/.*\//, "");;
+    self.path = s.path;
+    self.fpi = s.fpi;
+    self.system_id = s.system_id;
+    self.rng = s.rng || null;
+    self.xsd = s.xsd || null;
+    //self.dir = path.replace(/(.*)\/.*/, "$1");
+    //self.filename = path.replace(/.*\//, "");
   }
 
   return {
