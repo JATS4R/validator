@@ -54,6 +54,12 @@ jats4r.jats_schema = (function() {
     self.dtd_repo_path = function() {
       return self.repo_base_path + '/' + self.dtd.repo_path;
     }
+    self.rng_repo_path = function() {
+      return self.repo_base_path + '/' + self.rng.repo_path;
+    }
+    self.xsd_repo_path = function() {
+      return self.repo_base_path + '/' + self.xsd.repo_path;
+    }
   }
 
   return {

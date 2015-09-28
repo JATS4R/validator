@@ -522,22 +522,26 @@ var onSaxonLoad = function() {
     }
 
     else {
-      // Here is the schema we will use:
-      var schema = jats_schema_ref.schema;
+      // Fetch the flattened schema:
+      // - if a DTD was specified, fetch the DTD
+      // - if either Relax NG or XSD was specified, fetch the RNG. Note that 
+      //   documents that use the XSD attributes on the root node are not
+      //   valid according to the DTD; see this comment on the NISO site:
+      //   http://www.niso.org/apps/group_public/view_comment.php?comment_id=601
 
-      // Fetch the flattened DTD
-      fetch("jats-schema/" + schema.dtd_repo_path())
+      var schema = jats_schema_ref.schema;
+      var flat_schema_path = jats_schema_ref.ref_type == "dtd"
+          ? schema.dtd_repo_path() : schema.rng_repo_path();
+
+      fetch("jats-schema/" + flat_schema_path)
         .then(function(response) {
           if (response.status < 200 || response.status >= 300)
-            throw Error("Bad response when fetching the DTD: " +
+            throw Error("Bad response when fetching the JATS schema file: " +
               response.status + " - " + response.statusText);
           return response.text();
         })
         .then(function(schema_contents) {
-          // We use the public identifier from the doctype declaration to find the DTD,
-          // but xmllint fetches it by system identifier. So, we store whatever the system
-          // identifier is, for use by that call.
-          do_validate(contents, xml_filename, schema.dtd.sysid, schema_contents);
+          do_validate(contents, xml_filename, jats_schema_ref, schema_contents);
         })
         .catch(function(err) {
           results.error(err.message);
@@ -557,9 +561,9 @@ var onSaxonLoad = function() {
 
   // This does not throw any errors.
 
-  function do_validate(contents, xml_filename, schema_filename, schema_contents) 
+  function do_validate(contents, xml_filename, schema_ref, schema_contents) 
   {
-    parse_and_schema_validate(contents, xml_filename, schema_filename, schema_contents)
+    parse_and_schema_validate(contents, xml_filename, schema_ref, schema_contents)
       .then(function(results) {
         //console.log("parse_and_schema_validate results: " + results);
         if (results) schematron_validate(results);
@@ -568,63 +572,73 @@ var onSaxonLoad = function() {
 
 
   // Parse the XML file, and validate it against the DTD, using xmllint.
+  // This calls xmllint with "command lines" like, for example:
+  //   - No schema specified:  `xmllint <xml-filename>`
+  //   - DTD specified: `xmllint --dtdvalid <dtd-path> <xml-filename>`
+  //   - RNG (or XSD) specified: `xmllint --relaxng <rng-path> <xml-filename>`
 
   // This creates a start_phase Promise, and returns it, immediately. 
 
   // This does not throw any errors, but the then() method on the promise might
   // return null, if there's an error with DTD validation
 
-  function parse_and_schema_validate(contents, xml_filename, schema_filename, schema_contents) 
+  function parse_and_schema_validate(contents, xml_filename, schema_ref, schema_contents) 
   {
-    var to_validate = typeof(schema_filename) !== "undefined";
-    var msg = "Parsing " + (to_validate ? "and validating against the DTD" : "");
+    var to_validate = typeof(schema_ref) !== "undefined";
+    if (to_validate) {
+      var schema_type = schema_ref.ref_type;
+      var schema_path = (schema_type == "dtd") ?
+          schema_ref.schema.dtd.sysid
+        : schema_ref.schema.rng_repo_path();
+    }
+
+    var msg = "Parsing";
+    if (to_validate) {
+      msg += " and validating against the JATS " + 
+             (schema_type == "dtd" ? "DTD" : "Relax NG");
+    } 
+
     return results.start_phase(msg)
       .then(function() {
 
+        var args = ['--noent'];
+        var files = [{
+          path: xml_filename,
+          data: contents
+        }];
+
         if (to_validate) {
-          // If there is a DTD, invoke xmllint with:
-          // --loaddtd - this causes the DTD specified in the doctype declaration
-          //     to be loaded when parsing. This is necessary to resolve entity references.
-          //     But note that this is redundant, because --valid causes the DTD to be loaded,
-          //     too.
-          // --dtdvalid - cause xmllint to validate against the DTD that we give it.
-          // --noent - tells xmlint to resolve all entity references
-          var args = ['--dtdvalid', schema_filename, '--noent', xml_filename];
-          var files = [
-            {
-              path: xml_filename,
-              data: contents
-            },
-            {
-              path: schema_filename,
-              data: schema_contents
-            }
-          ];
-        }
-        else {
-          // If no DTD:
-          var args = [xml_filename];
-          var files = [
-            {
-              path: xml_filename, 
-              data: contents
-            }
-          ];
+          args.push(
+            schema_type == "dtd" ? '--dtdvalid' : '--relaxng',
+            schema_path
+          );
+          files.push({
+            path: schema_path,
+            data: schema_contents
+          });
         }
 
+        args.push(xml_filename);
+
         try {
+          console.log("Calling xmllint with " + args.join(","));
           var result = xmltool(args, files);
         }
         catch(e) {
           results.error(
-            $('<div>Failed XML parsing and/or DTD validation. Error message from ' +
+            $('<div>Failed XML parsing and/or JATS validation. Error message from ' +
               'the parser was: ' +
               '<pre>' + e + '</pre></div>'));
           results.done();
           result = null;
         }
 
-        if (result.stderr.length) {
+        // FIXME: Determining whether or not the validation succeeded; this is probably brittle. 
+        // I don't yet know how to get the return status from xmllint.
+        // For DTD validation, when success: the stderr is empty. Unfortunately, for RNG
+        // validation, they write "<filename validates\n" to stderr.
+        if ( result.stderr.length &&
+             (schema_type != "rng" || result.stderr != xml_filename + " validates\n") ) {
           results.error($('<div>Failed ' + msg +
             '<pre>' + result.stderr + '</pre></div>'));
           // If there's nothing in stdout, then the document was not well formed.
