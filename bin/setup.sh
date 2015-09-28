@@ -51,12 +51,12 @@ fi
 
 cd $JATS4R_HOME
 # Verify that the submodules are here
-if ! [ -d nlm-dtd ]; then
-    echo "nlm-dtd not found. Did you use `--recursive` when you cloned this repo?"
+if ! [ -d nlm-dtd/publishing ]; then
+    echo "nlm-dtd content not found. Did you use `--recursive` when you cloned this repo?"
     exit 1
 fi
 
-if ! [ -d niso-jats ]; then
+if ! [ -d niso-jats/publishing ]; then
     echo "nlm-dtd not found. Did you use `--recursive` when you cloned this repo?"
     exit 1
 fi
@@ -75,9 +75,9 @@ fi
 export DTDANALYZER_HOME=$JATS4R_HOME/lib/DtdAnalyzer-0.5
 export PATH=$PATH:$DTDANALYZER_HOME
 
-# Generate flattened DTDs in the `dtds` subdirectory
+# Generate flattened DTDs and RNGs in the `jats-schema` subdirectory
 cd $JATS4R_HOME
-if ! [ -d dtds ]; then
+if ! [ -d jats-schema ]; then
     JATS_DTD_BASE=. python3 bin/flatten.py
     if [ $? -ne 0 ]; then
         echo "flatten failed; aborting"

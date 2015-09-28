@@ -29,7 +29,7 @@ jats4r.parser = (function() {
 
     // Now grab everything up to and including the opening element.
     m = contents.match(/^[\s\S]*?<\s*article\s+([\s\S]*?)>/);
-    if (!m) return null;
+    if (!m) return schema_refs;
     contents = m[0];
 
 
@@ -52,15 +52,24 @@ jats4r.parser = (function() {
           "Unrecognized public identifier: '" + fpi + "'");
       }
       else if (s.dtd.sysid != sysid) {
-        results.error(
-          "<p>Bad doctype declaration: the public and system identifiers don't match.</p>\n" +
-          "<blockquote>\n" + 
-          "<p>Based on the public identifier of '" + fpi + "', we were expecting a " +
-          "system identifier of '" + s.dtd.sysid + "'. However, this document " +
-          "has '" + sysid + "'. JATS4R requires that, when using a doctype declaration, " +
-          "you should use the full URI of the system identifier.</p>\n" +
-          "</blockquote>"
-        );
+        if (s.dtd.sysid.endsWith(sysid)) {
+          results.error(
+            "<p>Bad doctype declaration: it looks like this article only uses a " +
+            "partial system identifier: '" + sysid + "'. In order to facilitate reuse, " +
+            "we recommend " +
+            "that all documents that use a doctype declaration include full " +
+            "public and system identifiers.</p>\n"
+          );
+        }
+        else {
+          results.error(
+            "<p>Bad doctype declaration: the public and system identifiers don't match.\n" +
+            "Based on the public identifier of '" + fpi + "', we were expecting a " +
+            "system identifier of '" + s.dtd.sysid + "'. However, this document " +
+            "has '" + sysid + "'. JATS4R requires that, when using a doctype declaration, " +
+            "you should use the full URI of the system identifier.</p>\n"
+          );
+        }
       }
       else {
         schema_refs.push({

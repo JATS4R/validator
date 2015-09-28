@@ -476,9 +476,6 @@ var onSaxonLoad = function() {
       );
     }
 
-
-    // FIXME: I'm going to want to store the schema ref, so I know what type
-    // of validation to do.
     var jats_schema_ref = null,
         count = 0,
         diffs = false;
@@ -526,7 +523,7 @@ var onSaxonLoad = function() {
       // - if a DTD was specified, fetch the DTD
       // - if either Relax NG or XSD was specified, fetch the RNG. Note that 
       //   documents that use the XSD attributes on the root node are not
-      //   valid according to the DTD; see this comment on the NISO site:
+      //   valid according to the DTD (or RNG); see this comment on the NISO site:
       //   http://www.niso.org/apps/group_public/view_comment.php?comment_id=601
 
       var schema = jats_schema_ref.schema;
@@ -586,7 +583,13 @@ var onSaxonLoad = function() {
   {
     var to_validate = typeof(schema_ref) !== "undefined";
     if (to_validate) {
+      // What the document requested:
       var schema_type = schema_ref.ref_type;
+
+      // What we're actually using (use RNG instead of XSD):
+      var actual_schema_type = schema_type;
+      if (schema_type == "xsd") actual_schema_type = "rng";
+
       var schema_path = (schema_type == "dtd") ?
           schema_ref.schema.dtd.sysid
         : schema_ref.schema.rng_repo_path();
@@ -638,7 +641,7 @@ var onSaxonLoad = function() {
         // For DTD validation, when success: the stderr is empty. Unfortunately, for RNG
         // validation, they write "<filename validates\n" to stderr.
         if ( result.stderr.length &&
-             (schema_type != "rng" || result.stderr != xml_filename + " validates\n") ) {
+             (actual_schema_type != "rng" || result.stderr != xml_filename + " validates\n") ) {
           results.error($('<div>Failed ' + msg +
             '<pre>' + result.stderr + '</pre></div>'));
           // If there's nothing in stdout, then the document was not well formed.
@@ -680,7 +683,8 @@ var onSaxonLoad = function() {
         }
         if (parse_error || pe) {
           if (!pe) { pe = "Unable to parse the input XML file."; }
-          results.error("Error parsing input file: " + pe);
+          results.error("Saxon reported an error when attempting to parse " +
+            "this input file: " + pe.textContent);
           results.done();
         }
 

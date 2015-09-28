@@ -22,16 +22,17 @@ import rnginline
 jats_dtd_base = os.environ.get('JATS_DTD_BASE') or "."
 
 # Where to put our flattened DTDs
-flat_base = 'dtds'
+flat_base = 'jats-schema'
 
 # Read the YAML database
 with open("jats-schema.yaml", "r") as stream:
     dtds_db = yaml.load(stream)
 
-dtds = dtds_db['dtds']
+dtds = dtds_db['schema']
 print("Generating flattened DTDs:")
 for dtd in dtds:
-    path = dtd['path']   # e.g. 'nlm-dtd/archiving/1.0/dtd/archivearticle.dtd'
+    # Get the path to DTD; e.g. 'nlm-dtd/archiving/1.0/dtd/archivearticle.dtd'
+    path = dtd['repo_base_path'] + "/" + dtd['dtd']['repo_path']
     dirname = os.path.dirname(path)  # e.g. 'nlm-dtd/archiving/1.0/dtd'
     orig_dtd_path = jats_dtd_base + "/" + path
     
@@ -45,11 +46,8 @@ for dtd in dtds:
 
 print("Generating flattened RNGs:")
 for dtd in dtds:
-    path = dtd['path']   # e.g. 'nlm-dtd/archiving/1.0/dtd/archivearticle.dtd'
-    path = path.replace("/dtd/", "/rng/")
-    path = path.replace(".dtd", ".rng")
-
-
+    # e.g. 'nlm-dtd/archiving/1.0/rng/archivearticle.rng'
+    path = dtd['repo_base_path'] + "/" + dtd['rng']['repo_path']
     dirname = os.path.dirname(path)  # e.g. 'nlm-dtd/archiving/1.0/rng'
     orig_rng_path = jats_dtd_base + "/" + path
     if (not(os.path.isfile(orig_rng_path))): continue
@@ -62,4 +60,4 @@ for dtd in dtds:
     subprocess.call('rnginline ' + orig_rng_path + ' ' + flat_path, shell=True)
     print("  " + flat_path)
 
-
+exit(0)
