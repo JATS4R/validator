@@ -79,6 +79,19 @@ jats4r.parser = (function() {
           "A doctype declaration was found that only contains a SYSTEM identifer. " +
           "Documents conforming to JATS4R that use DTDs are required to include " +
           "a PUBLIC identifier.");
+        var sysid = m[2];
+        s = schema_db.get_by_sysid(sysid);
+        if (!s) {
+          results.error("Unrecognized system identifier '" + sysid + "'.");
+        }
+        else {
+          schema_refs.push({
+            type: 'doctype-decl',
+            is_jats: true,
+            ref_type: 'dtd',
+            schema: s,
+          });
+        }
       }
     }
 

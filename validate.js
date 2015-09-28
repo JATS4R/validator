@@ -372,7 +372,7 @@ var onSaxonLoad = function() {
         return read_file(input_file);
       })
       .then(function(content) {
-        validate_session(content);
+        validate_session(content, input_file.name);
       })
       .catch(function(err) {
         var msg = "Error attempting to read the file."
@@ -396,6 +396,15 @@ var onSaxonLoad = function() {
     reset_session();
     //disable_controls();
 
+    // Get the filename from the URL
+    var parser = document.createElement('a');
+    parser.href = input_url;
+    var path = parser.pathname;
+    var filename = path.replace(/.*\//, "");
+    // If the filename is empty, then the URL perhaps ended with a slash; use
+    // a dummy filename instead
+    if (filename == "") filename = "file.xml";
+
     results.start_phase("Fetching the XML file")
       .then(function() {
         var headers = new Headers();
@@ -410,7 +419,7 @@ var onSaxonLoad = function() {
         return response.text();
       })
       .then(function(content) {
-        validate_session(content);
+        validate_session(content, filename);
       })
       .catch(function(err) {
         results.error("Error attempting to fetch the file: " + err.message);
@@ -429,10 +438,9 @@ var onSaxonLoad = function() {
 
   // This does not throw any errors.
 
-  function validate_session(contents) {
+  function validate_session(contents, xml_filename) {
     var m;
 
-    //console.log("validate_session");
     // Look for xml declaration. If one is found, change any encoding specifier
     // to utf-8. This is necessary, because the document will always be passed
     // to libxml as utf-8, and the declaration here must match.
@@ -440,11 +448,9 @@ var onSaxonLoad = function() {
       /^(<\?xml\s+.*?encoding\s*=\s*('|\"))(.*?)(('|\").*?\?>)/;
     contents = contents.replace(xml_decl_re, "$1utf-8$4");
 
-
-
-
+    // Manually parse the header, extracting all the references to schema (including
+    // doctype declarations, xml-model PIs, and XSD attributes on the root node)
     var schema_refs = jats4r.parser.parse_header(contents);
-
 
     var jats4r_version = null,
         count = 0;
@@ -492,9 +498,7 @@ var onSaxonLoad = function() {
         "<p>No reference to any JATS schema (doctype declaration, xml-model " +
         "processing instruction, or xsd attributes on the root node) were " +
         "found. We recommend that all JATS documents identify which version " +
-        "of JATS the comply with, by using one of these mechanisms.</p>" +
-        "<p>For the purposes of this validation, the first one will be " +
-        "used.</p>"
+        "of JATS the comply with, by using one of these mechanisms.</p>"
       );
     }
     else if (count > 1) {
@@ -514,7 +518,7 @@ var onSaxonLoad = function() {
 
 
     if (!jats_schema_ref) {
-      do_validate(contents);
+      do_validate(contents, xml_filename);
     }
 
     else {
@@ -533,7 +537,7 @@ var onSaxonLoad = function() {
           // We use the public identifier from the doctype declaration to find the DTD,
           // but xmllint fetches it by system identifier. So, we store whatever the system
           // identifier is, for use by that call.
-          do_validate(contents, schema.dtd.sysid, schema_contents);
+          do_validate(contents, xml_filename, schema.dtd.sysid, schema_contents);
         })
         .catch(function(err) {
           results.error(err.message);
@@ -553,9 +557,9 @@ var onSaxonLoad = function() {
 
   // This does not throw any errors.
 
-  function do_validate(contents, schema_filename, schema_contents) 
+  function do_validate(contents, xml_filename, schema_filename, schema_contents) 
   {
-    parse_and_schema_validate(contents, schema_filename, schema_contents)
+    parse_and_schema_validate(contents, xml_filename, schema_filename, schema_contents)
       .then(function(results) {
         //console.log("parse_and_schema_validate results: " + results);
         if (results) schematron_validate(results);
@@ -570,7 +574,7 @@ var onSaxonLoad = function() {
   // This does not throw any errors, but the then() method on the promise might
   // return null, if there's an error with DTD validation
 
-  function parse_and_schema_validate(contents, schema_filename, schema_contents) 
+  function parse_and_schema_validate(contents, xml_filename, schema_filename, schema_contents) 
   {
     var to_validate = typeof(schema_filename) !== "undefined";
     var msg = "Parsing " + (to_validate ? "and validating against the DTD" : "");
@@ -583,13 +587,12 @@ var onSaxonLoad = function() {
           //     to be loaded when parsing. This is necessary to resolve entity references.
           //     But note that this is redundant, because --valid causes the DTD to be loaded,
           //     too.
-          // --valid - cause xmllint to validate against the DTD that it finds from the doctype
-          //     declaration.
+          // --dtdvalid - cause xmllint to validate against the DTD that we give it.
           // --noent - tells xmlint to resolve all entity references
-          var args = ['--loaddtd', '--valid', '--noent', 'dummy.xml'];
+          var args = ['--dtdvalid', schema_filename, '--noent', xml_filename];
           var files = [
             {
-              path: 'dummy.xml',
+              path: xml_filename,
               data: contents
             },
             {
@@ -600,10 +603,10 @@ var onSaxonLoad = function() {
         }
         else {
           // If no DTD:
-          var args = ['dummy.xml'];
+          var args = [xml_filename];
           var files = [
             {
-              path: 'dummy.xml',
+              path: xml_filename, 
               data: contents
             }
           ];
@@ -624,8 +627,12 @@ var onSaxonLoad = function() {
         if (result.stderr.length) {
           results.error($('<div>Failed ' + msg +
             '<pre>' + result.stderr + '</pre></div>'));
-          results.done();
-          result = null;
+          // If there's nothing in stdout, then the document was not well formed.
+          // Otherwise, we can continue with JATS4R validation
+          if (result.stdout.length == 0) {
+            results.done();
+            result = null;
+          }
         }
 
         return result;

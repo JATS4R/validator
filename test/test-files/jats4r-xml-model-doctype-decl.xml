@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- 
-  This document has specifies both JATS4R and a DTD, and is invalid according to both.
-  This can be a useful file to test if a tool does *both* validations.
+  This document has specifies both JATS4R xml-model PI and a doctype declaration, and is 
+  invalid according to both. This can be a useful file to verify whether or not a tool does 
+  *both* validations.
 -->
 
 <?xml-model href="http://jats4r.org/schema/0.1/jats4r.sch"
