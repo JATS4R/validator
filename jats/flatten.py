@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # Run this with, for example,
-#     JATS_DTD_BASE=~/github/ncbi python3 flatten.py
+#     JATS_BASE=~/github/ncbi python3 flatten.py
 # Flattened versions of the DTDs will be written to the `dtds` subdirectory.
 #
 # Depends on:
@@ -19,13 +19,13 @@ import rnginline
 
 
 # This is the base directory of where all the original DTD files reside
-jats_dtd_base = os.environ.get('JATS_DTD_BASE') or "."
+jats_base = os.environ.get('JATS_BASE') or "."
 
 # Where to put our flattened DTDs
-flat_base = 'jats-schema'
+flat_base = 'jats-flat'
 
 # Read the YAML database
-with open("jats-schema.yaml", "r") as stream:
+with open("jats.yaml", "r") as stream:
     dtds_db = yaml.load(stream)
 
 dtds = dtds_db['schema']
@@ -34,7 +34,7 @@ for dtd in dtds:
     # Get the path to DTD; e.g. 'nlm-dtd/archiving/1.0/dtd/archivearticle.dtd'
     path = dtd['repo_base_path'] + "/" + dtd['dtd']['repo_path']
     dirname = os.path.dirname(path)  # e.g. 'nlm-dtd/archiving/1.0/dtd'
-    orig_dtd_path = jats_dtd_base + "/" + path
+    orig_dtd_path = jats_base + "/" + path
     
     # Make the destination directory, where the flattened DTD will be written
     flat_dirname = flat_base + "/" + dirname
@@ -49,7 +49,7 @@ for dtd in dtds:
     # e.g. 'nlm-dtd/archiving/1.0/rng/archivearticle.rng'
     path = dtd['repo_base_path'] + "/" + dtd['rng']['repo_path']
     dirname = os.path.dirname(path)  # e.g. 'nlm-dtd/archiving/1.0/rng'
-    orig_rng_path = jats_dtd_base + "/" + path
+    orig_rng_path = jats_base + "/" + path
     if (not(os.path.isfile(orig_rng_path))): continue
     
     # Make the destination directory, where the flattened DTD will be written
