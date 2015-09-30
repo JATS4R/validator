@@ -22,42 +22,42 @@ import rnginline
 jats_base = os.environ.get('JATS_BASE') or "."
 
 # Where to put our flattened DTDs
-flat_base = 'jats-flat'
+flat_base = 'flat'
 
 # Read the YAML database
 with open("jats.yaml", "r") as stream:
-    dtds_db = yaml.load(stream)
+    jats_db = yaml.load(stream)
 
-dtds = dtds_db['schema']
+jats = jats_db['schema']
 print("Generating flattened DTDs:")
-for dtd in dtds:
-    # Get the path to DTD; e.g. 'nlm-dtd/archiving/1.0/dtd/archivearticle.dtd'
-    path = dtd['repo_base_path'] + "/" + dtd['dtd']['repo_path']
-    dirname = os.path.dirname(path)  # e.g. 'nlm-dtd/archiving/1.0/dtd'
-    orig_dtd_path = jats_base + "/" + path
+for schema_def in jats:
+    # Get the path to DTD; e.g. 'src/nlm-dtd/archiving/1.0/dtd/archivearticle.dtd'
+    rel_path = schema_def['repo_base_path'] + "/" + schema_def['dtd']['repo_path']
+    dirname = os.path.dirname(rel_path)  # e.g. 'nlm-dtd/archiving/1.0/dtd'
+    src_path = jats_base + "/src/" + rel_path
     
     # Make the destination directory, where the flattened DTD will be written
-    flat_dirname = flat_base + "/" + dirname
-    os.makedirs(flat_dirname, exist_ok = True)
-    flat_path = flat_base + "/" + path
+    flat_dir = flat_base + "/" + dirname
+    os.makedirs(flat_dir, exist_ok = True)
+    flat_path = flat_base + "/" + rel_path
 
-    subprocess.call('dtdflatten ' + orig_dtd_path + ' > ' + flat_path, shell=True)
+    subprocess.call('dtdflatten ' + src_path + ' > ' + flat_path, shell=True)
     print("  " + flat_path)
 
-print("Generating flattened RNGs:")
-for dtd in dtds:
-    # e.g. 'nlm-dtd/archiving/1.0/rng/archivearticle.rng'
-    path = dtd['repo_base_path'] + "/" + dtd['rng']['repo_path']
-    dirname = os.path.dirname(path)  # e.g. 'nlm-dtd/archiving/1.0/rng'
-    orig_rng_path = jats_base + "/" + path
-    if (not(os.path.isfile(orig_rng_path))): continue
-    
-    # Make the destination directory, where the flattened DTD will be written
-    flat_dirname = flat_base + "/" + dirname
-    os.makedirs(flat_dirname, exist_ok = True)
-    flat_path = flat_base + "/" + path
 
-    subprocess.call('rnginline ' + orig_rng_path + ' ' + flat_path, shell=True)
+print("Generating flattened RNGs:")
+for schema_def in jats:
+    # Get the path to RNG; e.g. 'src/nlm-dtd/archiving/1.0/rng/archivearticle.rng'
+    rel_path = schema_def['repo_base_path'] + "/" + schema_def['rng']['repo_path']
+    dirname = os.path.dirname(rel_path)  # e.g. 'nlm-dtd/archiving/1.0/dtd'
+    src_path = jats_base + "/src/" + rel_path
+    
+    # Make the destination directory, where the flattened RNG will be written
+    flat_dir = flat_base + "/" + dirname
+    os.makedirs(flat_dir, exist_ok = True)
+    flat_path = flat_base + "/" + rel_path
+
+    subprocess.call('rnginline ' + src_path + ' ' + flat_path, shell=True)
     print("  " + flat_path)
 
 exit(0)

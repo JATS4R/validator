@@ -1,10 +1,10 @@
 // Some classes for holding information about the JATS schemas, as read from the 
-// jats-schema.yaml file.
+// jats.yaml file.
 
-if (typeof jats4r == "undefined") jats4r = {};
+if (typeof JATS == "undefined") JATS = {};
 
 
-jats4r.jats_schema = (function() {
+JATS.schema = (function() {
 
   // This returns a promise that resolves to the JatsSchemaDb object
   function read_database(yaml_file) {
