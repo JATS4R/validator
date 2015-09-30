@@ -26,12 +26,15 @@ JATS.schema = (function() {
     var by_rng_uri = {};
     var by_xsd_uri = {};
 
-    db.schema.forEach(function(d) {
-      var s = new Schema(d)
-      by_fpi[s.fpi] = s;
-      by_sysid[s.dtd.sysid] = s;
-      if (s.rng && s.rng.uri) by_rng_uri[s.rng.uri] = s;
-      if (s.xsd && s.xsd.uri) by_xsd_uri[s.xsd.uri] = s;
+    db.forEach(function(repo) {
+      repo.schemas.forEach(function(d) {
+        var s = new Schema(repo, d);
+        by_fpi[s.fpi] = s;
+        by_sysid[s.sysid()] = s;
+        var uri;
+        if (uri = s.rng_uri()) by_rng_uri[uri] = s;
+        if (uri = s.xsd_uri()) by_xsd_uri[uri] = s;
+      })
     });
 
     self.get_by_fpi = function(fpi) {
@@ -48,17 +51,18 @@ JATS.schema = (function() {
     }
   }
 
-  function Schema(d) {
+  function Schema(repo, d) {
     var self = this;
     $.extend(true, self, d);
-    self.dtd_repo_path = function() {
-      return self.repo_base_path + '/' + self.dtd.repo_path;
-    }
-    self.rng_repo_path = function() {
-      return self.repo_base_path + '/' + self.rng.repo_path;
-    }
-    self.xsd_repo_path = function() {
-      return self.repo_base_path + '/' + self.xsd.repo_path;
+    self.repo = repo;
+    self.sysid = function() {
+      return self.repo.uri_prefix + self.sysid_rel;
+    };
+    self.rng_uri = function() {
+      return self.rng_uri_rel ? self.repo.uri_prefix + self.rng_uri_rel : null;
+    };
+    self.xsd_uri = function() {
+      return self.xsd_uri_rel ? self.repo.uri_prefix + self.xsd_uri_rel : null;
     }
   }
 

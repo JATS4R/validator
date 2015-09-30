@@ -15,6 +15,7 @@ import os
 import yaml
 import subprocess
 import rnginline
+import re
 
 
 
@@ -28,11 +29,10 @@ flat_base = 'flat'
 with open("jats.yaml", "r") as stream:
     jats_db = yaml.load(stream)
 
-jats = jats_db['schema']
-print("Generating flattened DTDs:")
-for schema_def in jats:
-    # Get the path to DTD; e.g. 'src/nlm-dtd/archiving/1.0/dtd/archivearticle.dtd'
-    rel_path = schema_def['repo_base_path'] + "/" + schema_def['dtd']['repo_path']
+
+def gen_flat_dtd(repo_path, schema_def):
+    # Get the path to DTD; e.g. 'nlm-dtd/archiving/1.0/dtd/archivearticle.dtd'
+    rel_path = repo_path + "/" + schema_def['sysid_rel']
     dirname = os.path.dirname(rel_path)  # e.g. 'nlm-dtd/archiving/1.0/dtd'
     src_path = jats_base + "/src/" + rel_path
     
@@ -42,13 +42,12 @@ for schema_def in jats:
     flat_path = flat_base + "/" + rel_path
 
     subprocess.call('dtdflatten ' + src_path + ' > ' + flat_path, shell=True)
-    print("  " + flat_path)
+    print("Generating flattened DTD: " + flat_path)
 
-
-print("Generating flattened RNGs:")
-for schema_def in jats:
-    # Get the path to RNG; e.g. 'src/nlm-dtd/archiving/1.0/rng/archivearticle.rng'
-    rel_path = schema_def['repo_base_path'] + "/" + schema_def['rng']['repo_path']
+def gen_flat_rng(repo_path, schema_def):
+    # Get the path to RNG; e.g. 'nlm-dtd/archiving/1.0/rng/archivearticle.rng'
+    if (not(schema_def['rng_uri_rel'])): return
+    rel_path = repo_path + "/" + schema_def['rng_uri_rel']
     dirname = os.path.dirname(rel_path)  # e.g. 'nlm-dtd/archiving/1.0/dtd'
     src_path = jats_base + "/src/" + rel_path
     
@@ -58,6 +57,15 @@ for schema_def in jats:
     flat_path = flat_base + "/" + rel_path
 
     subprocess.call('rnginline ' + src_path + ' ' + flat_path, shell=True)
-    print("  " + flat_path)
+    print("Generating flattened RNG: " + flat_path)
+
+for group in jats_db:
+    for schema_def in group['schemas']:
+        # repo path; e.g. "nlm-dtd" or "niso-jats"
+        repo_path = re.sub(r'.*/', '', group['repo'])
+        gen_flat_dtd(repo_path, schema_def)
+        gen_flat_rng(repo_path, schema_def)
+
+
 
 exit(0)
