@@ -147,7 +147,7 @@ var onSaxonLoad = function() {
       var matches = document.location.search.match(/[\?&]url=([^&]+)/);
 
       if (matches) {
-          $('#jats_url').val(matches[1]).trigger('change');
+          $('#jats_url').val(decodeURIComponent(matches[1])).trigger('change');
       }
     });
 
