@@ -82,7 +82,7 @@ var onSaxonLoad = function() {
     })
     .then(function(yaml_str) {
       jats4r.jats4r_schema_versions = jsyaml.load(yaml_str);
-      return jats4r.jats_schema.read_database("jats-schema.yaml")
+      return JATS.schema.read_database("jats/jats.yaml")
     })  
     .then(function(db) {
       // FIXME: couldn't I set this inside the jats-schema module?
@@ -211,9 +211,6 @@ var onSaxonLoad = function() {
     input_url = null;
     $('#jats_url').val('');
   }
-  
-
-
 
   // Class to handle the results output and status message. In general, this
   // manages the state of the machine. Use as follows:
@@ -562,7 +559,6 @@ var onSaxonLoad = function() {
       }
     }
 
-
     if (!jats_schema_ref) {
       do_validate(contents, xml_filename);
     }
@@ -576,10 +572,11 @@ var onSaxonLoad = function() {
       //   http://www.niso.org/apps/group_public/view_comment.php?comment_id=601
 
       var schema = jats_schema_ref.schema;
-      var flat_schema_path = jats_schema_ref.ref_type == "dtd"
-          ? schema.dtd_repo_path() : schema.rng_repo_path();
+      var flat_schema_path = 'jats/flat/' + 
+        (jats_schema_ref.ref_type == "dtd"
+          ? schema.dtd_path() : schema.rng_path());
 
-      fetch("jats-schema/" + flat_schema_path)
+      fetch(flat_schema_path)
         .then(function(response) {
           if (response.status < 200 || response.status >= 300)
             throw Error("Bad response when fetching the JATS schema file: " +
@@ -596,7 +593,6 @@ var onSaxonLoad = function() {
       ;
     }
   }
-
 
   // This function gets called when we've finished reading the DTD, or, if
   // there is no DTD, immediately after the instance document is read. 

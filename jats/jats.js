@@ -13,7 +13,7 @@ JATS.schema = (function() {
         return response.text();
       })
       .then(function(yaml_str) {
-        return new jats4r.jats_schema.JatsSchemaDb(jsyaml.load(yaml_str));
+        return new JATS.schema.JatsSchemaDb(jsyaml.load(yaml_str));
       });
   }
 
@@ -26,9 +26,9 @@ JATS.schema = (function() {
     var by_rng_uri = {};
     var by_xsd_uri = {};
 
-    db.forEach(function(repo) {
-      repo.schemas.forEach(function(d) {
-        var s = new Schema(repo, d);
+    db.forEach(function(group) {
+      group.schemas.forEach(function(d) {
+        var s = new Schema(group, d);
         by_fpi[s.fpi] = s;
         by_sysid[s.sysid()] = s;
         var uri;
@@ -51,19 +51,31 @@ JATS.schema = (function() {
     }
   }
 
-  function Schema(repo, d) {
+  function Schema(group, d) {
     var self = this;
     $.extend(true, self, d);
-    self.repo = repo;
+    self.group = group;
+    self.repo_dir = group.repo.replace(/.*\//, '');
     self.sysid = function() {
-      return self.repo.uri_prefix + self.sysid_rel;
+      return self.group.uri_prefix + self.sysid_rel;
     };
     self.rng_uri = function() {
-      return self.rng_uri_rel ? self.repo.uri_prefix + self.rng_uri_rel : null;
+      return self.rng_uri_rel ? self.group.uri_prefix + self.rng_uri_rel : null;
     };
     self.xsd_uri = function() {
-      return self.xsd_uri_rel ? self.repo.uri_prefix + self.xsd_uri_rel : null;
-    }
+      return self.xsd_uri_rel ? self.group.uri_prefix + self.xsd_uri_rel : null;
+    };
+
+    // E.g. 'nlm-dtd/archiving/1.0/dtd/archivearticle.dtd'
+    self.dtd_path = function() {
+      return self.repo_dir + "/" + self.sysid_rel;
+    };
+    self.rng_path = function() {
+      return self.repo_dir + "/" + self.rng_uri_rel;
+    };
+    self.xsd_path = function() {
+      return self.repo_dir + "/" + self.xsd_uri_rel;
+    };
   }
 
   return {

@@ -51,8 +51,8 @@ jats4r.parser = (function() {
         results.error("Bad doctype declaration. " +
           "Unrecognized public identifier: '" + fpi + "'");
       }
-      else if (s.dtd.sysid != sysid) {
-        if (s.dtd.sysid.endsWith(sysid)) {
+      else if (s.sysid() != sysid) {
+        if (s.sysid().endsWith(sysid)) {
           results.error(
             "<p>Bad doctype declaration: it looks like this article only uses a " +
             "partial system identifier: '" + sysid + "'. In order to facilitate reuse, " +
