@@ -1,6 +1,6 @@
 [submodule "nlm-dtd"]
-	path = nlm-dtd
+	path = jats/orig/nlm-dtd
 	url = https://github.com/ncbi/nlm-dtd.git
 [submodule "niso-jats"]
-	path = niso-jats
+	path = jats/orig/niso-jats
 	url = https://github.com/ncbi/niso-jats.git
