@@ -19,6 +19,8 @@ Contents
 * [Schema sources](#schema-sources)
 * [Generating XSLTs from Schematron sources](#generating-xslts-from-schematron-sources)
 * [Testing](#testing)
+* [How it works](#how-it-works)
+* [Limitations](#limitations)
 * [Dependencies](#dependencies)
 
 
@@ -30,20 +32,26 @@ they are for.
 
 * ***index.html***, ***validate.js***, ***validate.css*** - the main validator
   files
-* ***bin*** - Shell scripts and XSLT files
-* ***samples*** - Some sample XML documents, used for testing
 * ***schema*** - The Schematron source files. See [Schema sources](#schema-sources),
   below.
+* ***bin*** - Shell scripts and XSLT files
+* ***samples*** - Some sample XML documents
+* ***nlm-dtd***, ***niso-jats*** - The original NLM and JATS schema files, as
+  Git submodules.
+* ***jats4r-parser.js*** - JS module for parsing XML file headers
+* ***jats4r-jats-schema.js***, ***jats-schema.yaml*** - JS module and data file
+  that provides information about all the various flavors, versions, and formats
+  of JATS schema files.
+* ***test/test-files*** - XML files used for testing.
 * ***assets*** - Some static resources, including some third party libraries.
-* ***validate*** - The source code for the online client-side validator.
-* ***dtds.yaml*** - A YAML data file describing all of the NLM and JATS DTDs.
 * ***README.md*** - This file
 * ***LICENSE***
 
 The following directories are generated in the course of building the validator.
 
+* ***venv*** - Python virtual environment
 * ***lib*** - Third party libraries and tools. See [Dependencies](#dependencies), below.
-* ***dtds*** - Flattened versions of all of the NLM and JATS DTDs
+* ***jats-schema*** - Flattened versions of all of the NLM and JATS DTDs
 * ***generated-xsl*** - This contains XSLT versions of the Schematron files. The contents
   here should not be edited directly.  See [Generating XSLTs from Schematron 
   sources](#generating-xslts-from-schematron-sources), below
@@ -61,9 +69,16 @@ a system with a web server such as Apache. Find a convenient location served by
 that server, and execute the following:
 
 ```
-git clone https://github.com/JATS4R/validator.git
+git clone --recursive https://github.com/JATS4R/validator.git
 cd validator
 source bin/setenv.sh   # sets environment variables
+
+# Set up python environment
+virtualenv -p python3 venv
+source venv/bin/activate
+pip install pyyaml
+pip install rnginline 
+
 setup.sh               # extracts libraries, etc., and processes schematron
 ```
 
@@ -74,15 +89,13 @@ system, and you should have a working validator.
 Validation setup
 ----------------
 
-More detailed instructions follow.
+Here is some more detailed information.
 
 Whenever you open a new shell, to configure your environment, you must first 
-source the *bin/setenv.sh* script, from this repository's root directory:
+do two things:
 
-```
-cd *repo dir*
-source bin/setenv.sh
-```
+1. Activate the Python virtual environment, with `source venv/bin/activate`
+2. Source the *bin/setenv.sh* script, with `source bin/setenv.sh`
 
 After initially cloning the repository, in order to configure the necessary tools, 
 you'll need to run 
@@ -94,7 +107,8 @@ bin/setup.sh
 This does the following:
 
 1. Extracts several third party libraries into the `lib` directory,
-2. Builds flattened versions of the JATS DTDs, writing them into the `dtds` directory, and
+2. Builds flattened versions of the JATS DTDs and RNGs, writing them into the 
+  `jats-schema` directory, and
 3. Processes the schematron files, writing the results into `generated-xsl`.
 
 If any changes are made to the Schematron files, you can rebuild them, without
@@ -199,11 +213,11 @@ you must source the *bin/setup.sh* script into your shell.
 Then, use the script *process-schematron.sh* to convert the Schematron files into XSLT:
 
 ```
-./process-schematron.sh
+bin/process-schematron.sh
 ```
 
 You can optionally pass this script an *input-type* (`level` or `topic`) and a 
-*phase* (which depends on the *input-type*). Enter `./process-schematron.sh -h` 
+*phase* (which depends on the *input-type*). Enter `bin/process-schematron.sh -h` 
 for usage information.
 
 This writes the output files into the *generated-xsl* directory.
@@ -212,16 +226,9 @@ This writes the output files into the *generated-xsl* directory.
 Testing
 -------
 
-To test the online validator, use the files in the `samples` directory.
+To test the online validator, use the files in the `test/test-files` directory.
 
 Automated tests coming soon. See [issue 8](https://github.com/JATS4R/validator/issues/8).
-
-Also test with these URLs:
-
-* https://peerj.com/articles/1000 - If you load this in a browser, you'll get HTML.
-  But the JATS4R Validator adds an `Accept` header with the value of 
-  "application/jats+xml;q=1, application/xml", so the server (correctly) responds
-  with JATS XML.
 
 
 How it works
@@ -233,6 +240,17 @@ validator using Saxon-CE". The following is the data-flow diagram from that pape
 illustrating in a compact form what is happening under the hood.
 
 ![Data flow diagram](https://raw.githubusercontent.com/JATS4R/validator/master/assets/jats4r-validator-data-flow-small.png)
+
+
+Limitations
+-----------
+
+Since it runs on the client, and we don't have access to all the features of
+libxml, the first phase, in which the tool looks for `<?xml-model?>` processing
+instructions and the doctype declaration, is done with a custom parser, that is
+not very robust. Therefore, some things will be missed: for example, if a
+processing instruction (PI) is "commented out", this validator will not notice the
+comment delimiters, and will treat the PI as though it weren't.
 
 
 Dependencies

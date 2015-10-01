@@ -1,0 +1,301 @@
+- repo: https://github.com/ncbi/nlm-dtd
+  uri_prefix: http://dtd.nlm.nih.gov/
+  schemas:
+    - sysid_rel: archiving/1.0/archivearticle.dtd
+      fpi: -//NLM//DTD Journal Archiving and Interchange DTD v1.0 20021201//EN
+      name: Journal Archiving and Interchange DTD v1.0
+    - sysid_rel: archiving/1.1/archivearticle.dtd
+      fpi: -//NLM//DTD Journal Archiving and Interchange DTD v1.1 20031101//EN
+      name: Journal Archiving and Interchange DTD v1.1
+      xsd_uri_rel: archiving/1.1/xsd/archivearticle.xsd
+    - sysid_rel: archiving/2.0/archivearticle.dtd
+      fpi: -//NLM//DTD Journal Archiving and Interchange DTD v2.0 20040830//EN
+      name: Journal Archiving and Interchange DTD v2.0
+      xsd_uri_rel: archiving/2.0/xsd/archivearticle.xsd
+    - sysid_rel: archiving/2.1/archivearticle.dtd
+      fpi: -//NLM//DTD Journal Archiving and Interchange DTD v2.1 20050630//EN
+      name: Journal Archiving and Interchange DTD v2.1
+      rng_uri_rel: archiving/2.1/rng/archivearticle.rng
+      xsd_uri_rel: archiving/2.1/xsd/archivearticle.xsd
+    - sysid_rel: archiving/2.2/archivearticle.dtd
+      fpi: -//NLM//DTD Journal Archiving and Interchange DTD v2.2 20060430//EN
+      name: Journal Archiving and Interchange DTD v2.2
+      rng_uri_rel: archiving/2.2/rng/archivearticle.rng
+      xsd_uri_rel: archiving/2.2/xsd/archivearticle.xsd
+    - sysid_rel: archiving/2.3/archivearticle.dtd
+      fpi: -//NLM//DTD Journal Archiving and Interchange DTD v2.3 20070202//EN
+      name: Journal Archiving and Interchange DTD v2.3
+      rng_uri_rel: archiving/2.3/rng/archivearticle.rng
+      xsd_uri_rel: archiving/2.3/xsd/archivearticle.xsd
+    - sysid_rel: archiving/2.3/archive-OASIS.dtd
+      fpi: -//NLM//DTD Journal Archiving with OASIS Tables v2.3 20070813//EN
+      name: Journal Archiving with OASIS Tables v2.3
+    - sysid_rel: archiving/3.0/archivearticle3.dtd
+      fpi: -//NLM//DTD Journal Archiving and Interchange DTD v3.0 20080202//EN
+      name: Journal Archiving and Interchange DTD v3.0
+      rng_uri_rel: archiving/3.0/rng/archivearticle3.rng
+      xsd_uri_rel: archiving/3.0/xsd/archivearticle3.xsd
+    - sysid_rel: archiving/3.0/archive-oasis-article3.dtd
+      fpi: -//NLM//DTD Journal Archiving with OASIS Tables v3.0 20080202//EN
+      name: Journal Archiving with OASIS Tables v3.0
+    - sysid_rel: articleauthoring/2.1/articleauthoring.dtd
+      fpi: -//NLM//DTD Article Authoring DTD v2.1 20050630//EN
+      name: Article Authoring DTD v2.1
+      rng_uri_rel: articleauthoring/2.1/rng/articleauthoring.rng
+      xsd_uri_rel: articleauthoring/2.1/xsd/articleauthoring.xsd
+    - sysid_rel: articleauthoring/2.2/articleauthoring.dtd
+      fpi: -//NLM//DTD Article Authoring DTD v2.2 20060430//EN
+      name: Article Authoring DTD v2.2
+      rng_uri_rel: articleauthoring/2.2/rng/articleauthoring.rng
+      xsd_uri_rel: articleauthoring/2.2/xsd/articleauthoring.xsd
+    - sysid_rel: articleauthoring/2.3/articleauthoring.dtd
+      fpi: -//NLM//DTD Article Authoring DTD v2.3 20070202//EN
+      name: Article Authoring DTD v2.3
+      rng_uri_rel: articleauthoring/2.3/rng/articleauthoring.rng
+      xsd_uri_rel: articleauthoring/2.3/xsd/articleauthoring.xsd
+    - sysid_rel: articleauthoring/3.0/articleauthoring3.dtd
+      fpi: -//NLM//DTD Article Authoring DTD v3.0 20080202//EN
+      name: Article Authoring DTD v3.0
+      rng_uri_rel: articleauthoring/3.0/rng/articleauthoring3.rng
+      xsd_uri_rel: articleauthoring/3.0/xsd/articleauthoring3.xsd
+    - sysid_rel: publishing/1.0/journalpublishing.dtd
+      fpi: -//NLM//DTD Journal Publishing DTD v1.0 20030210//EN
+      name: Journal Publishing DTD v1.0
+    - sysid_rel: publishing/1.1/journalpublishing.dtd
+      fpi: -//NLM//DTD Journal Publishing DTD v1.1 20031101//EN
+      name: Journal Publishing DTD v1.1
+      xsd_uri_rel: publishing/1.1/xsd/journalpublishing.xsd
+    - sysid_rel: publishing/2.0/journalpublishing.dtd
+      fpi: -//NLM//DTD Journal Publishing DTD v2.0 20040830//EN
+      name: Journal Publishing DTD v2.0
+      xsd_uri_rel: publishing/2.0/xsd/journalpublishing.xsd
+    - sysid_rel: publishing/2.1/journalpublishing.dtd
+      fpi: -//NLM//DTD Journal Publishing DTD v2.1 20050630//EN
+      name: Journal Publishing DTD v2.1
+      rng_uri_rel: publishing/2.1/rng/journalpublishing.rng
+      xsd_uri_rel: publishing/2.1/xsd/journalpublishing.xsd
+    - sysid_rel: publishing/2.2/journalpublishing.dtd
+      fpi: -//NLM//DTD Journal Publishing DTD v2.2 20060430//EN
+      name: Journal Publishing DTD v2.2
+      rng_uri_rel: publishing/2.2/rng/journalpublishing.rng
+      xsd_uri_rel: publishing/2.2/xsd/journalpublishing.xsd
+    - sysid_rel: publishing/2.3/journalpublishing.dtd
+      fpi: -//NLM//DTD Journal Publishing DTD v2.3 20070202//EN
+      name: Journal Publishing DTD v2.3
+      rng_uri_rel: publishing/2.3/rng/journalpublishing.rng
+      xsd_uri_rel: publishing/2.3/xsd/journalpublishing.xsd
+    - sysid_rel: publishing/2.3/publishing-OASIS.dtd
+      fpi: -//NLM//DTD Journal Publishing with OASIS Tables DTD v2.3 20070813//EN
+      name: Journal Publishing with OASIS Tables DTD v2.3
+    - sysid_rel: publishing/3.0/journalpublishing3.dtd
+      fpi: -//NLM//DTD Journal Publishing DTD v3.0 20080202//EN
+      name: Journal Publishing DTD v3.0
+      rng_uri_rel: publishing/3.0/rng/journalpublishing3.rng
+      xsd_uri_rel: publishing/3.0/xsd/journalpublishing3.xsd
+    - sysid_rel: publishing/3.0/journalpub-oasis3.dtd
+      fpi: -//NLM//DTD Journal Publishing with OASIS Tables v3.0 20080202//EN
+      name: Journal Publishing with OASIS Tables v3.0
+
+- repo: https://github.com/ncbi/niso-jats
+  uri_prefix: http://jats.nlm.nih.gov/
+  schemas:
+    - sysid_rel: archiving/0.4/JATS-archivearticle0.dtd
+      fpi: -//NLM//DTD JATS (Z39.96) Journal Archiving and Interchange DTD v0.4 20110131//EN
+      name: JATS (Z39.96) Journal Archiving and Interchange DTD v0.4
+      rng_uri_rel: archiving/0.4/rng/JATS-archivearticle0.rng
+      xsd_uri_rel: archiving/0.4/xsd/JATS-archivearticle0.xsd
+    - sysid_rel: archiving/0.4/JATS-archive-oasis-article0.dtd
+      fpi: -//NLM//DTD JATS (Z39.96) Journal Archiving and Interchange DTD (OASIS Tables) v0.4 20110131//EN
+      name: JATS (Z39.96) Journal Archiving and Interchange DTD (OASIS Tables) v0.4
+      rng_uri_rel: archiving/0.4/rng/JATS-archive-oasis-article0.rng
+      xsd_uri_rel: archiving/0.4/xsd/JATS-archive-oasis-article0.xsd
+    - sysid_rel: archiving/1.0/JATS-archivearticle1.dtd
+      fpi: -//NLM//DTD JATS (Z39.96) Journal Archiving and Interchange DTD v1.0 20120330//EN
+      name: JATS (Z39.96) Journal Archiving and Interchange DTD v1.0
+      rng_uri_rel: archiving/1.0/rng/JATS-archivearticle1.rng
+      xsd_uri_rel: archiving/1.0/xsd/JATS-archivearticle1.xsd
+    - sysid_rel: archiving/1.0/JATS-archive-oasis-article1.dtd
+      fpi: -//NLM//DTD JATS (Z39.96) Journal Archiving and Interchange DTD with OASIS Tables v1.0 20120330//EN
+      name: JATS (Z39.96) Journal Archiving and Interchange DTD with OASIS Tables v1.0
+      rng_uri_rel: archiving/1.0/rng/JATS-archive-oasis-article1.rng
+      xsd_uri_rel: archiving/1.0/xsd/JATS-archive-oasis-article1.xsd
+    - sysid_rel: archiving/1.1d1/JATS-archivearticle1.dtd
+      fpi: -//NLM//DTD JATS (Z39.96) Journal Archiving and Interchange DTD v1.1d1 20130915//EN
+      name: JATS (Z39.96) Journal Archiving and Interchange DTD v1.1d1
+      rng_uri_rel: archiving/1.1d1/rng/JATS-archivearticle1.rng
+      xsd_uri_rel: archiving/1.1d1/xsd/JATS-archivearticle1.xsd
+    - sysid_rel: archiving/1.1d1/JATS-archivearticle1-mathml3.dtd
+      fpi: -//NLM//DTD JATS (Z39.96) Journal Archiving and Interchange DTD with MathML3 v1.1d1 20130915//EN
+      name: JATS (Z39.96) Journal Archiving and Interchange DTD with MathML3 v1.1d1
+      rng_uri_rel: archiving/1.1d1/rng/JATS-archivearticle1-mathml3.rng
+      xsd_uri_rel: archiving/1.1d1/xsd/JATS-archivearticle1-mathml3.xsd
+    - sysid_rel: archiving/1.1d1/JATS-archive-oasis-article1.dtd
+      fpi: -//NLM//DTD JATS (Z39.96) Journal Archiving and Interchange DTD with OASIS Tables v1.1d1 20130915//EN
+      name: JATS (Z39.96) Journal Archiving and Interchange DTD with OASIS Tables v1.1d1
+      rng_uri_rel: archiving/1.1d1/rng/JATS-archive-oasis-article1.rng
+      xsd_uri_rel: archiving/1.1d1/xsd/JATS-archive-oasis-article1.xsd
+    - sysid_rel: archiving/1.1d1/JATS-archive-oasis-article1-mathml3.dtd
+      fpi: -//NLM//DTD JATS (Z39.96) Journal Archiving and Interchange DTD with OASIS Tables with MathML3 v1.1d1 20130915//EN
+      name: JATS (Z39.96) Journal Archiving and Interchange DTD with OASIS Tables with MathML3 v1.1d1
+      rng_uri_rel: archiving/1.1d1/rng/JATS-archive-oasis-article1-mathml3.rng
+      xsd_uri_rel: archiving/1.1d1/xsd/JATS-archive-oasis-article1-mathml3.xsd
+    - sysid_rel: archiving/1.1d2/JATS-archivearticle1.dtd
+      fpi: -//NLM//DTD JATS (Z39.96) Journal Archiving and Interchange DTD v1.1d2 20140930//EN
+      name: JATS (Z39.96) Journal Archiving and Interchange DTD v1.1d2
+      rng_uri_rel: archiving/1.1d2/rng/JATS-archivearticle1.rng
+      xsd_uri_rel: archiving/1.1d2/xsd/JATS-archivearticle1.xsd
+    - sysid_rel: archiving/1.1d2/JATS-archivearticle1-mathml3.dtd
+      fpi: -//NLM//DTD JATS (Z39.96) Journal Archiving and Interchange DTD with MathML3 v1.1d2 20140930//EN
+      name: JATS (Z39.96) Journal Archiving and Interchange DTD with MathML3 v1.1d2
+      rng_uri_rel: archiving/1.1d2/rng/JATS-archivearticle1-mathml3.rng
+      xsd_uri_rel: archiving/1.1d2/xsd/JATS-archivearticle1-mathml3.xsd
+    - sysid_rel: archiving/1.1d2/JATS-archive-oasis-article1.dtd
+      fpi: -//NLM//DTD JATS (Z39.96) Journal Archiving and Interchange DTD with OASIS Tables v1.1d2 20140930//EN
+      name: JATS (Z39.96) Journal Archiving and Interchange DTD with OASIS Tables v1.1d2
+      rng_uri_rel: archiving/1.1d2/rng/JATS-archive-oasis-article1.rng
+      xsd_uri_rel: archiving/1.1d2/xsd/JATS-archive-oasis-article1.xsd
+    - sysid_rel: archiving/1.1d2/JATS-archive-oasis-article1-mathml3.dtd
+      fpi: -//NLM//DTD JATS (Z39.96) Journal Archiving and Interchange DTD with OASIS Tables with MathML3 v1.1d2 20140930//EN
+      name: JATS (Z39.96) Journal Archiving and Interchange DTD with OASIS Tables with MathML3 v1.1d2
+      rng_uri_rel: archiving/1.1d2/rng/JATS-archive-oasis-article1-mathml3.rng
+      xsd_uri_rel: archiving/1.1d2/xsd/JATS-archive-oasis-article1-mathml3.xsd
+    - sysid_rel: archiving/1.1d3/JATS-archivearticle1.dtd
+      fpi: -//NLM//DTD JATS (Z39.96) Journal Archiving and Interchange DTD v1.1d3 20150301//EN
+      name: JATS (Z39.96) Journal Archiving and Interchange DTD v1.1d3
+      rng_uri_rel: archiving/1.1d3/rng/JATS-archivearticle1.rng
+      xsd_uri_rel: archiving/1.1d3/xsd/JATS-archivearticle1.xsd
+    - sysid_rel: archiving/1.1d3/JATS-archivearticle1-mathml3.dtd
+      fpi: -//NLM//DTD JATS (Z39.96) Journal Archiving and Interchange DTD with MathML3 v1.1d3 20150301//EN
+      name: JATS (Z39.96) Journal Archiving and Interchange DTD with MathML3 v1.1d3
+      rng_uri_rel: archiving/1.1d3/rng/JATS-archivearticle1-mathml3.rng
+      xsd_uri_rel: archiving/1.1d3/xsd/JATS-archivearticle1-mathml3.xsd
+    - sysid_rel: archiving/1.1d3/JATS-archive-oasis-article1.dtd
+      fpi: -//NLM//DTD JATS (Z39.96) Journal Archiving and Interchange DTD with OASIS Tables v1.1d3 20150301//EN
+      name: JATS (Z39.96) Journal Archiving and Interchange DTD with OASIS Tables v1.1d3
+      rng_uri_rel: archiving/1.1d3/rng/JATS-archive-oasis-article1.rng
+      xsd_uri_rel: archiving/1.1d3/xsd/JATS-archive-oasis-article1.xsd
+    - sysid_rel: archiving/1.1d3/JATS-archive-oasis-article1-mathml3.dtd
+      fpi: -//NLM//DTD JATS (Z39.96) Journal Archiving and Interchange DTD with OASIS Tables with MathML3 v1.1d3 20150301//EN
+      name: JATS (Z39.96) Journal Archiving and Interchange DTD with OASIS Tables with MathML3 v1.1d3
+      rng_uri_rel: archiving/1.1d3/rng/JATS-archive-oasis-article1-mathml3.rng
+      xsd_uri_rel: archiving/1.1d3/xsd/JATS-archive-oasis-article1-mathml3.xsd
+    - sysid_rel: articleauthoring/0.4/JATS-articleauthoring0.dtd
+      fpi: -//NLM//DTD JATS (Z39.96) Article Authoring DTD v0.4 20110131//EN
+      name: JATS (Z39.96) Article Authoring DTD v0.4
+      rng_uri_rel: articleauthoring/0.4/rng/JATS-articleauthoring0.rng
+      xsd_uri_rel: articleauthoring/0.4/xsd/JATS-articleauthoring0.xsd
+    - sysid_rel: articleauthoring/1.0/JATS-articleauthoring1.dtd
+      fpi: -//NLM//DTD JATS (Z39.96) Article Authoring DTD v1.0 20120330//EN
+      name: JATS (Z39.96) Article Authoring DTD v1.0
+      rng_uri_rel: articleauthoring/1.0/rng/JATS-articleauthoring1.rng
+      xsd_uri_rel: articleauthoring/1.0/xsd/JATS-articleauthoring1.xsd
+    - sysid_rel: articleauthoring/1.1d1/JATS-articleauthoring1.dtd
+      fpi: -//NLM//DTD JATS (Z39.96) Article Authoring DTD v1.1d1 20130915//EN
+      name: JATS (Z39.96) Article Authoring DTD v1.1d1
+      rng_uri_rel: articleauthoring/1.1d1/rng/JATS-articleauthoring1.rng
+      xsd_uri_rel: articleauthoring/1.1d1/xsd/JATS-articleauthoring1.xsd
+    - sysid_rel: articleauthoring/1.1d1/JATS-articleauthoring1-mathml3.dtd
+      fpi: -//NLM//DTD JATS (Z39.96) Article Authoring DTD with MathML3 v1.1d1 20130915//EN
+      name: JATS (Z39.96) Article Authoring DTD with MathML3 v1.1d1
+      rng_uri_rel: articleauthoring/1.1d1/rng/JATS-articleauthoring1-mathml3.rng
+      xsd_uri_rel: articleauthoring/1.1d1/xsd/JATS-articleauthoring1-mathml3.xsd
+    - sysid_rel: articleauthoring/1.1d2/JATS-articleauthoring1.dtd
+      fpi: -//NLM//DTD JATS (Z39.96) Article Authoring DTD v1.1d2 20140930//EN
+      name: JATS (Z39.96) Article Authoring DTD v1.1d2
+      rng_uri_rel: articleauthoring/1.1d2/rng/JATS-articleauthoring1.rng
+      xsd_uri_rel: articleauthoring/1.1d2/xsd/JATS-articleauthoring1.xsd
+    - sysid_rel: articleauthoring/1.1d2/JATS-articleauthoring1-mathml3.dtd
+      fpi: -//NLM//DTD JATS (Z39.96) Article Authoring DTD with MathML3 v1.1d2 20140930//EN
+      name: JATS (Z39.96) Article Authoring DTD with MathML3 v1.1d2
+      rng_uri_rel: articleauthoring/1.1d2/rng/JATS-articleauthoring1-mathml3.rng
+      xsd_uri_rel: articleauthoring/1.1d2/xsd/JATS-articleauthoring1-mathml3.xsd
+    - sysid_rel: articleauthoring/1.1d3/JATS-articleauthoring1.dtd
+      fpi: -//NLM//DTD JATS (Z39.96) Article Authoring DTD v1.1d3 20150301//EN
+      name: JATS (Z39.96) Article Authoring DTD v1.1d3
+      rng_uri_rel: articleauthoring/1.1d3/rng/JATS-articleauthoring1.rng
+      xsd_uri_rel: articleauthoring/1.1d3/xsd/JATS-articleauthoring1.xsd
+    - sysid_rel: articleauthoring/1.1d3/JATS-articleauthoring1-mathml3.dtd
+      fpi: -//NLM//DTD JATS (Z39.96) Article Authoring DTD with MathML3 v1.1d3 20150301//EN
+      name: JATS (Z39.96) Article Authoring DTD with MathML3 v1.1d3
+      rng_uri_rel: articleauthoring/1.1d3/rng/JATS-articleauthoring1-mathml3.rng
+      xsd_uri_rel: articleauthoring/1.1d3/xsd/JATS-articleauthoring1-mathml3.xsd
+    - sysid_rel: publishing/0.4/JATS-journalpublishing0.dtd
+      fpi: -//NLM//DTD JATS (Z39.96) Journal Publishing DTD v0.4 20110131//EN
+      name: JATS (Z39.96) Journal Publishing DTD v0.4
+      rng_uri_rel: publishing/0.4/rng/JATS-journalpublishing0.rng
+      xsd_uri_rel: publishing/0.4/xsd/JATS-journalpublishing0.xsd
+    - sysid_rel: publishing/0.4/JATS-journalpublishing-oasis0.dtd
+      fpi: -//NLM//DTD JATS (Z39.96) Journal Publishing DTD (OASIS Tables) v0.4 20110131//EN
+      name: JATS (Z39.96) Journal Publishing DTD (OASIS Tables) v0.4
+      rng_uri_rel: publishing/0.4/rng/JATS-journalpublishing-oasis0.rng
+      xsd_uri_rel: publishing/0.4/xsd/JATS-journalpublishing-oasis0.xsd
+    - sysid_rel: publishing/1.0/JATS-journalpublishing1.dtd
+      fpi: -//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN
+      name: JATS (Z39.96) Journal Publishing DTD v1.0
+      rng_uri_rel: publishing/1.0/rng/JATS-journalpublishing1.rng
+      xsd_uri_rel: publishing/1.0/xsd/JATS-journalpublishing1.xsd
+    - sysid_rel: publishing/1.0/JATS-journalpublishing-oasis-article1.dtd
+      fpi: -//NLM//DTD JATS (Z39.96) Journal Publishing DTD with OASIS Tables v1.0 20120330//EN
+      name: JATS (Z39.96) Journal Publishing DTD with OASIS Tables v1.0
+      rng_uri_rel: publishing/1.0/rng/JATS-journalpublishing-oasis-article1.rng
+      xsd_uri_rel: publishing/1.0/xsd/JATS-journalpublishing-oasis-article1.xsd
+    - sysid_rel: publishing/1.1d1/JATS-journalpublishing1.dtd
+      fpi: -//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.1d1 20130915//EN
+      name: JATS (Z39.96) Journal Publishing DTD v1.1d1
+      rng_uri_rel: publishing/1.1d1/rng/JATS-journalpublishing1.rng
+      xsd_uri_rel: publishing/1.1d1/xsd/JATS-journalpublishing1.xsd
+    - sysid_rel: publishing/1.1d1/JATS-journalpublishing1-mathml3.dtd
+      fpi: -//NLM//DTD JATS (Z39.96) Journal Publishing DTD with MathML3 v1.1d1 20130915//EN
+      name: JATS (Z39.96) Journal Publishing DTD with MathML3 v1.1d1
+      rng_uri_rel: publishing/1.1d1/rng/JATS-journalpublishing1-mathml3.rng
+      xsd_uri_rel: publishing/1.1d1/xsd/JATS-journalpublishing1-mathml3.xsd
+    - sysid_rel: publishing/1.1d1/JATS-journalpublishing-oasis-article1.dtd
+      fpi: -//NLM//DTD JATS (Z39.96) Journal Publishing DTD with OASIS Tables v1.1d1 20130915//EN
+      name: JATS (Z39.96) Journal Publishing DTD with OASIS Tables v1.1d1
+      rng_uri_rel: publishing/1.1d1/rng/JATS-journalpublishing-oasis-article1.rng
+      xsd_uri_rel: publishing/1.1d1/xsd/JATS-journalpublishing-oasis-article1.xsd
+    - sysid_rel: publishing/1.1d1/JATS-journalpublishing-oasis-article1-mathml3.dtd
+      fpi: -//NLM//DTD JATS (Z39.96) Journal Publishing DTD with OASIS Tables with MathML3 v1.1d1 20130915//EN
+      name: JATS (Z39.96) Journal Publishing DTD with OASIS Tables with MathML3 v1.1d1
+      rng_uri_rel: publishing/1.1d1/rng/JATS-journalpublishing-oasis-article1-mathml3.rng
+      xsd_uri_rel: publishing/1.1d1/xsd/JATS-journalpublishing-oasis-article1-mathml3.xsd
+    - sysid_rel: publishing/1.1d2/JATS-journalpublishing1.dtd
+      fpi: -//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.1d2 20140930//EN
+      name: JATS (Z39.96) Journal Publishing DTD v1.1d2
+      rng_uri_rel: publishing/1.1d2/rng/JATS-journalpublishing1.rng
+      xsd_uri_rel: publishing/1.1d2/xsd/JATS-journalpublishing1.xsd
+    - sysid_rel: publishing/1.1d2/JATS-journalpublishing1-mathml3.dtd
+      fpi: -//NLM//DTD JATS (Z39.96) Journal Publishing DTD with MathML3 v1.1d2 20140930//EN
+      name: JATS (Z39.96) Journal Publishing DTD with MathML3 v1.1d2
+      rng_uri_rel: publishing/1.1d2/rng/JATS-journalpublishing1-mathml3.rng
+      xsd_uri_rel: publishing/1.1d2/xsd/JATS-journalpublishing1-mathml3.xsd
+    - sysid_rel: publishing/1.1d2/JATS-journalpublishing-oasis-article1.dtd
+      fpi: -//NLM//DTD JATS (Z39.96) Journal Publishing DTD with OASIS Tables v1.1d2 20140930//EN
+      name: JATS (Z39.96) Journal Publishing DTD with OASIS Tables v1.1d2
+      rng_uri_rel: publishing/1.1d2/rng/JATS-journalpublishing-oasis-article1.rng
+      xsd_uri_rel: publishing/1.1d2/xsd/JATS-journalpublishing-oasis-article1.xsd
+    - sysid_rel: publishing/1.1d2/JATS-journalpublishing-oasis-article1-mathml3.dtd
+      fpi: -//NLM//DTD JATS (Z39.96) Journal Publishing DTD with OASIS Tables with MathML3 v1.1d2 20140930//EN
+      name: JATS (Z39.96) Journal Publishing DTD with OASIS Tables with MathML3 v1.1d2
+      rng_uri_rel: publishing/1.1d2/rng/JATS-journalpublishing-oasis-article1-mathml3.rng
+      xsd_uri_rel: publishing/1.1d2/xsd/JATS-journalpublishing-oasis-article1-mathml3.xsd
+    - sysid_rel: publishing/1.1d3/JATS-journalpublishing1.dtd
+      fpi: -//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.1d3 20150301//EN
+      name: JATS (Z39.96) Journal Publishing DTD v1.1d3
+      rng_uri_rel: publishing/1.1d3/rng/JATS-journalpublishing1.rng
+      xsd_uri_rel: publishing/1.1d3/xsd/JATS-journalpublishing1.xsd
+    - sysid_rel: publishing/1.1d3/JATS-journalpublishing1-mathml3.dtd
+      fpi: -//NLM//DTD JATS (Z39.96) Journal Publishing DTD with MathML3 v1.1d3 20150301//EN
+      name: JATS (Z39.96) Journal Publishing DTD with MathML3 v1.1d3
+      rng_uri_rel: publishing/1.1d3/rng/JATS-journalpublishing1-mathml3.rng
+      xsd_uri_rel: publishing/1.1d3/xsd/JATS-journalpublishing1-mathml3.xsd
+    - sysid_rel: publishing/1.1d3/JATS-journalpublishing-oasis-article1.dtd
+      fpi: -//NLM//DTD JATS (Z39.96) Journal Publishing DTD with OASIS Tables v1.1d3 20150301//EN
+      name: JATS (Z39.96) Journal Publishing DTD with OASIS Tables v1.1d3
+      rng_uri_rel: publishing/1.1d3/rng/JATS-journalpublishing-oasis-article1.rng
+      xsd_uri_rel: publishing/1.1d3/xsd/JATS-journalpublishing-oasis-article1.xsd
+    - sysid_rel: publishing/1.1d3/JATS-journalpublishing-oasis-article1-mathml3.dtd
+      fpi: -//NLM//DTD JATS (Z39.96) Journal Publishing DTD with OASIS Tables with MathML3 v1.1d3 20150301//EN
+      name: JATS (Z39.96) Journal Publishing DTD with OASIS Tables with MathML3 v1.1d3
+      rng_uri_rel: publishing/1.1d3/rng/JATS-journalpublishing-oasis-article1-mathml3.rng
+      xsd_uri_rel: publishing/1.1d3/xsd/JATS-journalpublishing-oasis-article1-mathml3.xsd

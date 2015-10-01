@@ -1,4 +1,13 @@
+// Main validator module.  Data is passed among modules using the global `jats4r`
+// object:
+//   - parser - functions defined in jats4r-parser.js
+//   - jats_schema - functions defined in jats4r-jats-schema.js
+//   - jats_schema_db - the JatsSchemaDb object, which has data from 
+//     jats-schema.yaml, and various accessor methods.
+//   - results - this is like our logger. Error, warning, and info messages go
+//     here.
 
+if (typeof jats4r == "undefined") jats4r = {};
 
 $(document).ready(function() {
   $('#sample_select').chosen();
@@ -22,9 +31,6 @@ var onSaxonLoad = function() {
       BUSY = 5;
 
 
-  // Singleton DtdDatabase object (see below for the class definition)  
-  var dtd_database = null;
-
   // This is the input JATS file we'll be working on
   var input_file;
 
@@ -32,7 +38,10 @@ var onSaxonLoad = function() {
   var input_url;
 
   // Console for output; see class definition below
-  var results = new Results();
+  var results = jats4r.results = new Results();
+
+  // This document's preference for the version
+  var jats4r_version;
 
   clear_input_file();
   clear_input_url();
@@ -65,13 +74,19 @@ var onSaxonLoad = function() {
 
 
 
-  // First fetch the DTDs database, then add event handlers
-  fetch("dtds.yaml")
+  // First fetch the jats4r schema versions file, the jats schema database, 
+  // then add event handlers
+  fetch('schema/versions.yaml')
     .then(function(response) {
       return response.text();
     })
     .then(function(yaml_str) {
-      dtd_database = new DtdDatabase(jsyaml.load(yaml_str));
+      jats4r.jats4r_schema_versions = jsyaml.load(yaml_str);
+      return JATS.schema.read_database("jats/jats.yaml")
+    })  
+    .then(function(db) {
+      // FIXME: couldn't I set this inside the jats-schema module?
+      jats4r.jats_schema_db = db;
 
       // Set event handlers
 
@@ -196,31 +211,6 @@ var onSaxonLoad = function() {
     input_url = null;
     $('#jats_url').val('');
   }
-  
-
-  // Some classes for holding information about a dtd, as read from the dtds.yaml file
-
-  function DtdDatabase(db) {
-    var self = this;
-    self.db = db;
-
-    var dtd_by_fpi = {};
-    db.dtds.forEach(function(dtd_data) {
-      dtd_by_fpi[dtd_data.fpi] = new Dtd(dtd_data);
-    });
-    self.dtd_by_fpi = dtd_by_fpi;
-  }
-
-  function Dtd(dtd_data) {
-    var self = this;
-    self.data = dtd_data;
-
-    var path = dtd_data.path;
-    self.path = path;
-    self.dir = path.replace(/(.*)\/.*/, "$1");
-    self.filename = path.replace(/.*\//, "");;
-  }
-
 
   // Class to handle the results output and status message. In general, this
   // manages the state of the machine. Use as follows:
@@ -390,7 +380,7 @@ var onSaxonLoad = function() {
         return read_file(input_file);
       })
       .then(function(content) {
-        validate_session(content);
+        validate_session(content, input_file.name);
       })
       .catch(function(err) {
         var msg = "Error attempting to read the file."
@@ -414,6 +404,15 @@ var onSaxonLoad = function() {
     reset_session();
     //disable_controls();
 
+    // Get the filename from the URL
+    var parser = document.createElement('a');
+    parser.href = input_url;
+    var path = parser.pathname;
+    var filename = path.replace(/.*\//, "");
+    // If the filename is empty, then the URL perhaps ended with a slash; use
+    // a dummy filename instead
+    if (filename == "") filename = "file.xml";
+
     results.start_phase("Fetching the XML file")
       .then(function() {
         var headers = new Headers();
@@ -428,7 +427,7 @@ var onSaxonLoad = function() {
         return response.text();
       })
       .then(function(content) {
-        validate_session(content);
+        validate_session(content, filename);
       })
       .catch(function(err) {
         results.error("Error attempting to fetch the file: " + err.message);
@@ -447,59 +446,145 @@ var onSaxonLoad = function() {
 
   // This does not throw any errors.
 
-  function validate_session(contents) {
-    //console.log("validate_session");
-    // Look for xml declaration. If one is found, change any encoding to utf-8
+  function validate_session(contents, xml_filename) {
+    var m;
+
+    // Look for xml declaration. If one is found, change any encoding specifier
+    // to utf-8. This is necessary, because the document will always be passed
+    // to libxml as utf-8, and the declaration here must match.
     var xml_decl_re =
       /^(<\?xml\s+.*?encoding\s*=\s*('|\"))(.*?)(('|\").*?\?>)/;
     contents = contents.replace(xml_decl_re, "$1utf-8$4");
 
-    // Look for a doctype declaration
-    var doctype_pub_re = 
-      /<!DOCTYPE\s+\S+\s+PUBLIC\s+('|\")(.*?)('|\")\s+('|\")(.*?)('|\")\s*(\[[\s\S]*?\]\s*)?>/;
-    if (m = contents.match(doctype_pub_re)) {
-      var fpi = m[2];
-      var sysid = m[5];
+    // Manually parse the header, extracting all the references to schema (including
+    // doctype declarations, xml-model PIs, and XSD attributes on the root node)
+    var schema_refs = jats4r.parser.parse_header(contents);
 
-      var dtd = dtd_database.dtd_by_fpi[fpi] || null;
-      if (!dtd) {
-        results.error("Bad doctype declaration. " +
-          "Unrecognized public identifier: '" + fpi + "'");
+    // Figure out what JATS4R schema version to use
+
+    var count = 0,
+        schema_versions = jats4r.jats4r_schema_versions,
+        default_ver = schema_versions[schema_versions.length - 1];
+
+    jats4r_version = null;
+
+    schema_refs.forEach(function(sr) {
+      if (!sr.is_jats) {
+        count++;
+        if (count == 1) jats4r_version = sr.version;
+      }
+    });
+
+    var message_given = false;  // keep track of whether or not we've put out a message
+    if (!jats4r_version) {
+      message_given = true;
+      results.warn(
+        "JATS4R-compliant articles should use the xml-model processing instruction to " +
+        "specify that they comply with our recommendations. For example: " + 
+        "<blockquote><pre>&lt;?xml-model href=\"http://jats4r.org/schema/1.0/jats4r.sch\"\n" +
+        "  schematypens=\"http://purl.oclc.org/dsdl/schematron\" title=\"JATS4R 1.0\"?></pre></blockquote>" +
+        "<p>This tool will now use the default version: '" + default_ver + "'."
+      );
+    }
+    else if (count > 1) {
+      message_given = true;
+      results.error(
+        "Two or more &lt;?xml-model?> processing instructions referencing JATS4R " +
+        "were found. Only the first will be used."
+      );
+    }
+
+    if (jats4r_version) {
+      var version_found = schema_versions.find(function(v) {
+        return v == jats4r_version;
+      });
+      if (!version_found) {
+        message_given = true;
+        results.error(
+          "A JATS4R &lt;?xml-model?> processing instruction was found, but the " +
+          "version number ('" + jats4r_version + "') does not appear to be valid.\n" +
+          "The valid version numbers are: " + schema_versions.join(", ") + ".\n" +
+          "This tool will now use the default version: '" + default_ver + "'."
+        );
+        jats4r_version = null;
       }
     }
-    else {
-      var doctype_sys_re = 
-        /<!DOCTYPE\s+\S+\s+SYSTEM\s+\"(.*?)\"\s*(\[[\s\S]*?\]\s*)?>/;
-      if (m = contents.match(doctype_sys_re)) {
+
+    if (!jats4r_version) jats4r_version = default_ver;
+
+    if (!message_given && count == 1) {
+      results.info(
+        "A JATS4R &lt;?xml-model?> processing instruction was found, specifying version '" +
+        jats4r_version + "'. This is good!"
+      );
+    }
+
+
+
+
+    var jats_schema_ref = null,
+        count = 0,
+        diffs = false;
+
+    schema_refs.forEach(function(sr) {
+      if (sr.is_jats) {
+        count++;
+        if (count == 1) jats_schema_ref = sr;
+        else if (!diffs) {
+          if (sr.schema.fpi != jats_schema_ref.schema.fpi) diffs = true;
+        }
+      }
+    });
+
+    if (!jats_schema_ref) {
+      results.warn(
+        "<p>No reference to any JATS schema (doctype declaration, xml-model " +
+        "processing instruction, or xsd attributes on the root node) were " +
+        "found. We recommend that all JATS documents identify which version " +
+        "of JATS the comply with, by using one of these mechanisms.</p>"
+      );
+    }
+    else if (count > 1) {
+      if (diffs) {
         results.error(
-          "A doctype declaration was found that only contains a SYSTEM identifer. " +
-          "Documents conforming to JATS4R that use DTDs are required to include " +
-          "a PUBLIC identifier.");
+          "Multiple ways of referencing a JATS schema were found, and they do not match. " +
+          "For the purposes of this validation, the first specification " +
+          "will be used."
+        );
       }
       else {
         results.info(
-          "No doctype declaration was found, so DTD validation was skipped");
+          "Multiple ways of referencing a JATS schema were found, and they match."
+        );
       }
     }
 
-    if (!dtd) {
-      do_validate(contents);
+    if (!jats_schema_ref) {
+      do_validate(contents, xml_filename);
     }
 
     else {
-      // Fetch the flattened DTD
-      fetch("dtds/" + dtd.path)
+      // Fetch the flattened schema:
+      // - if a DTD was specified, fetch the DTD
+      // - if either Relax NG or XSD was specified, fetch the RNG. Note that 
+      //   documents that use the XSD attributes on the root node are not
+      //   valid according to the DTD (or RNG); see this comment on the NISO site:
+      //   http://www.niso.org/apps/group_public/view_comment.php?comment_id=601
+
+      var schema = jats_schema_ref.schema;
+      var flat_schema_path = 'jats/flat/' + 
+        (jats_schema_ref.ref_type == "dtd"
+          ? schema.dtd_path() : schema.rng_path());
+
+      fetch(flat_schema_path)
         .then(function(response) {
           if (response.status < 200 || response.status >= 300)
-            throw Error("Bad response when fetching the DTD: " +
+            throw Error("Bad response when fetching the JATS schema file: " +
               response.status + " - " + response.statusText);
           return response.text();
         })
-        .then(function(dtd_contents) {
-          // We use the public identifier from the doctype declaration to find the DTD,
-          // but xmllint fetches it by system identifier. So, we store whatever the system
-          // identifier is, for use by that call.
-          do_validate(contents, sysid, dtd_contents);
+        .then(function(schema_contents) {
+          do_validate(contents, xml_filename, jats_schema_ref, schema_contents);
         })
         .catch(function(err) {
           results.error(err.message);
@@ -508,7 +593,6 @@ var onSaxonLoad = function() {
       ;
     }
   }
-
 
   // This function gets called when we've finished reading the DTD, or, if
   // there is no DTD, immediately after the instance document is read. 
@@ -519,79 +603,98 @@ var onSaxonLoad = function() {
 
   // This does not throw any errors.
 
-  function do_validate(contents, dtd_filename, dtd_contents) 
+  function do_validate(contents, xml_filename, schema_ref, schema_contents) 
   {
-    parse_and_dtd_validate(contents, dtd_filename, dtd_contents)
+    parse_and_schema_validate(contents, xml_filename, schema_ref, schema_contents)
       .then(function(results) {
-        //console.log("parse_and_dtd_validate results: " + results);
+        //console.log("parse_and_schema_validate results: " + results);
         if (results) schematron_validate(results);
       });
   }
 
 
   // Parse the XML file, and validate it against the DTD, using xmllint.
+  // This calls xmllint with "command lines" like, for example:
+  //   - No schema specified:  `xmllint <xml-filename>`
+  //   - DTD specified: `xmllint --dtdvalid <dtd-path> <xml-filename>`
+  //   - RNG (or XSD) specified: `xmllint --relaxng <rng-path> <xml-filename>`
 
   // This creates a start_phase Promise, and returns it, immediately. 
 
   // This does not throw any errors, but the then() method on the promise might
   // return null, if there's an error with DTD validation
 
-  function parse_and_dtd_validate(contents, dtd_filename, dtd_contents) 
+  function parse_and_schema_validate(contents, xml_filename, schema_ref, schema_contents) 
   {
-    var to_validate = typeof(dtd_filename) !== "undefined";
-    var msg = "Parsing " + (to_validate ? "and validating against the DTD" : "");
+    var to_validate = typeof(schema_ref) !== "undefined";
+    if (to_validate) {
+      // What the document requested:
+      var schema_type = schema_ref.ref_type;
+
+      // What we're actually using (use RNG instead of XSD):
+      var actual_schema_type = schema_type;
+      if (schema_type == "xsd") actual_schema_type = "rng";
+
+      var schema_uri = (schema_type == "dtd") ?
+          schema_ref.schema.sysid()
+        : schema_ref.schema.rng_uri();
+    }
+
+    var msg = "Parsing";
+    if (to_validate) {
+      msg += " and validating against the JATS " + 
+             (schema_type == "dtd" ? "DTD" : "Relax NG");
+    } 
+
     return results.start_phase(msg)
       .then(function() {
 
+        var args = ['--noent'];
+        var files = [{
+          path: xml_filename,
+          data: contents
+        }];
+
         if (to_validate) {
-          // If there is a DTD, invoke xmllint with:
-          // --loaddtd - this causes the DTD specified in the doctype declaration
-          //     to be loaded when parsing. This is necessary to resolve entity references.
-          //     But note that this is redundant, because --valid causes the DTD to be loaded,
-          //     too.
-          // --valid - cause xmllint to validate against the DTD that it finds from the doctype
-          //     declaration.
-          // --noent - tells xmlint to resolve all entity references
-          var args = ['--loaddtd', '--valid', '--noent', 'dummy.xml'];
-          var files = [
-            {
-              path: 'dummy.xml',
-              data: contents
-            },
-            {
-              path: dtd_filename,
-              data: dtd_contents
-            }
-          ];
-        }
-        else {
-          // If no DTD:
-          var args = ['dummy.xml'];
-          var files = [
-            {
-              path: 'dummy.xml',
-              data: contents
-            }
-          ];
+          args.push(
+            schema_type == "dtd" ? '--dtdvalid' : '--relaxng',
+            schema_uri
+          );
+          files.push({
+            path: schema_uri,
+            data: schema_contents
+          });
         }
 
+        args.push(xml_filename);
+
         try {
+          console.log("Calling xmllint with " + args.join(","));
           var result = xmltool(args, files);
         }
         catch(e) {
           results.error(
-            $('<div>Failed XML parsing and/or DTD validation. Error message from ' +
+            $('<div>Failed XML parsing and/or JATS validation. Error message from ' +
               'the parser was: ' +
               '<pre>' + e + '</pre></div>'));
           results.done();
           result = null;
         }
 
-        if (result.stderr.length) {
+        // FIXME: Determining whether or not the validation succeeded; this is probably brittle. 
+        // I don't yet know how to get the return status from xmllint.
+        // For DTD validation, when success: the stderr is empty. Unfortunately, for RNG
+        // validation, they write "<filename validates\n" to stderr.
+        if ( result.stderr.length &&
+             (actual_schema_type != "rng" || result.stderr != xml_filename + " validates\n") ) {
           results.error($('<div>Failed ' + msg +
             '<pre>' + result.stderr + '</pre></div>'));
-          results.done();
-          result = null;
+          // If there's nothing in stdout, then the document was not well formed.
+          // Otherwise, we can continue with JATS4R validation
+          if (result.stdout.length == 0) {
+            results.done();
+            result = null;
+          }
         }
 
         return result;
@@ -625,7 +728,8 @@ var onSaxonLoad = function() {
         }
         if (parse_error || pe) {
           if (!pe) { pe = "Unable to parse the input XML file."; }
-          results.error("Error parsing input file: " + pe);
+          results.error("Saxon reported an error when attempting to parse " +
+            "this input file: " + pe.textContent);
           results.done();
         }
 
@@ -635,7 +739,7 @@ var onSaxonLoad = function() {
           //console.log("About to Saxon.run");
 
           var run_result = Saxon.run({
-            stylesheet: 'generated-xsl/0.1/' + xslt[level],
+            stylesheet: 'generated-xsl/' + jats4r_version + '/' + xslt[level],
             source: doc,
             method: 'transformToDocument',
             success: function(processor) {

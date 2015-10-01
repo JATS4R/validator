@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE article 
-  PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN"
-  "JATS-journalpublishing1.dtd">
-  
+
+<?xml-model href="http://jats.nlm.nih.gov/publishing/1.0/JATS-journalpublishing1.dtd"
+   type="application/xml-dtd"?>
+
 <article dtd-version="1.0" >
   <front>
     <journal-meta>
@@ -20,9 +20,5 @@
     </article-meta>
   </front>
   <body>
-    <p>Some entity references. These will cause problems unless the parser reads the DTD.
-      Acirc: &Acirc;
-      Afr (in plane1D): &Afr;
-    </p>
   </body>
 </article>

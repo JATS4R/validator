@@ -9,4 +9,4 @@ if ! [ -e validate.js ]
 fi
 export JATS4R_VALIDATOR_HOME=`pwd`
 
-rm -rf lib dtds generated-xsl
+rm -rf lib jats/flat generated-xsl

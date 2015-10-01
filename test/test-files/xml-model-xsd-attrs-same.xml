@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE article SYSTEM "../JATS-journalpublishing1.dtd">
 
-<article dtd-version="1.0" >
+<?xml-model href="http://jats.nlm.nih.gov/publishing/1.0/xsd/JATS-journalpublishing1.xsd"
+   schematypens="http://www.w3.org/2001/XMLSchema"?>
+
+<article dtd-version="1.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation=
+    "http://jats.nlm.nih.gov/publishing/1.0/xsd/JATS-journalpublishing1.xsd">
   <front>
     <journal-meta>
       <journal-id></journal-id>

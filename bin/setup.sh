@@ -7,7 +7,6 @@ if [ -z "$JATS4R_HOME" ]; then
     exit 1
 fi  
 
-
 cd $JATS4R_HOME
 mkdir -p lib
 
@@ -47,33 +46,9 @@ if ! [ -d Saxonce ]; then
     rm Saxon-CE_1.1.zip
 fi
 
-# JATS DTDs
 
-cd $JATS4R_HOME/lib
 
-if ! [ -d nlm-dtd ]; then
-    COMMIT=c8ad958f6190313807b2aa376a38537148f6c7d6
-    wget https://github.com/ncbi/nlm-dtd/archive/$COMMIT.zip
-    if [ $? -ne 0 ]; then
-        echo "wget failed; aborting"
-        exit 1
-    fi
-    unzip $COMMIT.zip
-    rm $COMMIT.zip
-    mv nlm-dtd-$COMMIT nlm-dtd
-fi
 
-if ! [ -d niso-jats ]; then
-    COMMIT=1b907a30b52e272203217c62b0e04898da74b33d
-    wget https://github.com/ncbi/niso-jats/archive/$COMMIT.zip
-    if [ $? -ne 0 ]; then
-        echo "wget failed; aborting"
-        exit 1
-    fi
-    unzip $COMMIT.zip
-    rm $COMMIT.zip
-    mv niso-jats-$COMMIT niso-jats
-fi
 
 # DtdAnalyzer
 cd $JATS4R_HOME/lib
@@ -89,10 +64,25 @@ fi
 export DTDANALYZER_HOME=$JATS4R_HOME/lib/DtdAnalyzer-0.5
 export PATH=$PATH:$DTDANALYZER_HOME
 
-# Generate flattened DTDs in the `dtds` subdirectory
-cd $JATS4R_HOME
-if ! [ -d dtds ]; then
-    JATS_DTD_BASE=lib python3 bin/flatten.py
+
+
+# JATS schema files (DTDs, RNGs, XSDs)
+
+cd $JATS4R_HOME/jats
+# Verify that the submodules are here
+if ! [ -d src/nlm-dtd/publishing ]; then
+    echo "nlm-dtd content not found. Did you use `--recursive` when you cloned this repo?"
+    exit 1
+fi
+
+if ! [ -d src/niso-jats/publishing ]; then
+    echo "niso-jats content not found. Did you use `--recursive` when you cloned this repo?"
+    exit 1
+fi
+
+# Generate flattened DTDs and RNGs in the `jats-schema` subdirectory
+if ! [ -d jats-flat ]; then
+    JATS_BASE=. python3 ./flatten.py
     if [ $? -ne 0 ]; then
         echo "flatten failed; aborting"
         exit 1
