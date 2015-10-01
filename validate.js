@@ -655,7 +655,7 @@ var onSaxonLoad = function() {
     return results.start_phase(msg)
       .then(function() {
 
-        var args = ['--noent'];
+        var args = ['--noent', '--nowarning'];
         var files = [{
           path: xml_filename,
           data: contents

@@ -47,9 +47,11 @@ jats4r.parser = (function() {
       var sysid = m[5];
 
       s = schema_db.get_by_fpi(fpi) || null;
+      var use_dtd = true;
       if (!s) {
         results.error("Bad doctype declaration. " +
           "Unrecognized public identifier: '" + fpi + "'");
+        use_dtd = false;
       }
       else if (s.sysid() != sysid) {
         if (s.sysid().endsWith(sysid)) {
@@ -71,7 +73,7 @@ jats4r.parser = (function() {
           );
         }
       }
-      else {
+      if (use_dtd) {
         schema_refs.push({
           type: 'doctype-decl',
           is_jats: true,
