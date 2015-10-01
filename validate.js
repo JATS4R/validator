@@ -158,6 +158,12 @@ var onSaxonLoad = function() {
 
       // Ready to go
       results.reset();
+
+      var matches = document.location.search.match(/[\?&]url=([^&]+)/);
+
+      if (matches) {
+          $('#jats_url').val(decodeURIComponent(matches[1])).trigger('change');
+      }
     });
 
 
