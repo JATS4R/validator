@@ -56,6 +56,7 @@ JATS.schema = (function() {
     $.extend(true, self, d);
     self.group = group;
     self.repo_dir = group.repo.replace(/.*\//, '');
+
     self.sysid = function() {
       return self.group.uri_prefix + self.sysid_rel;
     };

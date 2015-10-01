@@ -635,9 +635,9 @@ var onSaxonLoad = function() {
       var actual_schema_type = schema_type;
       if (schema_type == "xsd") actual_schema_type = "rng";
 
-      var schema_path = (schema_type == "dtd") ?
-          schema_ref.schema.dtd.sysid
-        : schema_ref.schema.rng_repo_path();
+      var schema_uri = (schema_type == "dtd") ?
+          schema_ref.schema.sysid()
+        : schema_ref.schema.rng_uri();
     }
 
     var msg = "Parsing";
@@ -658,10 +658,10 @@ var onSaxonLoad = function() {
         if (to_validate) {
           args.push(
             schema_type == "dtd" ? '--dtdvalid' : '--relaxng',
-            schema_path
+            schema_uri
           );
           files.push({
-            path: schema_path,
+            path: schema_uri,
             data: schema_contents
           });
         }

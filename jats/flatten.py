@@ -41,12 +41,19 @@ def gen_flat_dtd(repo_path, schema_def):
     os.makedirs(flat_dir, exist_ok = True)
     flat_path = flat_base + "/" + rel_path
 
-    subprocess.call('dtdflatten ' + src_path + ' > ' + flat_path, shell=True)
     print("Generating flattened DTD: " + flat_path)
+    ret = subprocess.call('dtdflatten ' + src_path + ' > ' + flat_path, shell=True)
+    if (ret): 
+        print("  Failed!")
+        try:
+            os.remove(flat_path)
+        except:
+            pass
+
 
 def gen_flat_rng(repo_path, schema_def):
     # Get the path to RNG; e.g. 'nlm-dtd/archiving/1.0/rng/archivearticle.rng'
-    if (not(schema_def['rng_uri_rel'])): return
+    if (not('rng_uri_rel' in schema_def)): return
     rel_path = repo_path + "/" + schema_def['rng_uri_rel']
     dirname = os.path.dirname(rel_path)  # e.g. 'nlm-dtd/archiving/1.0/dtd'
     src_path = jats_base + "/src/" + rel_path
@@ -56,8 +63,14 @@ def gen_flat_rng(repo_path, schema_def):
     os.makedirs(flat_dir, exist_ok = True)
     flat_path = flat_base + "/" + rel_path
 
-    subprocess.call('rnginline ' + src_path + ' ' + flat_path, shell=True)
     print("Generating flattened RNG: " + flat_path)
+    ret = subprocess.call('rnginline ' + src_path + ' ' + flat_path, shell=True)
+    if (ret): 
+        print("  Failed!")
+        try:
+            os.remove(flat_path)
+        except:
+            pass
 
 for group in jats_db:
     for schema_def in group['schemas']:
