@@ -1,4 +1,3 @@
----
 - repo: https://github.com/ncbi/nlm-dtd
   uri_prefix: http://dtd.nlm.nih.gov/
   schemas:
