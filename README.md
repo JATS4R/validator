@@ -89,7 +89,7 @@ system, and you should have a working validator.
 Validation setup
 ----------------
 
-More detailed instructions follow.
+Here is some more detailed information.
 
 Whenever you open a new shell, to configure your environment, you must first 
 do two things:
