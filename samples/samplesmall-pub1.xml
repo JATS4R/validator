@@ -13,7 +13,7 @@ type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?> -->
 Front Matter, a Table, and Citations for testing         -->
 <!-- =============== Front Matter (Metadata) =========== -->
 <front>
-<journal-meta
+<journal-meta>
 <journal-id>Lapdeb-1</journal-id>
 <issn>03-647-1</issn>
 <publisher><publisher-name>Mulberry Technologies, Inc.</publisher-name></publisher>

@@ -67,7 +67,7 @@ jats4r.parser = (function() {
           results.error(
             "<p>Bad doctype declaration: the public and system identifiers don't match.\n" +
             "Based on the public identifier of '" + fpi + "', we were expecting a " +
-            "system identifier of '" + s.dtd.sysid + "'. However, this document " +
+            "system identifier of '" + s.sysid() + "'. However, this document " +
             "has '" + sysid + "'. JATS4R requires that, when using a doctype declaration, " +
             "you should use the full URI of the system identifier.</p>\n"
           );
