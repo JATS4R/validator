@@ -35,8 +35,8 @@ if [ "x$SAXON_JAR" = "x" ] || ! [ -e $SAXON_JAR ]
 fi
 
 # FIXME: version number needs to be parameterized
-IN_DIR=$JATS4R_SCHEMA/0.1
-OUTPUT_DIR=$JATS4R_XSLT/0.1
+IN_DIR=$JATS4R_SCHEMA/1.0
+OUTPUT_DIR=$JATS4R_XSLT/1.0
 
 
 # This shell subroutine does the actual work.
