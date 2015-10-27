@@ -8,8 +8,6 @@
     <!-- For JATS 1.1d3 and later, <license> should have an <ali:license_ref> -->
     <report test="fn:jats-version-later-1d3(/article/@dtd-version) and 
                   not(ali:license_ref)">
-      dtd-version = <value-of select='/article/@dtd-version'/>
-      fn:jats-version-later-1d3 = <value-of select='fn:jats-version-later-1d3(/article/@dtd-version)'/>
       WARNING: No licence URI.
       For JATS 1.1d3 and later, if the licence is defined by a canonical URI, then the
       &lt;license> element should have an &lt;ali:license_ref> child, that specifies

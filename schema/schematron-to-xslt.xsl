@@ -13,6 +13,8 @@
       </xsl:if>
     </axsl:output>
 
+    <!-- FIXME: make this a generic version-comparator. Use feature testing if /article/@dtd-version
+      isn't present. -->
     <axsl:function name='fn:jats-version-later-1d3' as="xsd:boolean">
       <axsl:param name="v"/>
       <axsl:variable name='maj' select="substring-before($v, '.')"/>
