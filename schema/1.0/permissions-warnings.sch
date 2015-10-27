@@ -1,19 +1,30 @@
 
-<pattern id="permissions-warnings" xmlns="http://purl.oclc.org/dsdl/schematron">
+<pattern id="permissions-warnings" 
+         xmlns="http://purl.oclc.org/dsdl/schematron"
+         xmlns:fn="http://jats4r.org/ns">
 
-  <!-- <license> should have an @xlink:href to the license URI -->
   <rule context="license">
-    <assert test="normalize-space(@xlink:href)"> 
-      WARNING: &lt;license&gt; should have an @xlink:href
-      that refers to a publicly available license. 
-    </assert>
-  </rule>
 
-  <!-- <copyright-statement> should be followed by a <copyright-holder> -->
-  <rule context="copyright-statement">
-    <assert test="following-sibling::copyright-holder"> 
-      WARNING: If a &lt;copyright-statement&gt; is
-      provided, &lt;copyright-holder&gt; should also be provided for machine-readability. 
-    </assert>
+    <!-- For JATS 1.1d3 and later, <license> should have an <ali:license_ref> -->
+    <report test="fn:jats-version-later-1d3(/article/@dtd-version) and 
+                  not(ali:license_ref)">
+      dtd-version = <value-of select='/article/@dtd-version'/>
+      fn:jats-version-later-1d3 = <value-of select='fn:jats-version-later-1d3(/article/@dtd-version)'/>
+      WARNING: No licence URI.
+      For JATS 1.1d3 and later, if the licence is defined by a canonical URI, then the
+      &lt;license> element should have an &lt;ali:license_ref> child, that specifies
+      that URI.
+    </report>
+  
+    <!-- For JATS 1.1d2 and earlier, <license> should have an @xlink:href to the license URI -->
+  
+    <report test="not(fn:jats-version-later-1d3(/article/@dtd-version)) and
+                  not(normalize-space(@xlink:href))"> 
+      WARNING: No licence URI.
+      For JATS 1.1d2 and earlier, if the licence is defined by a canonical URI, then the
+      &lt;license> element should have an @xlink:href attribute, that specifies
+      that URI.
+    </report>
+
   </rule>
 </pattern>

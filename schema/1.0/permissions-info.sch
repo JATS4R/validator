@@ -1,24 +1,26 @@
 
 <pattern id="permissions-info" xmlns="http://purl.oclc.org/dsdl/schematron">
 
-  <rule context="(permissions/copyright-statement)[1]">
-    <report test="self::node()"> 
+  <rule context="permissions/copyright-statement">
+    <report test="true()"> 
       ✓INFO: The content of the &lt;copyright-statement> is intended for
       display; i.e. human consumption. Therefore, the contents of this element aren't addressed by
       these recommendations. 
     </report>
   </rule>
-  
-  
-  <rule context="license">
-    <report test="license-p[1]">
+
+  <rule context="license/license-p[1]">
+    <report test="true()">
       ✓INFO: The &lt;license-p> element is intended to be human-readable
       documentation, and any content is allowed, including, for example, &lt;ext-link> elements with
       URIs. Such URIs within the &lt;license-p> element will be ignored. (It is the responsibility
       of the content producer to ensure that the human-readable version of the license statement
       matches the (machine-readable) license URI.) 
     </report>
-    <report test="p[1]"> 
+  </rule>
+
+  <rule context="license/p[1]"> 
+    <report test="true()">
       ✓INFO: The &lt;p> element in &lt;license> is intended to be human-readable
       documentation, and any content is allowed, including, for example, &lt;ext-link> elements with
       URIs. Such URIs within the &lt;license-p> element will be ignored. (It is the responsibility
@@ -27,16 +29,16 @@
     </report>
   </rule>
 
-  <rule context="license/p | license/license-p">
-    <report test="ext-link"> 
-      INFO: Any link in the text of a license should be to a human-readable
-      license that does not contradict the machine-readable lincense referenced at
+  <rule context="license/p/ext-link[1] | license/license-p/ext-link[1]">
+    <report test="true()"> 
+      ✓INFO: Any link in the text of a license should be to a human-readable
+      license that does not contradict the machine-readable license referenced at
       license/@xlink:href. 
     </report>
   </rule>
 
-  <rule context="license">
-    <report test="@license-type"> 
+  <rule context="license/@license-type">
+    <report test="true()"> 
       ✓INFO: While the @license-type attribute might be useful in some closed production systems, 
       be aware that its allowable values have not been standardized, and are therefore not usable 
       by automated systems.
@@ -50,7 +52,6 @@
       different copyright or license conditions than the article as a whole.
     </report>
   </rule>
-
 
 
 </pattern>

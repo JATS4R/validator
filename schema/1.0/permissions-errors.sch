@@ -10,33 +10,33 @@
     </assert>
   </rule>
 
-  <!-- <copyright-statement> must be followed by a <copyright-year> -->
-  <rule context="copyright-holder">
-    <assert test="preceding-sibling::copyright-year"> 
-      ERROR: The &lt;copyright-year> and
-      &lt;copyright-holder> elements are intended for machine-readability. Therefore, when there is
-      a copyright (i.e. the article is not in the public domain) we recommend that both of these
-      elements be used. 
-    </assert>
+  <rule context="permissions">
+    <!-- <copyright-statement> or <copyright-holder> implies copyright; so there must also be a
+      <copyright-year> -->
+    <report test="(copyright-statement|copyright-holder) and not(copyright-year)"> 
+      ✓ERROR: Missing &lt;copyright-year>.
+      When an article is under copyright
+      (i.e. it is not in the public domain) we recommend that &lt;copyright-year> be given.
+    </report>
+
+    <!-- Likewise, <copyright-statement> or <copyright-year> implies there must also be a
+      <copyright-holder> -->
+    <report test="(copyright-statement|copyright-year) and not(copyright-holder)"> 
+      ✓ERROR: Missing &lt;copyright-holder>.
+      When an article is under copyright
+      (i.e. it is not in the public domain) we recommend that &lt;copyright-holder> be given.
+    </report>
   </rule>
 
   <rule context="copyright-year">
-    <assert test="following-sibling::copyright-holder"> 
-      ERROR: The &lt;copyright-year> and
-      &lt;copyright-holder> elements are intended for machine-readability. Therefore, when there is
-      a copyright (i.e. the article is not in the public domain) we recommend that both of these
-      elements be used. 
-    </assert>
-
-    <!-- <copyright-year> should be a 4-digit number -->
     <assert test="number() and number() > 999 and number() &lt; 10000"> 
-      ERROR:
-      &lt;copyright-year&gt; must be a 4-digit year, not "<value-of select="."/>". 
+      ✓ERROR: &lt;copyright-year&gt; must be a 4-digit year, not "<value-of select="."/>". 
     </assert>
     <report test="normalize-space(string(.)) != string(.)"> 
-      ERROR: &lt;copyright-year&gt; should not
-      contain whitespace. 
+      ✓ERROR: &lt;copyright-year&gt; should not contain whitespace. 
     </report>
   </rule>
+  
+  
 
 </pattern>

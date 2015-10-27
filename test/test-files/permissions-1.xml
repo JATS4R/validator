@@ -35,5 +35,47 @@
     </article-meta>
   </front>
   <body>
+    <fig id="fig0">
+      <permissions>
+        <!-- expect an error: no copyright-year -->
+        <copyright-statement>The National Portrait Gallery, London. All rights
+          reserved</copyright-statement>
+        <copyright-holder>Fred et al.</copyright-holder>
+      </permissions>
+    </fig>
+    <fig id="fig1">
+      <permissions>
+        <copyright-statement>The National Portrait Gallery, London. All rights
+          reserved</copyright-statement>
+        <!-- expect an error: copyright-year should be a full 4-digit year -->
+        <copyright-year>13</copyright-year>
+        <copyright-holder>Fred et al.</copyright-holder>
+      </permissions>
+    </fig>
+    <fig id="fig2">
+      <permissions>
+        <copyright-statement>The National Portrait Gallery, London. All rights
+          reserved</copyright-statement>
+        <!-- expect an error: copyright-year should not include whitespace -->
+        <copyright-year> 2013</copyright-year>
+        <copyright-holder>Fred et al.</copyright-holder>
+      </permissions>
+    </fig>
+    <fig id="fig3">
+      <permissions>
+        <!-- expect an error: no copyright-holder -->
+        <copyright-statement>The National Portrait Gallery, London. All rights
+          reserved</copyright-statement>
+        <copyright-year>2013</copyright-year>
+      </permissions>
+    </fig>
+    <fig id="fig4">
+      <permissions>
+        <!-- expect a warning: <license> with no @xlink:href -->
+        <license>
+          <license-p/>
+        </license>
+      </permissions>
+    </fig>
   </body>
 </article>
