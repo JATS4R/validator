@@ -90,8 +90,16 @@ process()
   fi
 
   echo "==> Generating the XSLT $OUT_XSL"
-  java -jar $SAXON_JAR -s:$COMBINED_SCH -xsl:$JATS4R_SCHEMA/schematron-to-xslt.xsl \
-       -o:$OUT_XSL generate-paths=yes $P
+  java -jar $SAXON_JAR -s:$COMBINED_SCH -xsl:lib/iso-schematron-xslt2/iso_svrl_for_xslt2.xsl \
+       -o:$OUT_XSL generate-paths=yes allow-foreign=true $P
+
+#java -jar $SAXON_JAR -s:pe.sch \
+#  -xsl:../../lib/iso-schematron-xslt2/iso_svrl_for_xslt2.xsl \
+#  -o:pe.xsl \
+#  generate-paths=yes \
+#  allow-foreign=true
+
+
 
   if [ $? -ne 0 ]
     then
@@ -100,10 +108,6 @@ process()
     else
       echo "==> Successfully generated $OUT_XSL"
   fi
-
-
-  #rm $COMBINED_SCH
-
 }
 
 # Finally, generate the outputs:

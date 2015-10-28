@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article
+  PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.1d3 20150301//EN"
+  "http://jats.nlm.nih.gov/publishing/1.1d3/JATS-journalpublishing1.dtd">
+<?xml-model href="http://jats4r.org/schema/1.0/jats4r.sch"
+   schematypens="http://purl.oclc.org/dsdl/schematron" title="JATS4R 1.0"?>
+
+<article dtd-version="1.1d3" >
+  <front>
+    <journal-meta>
+      <journal-id></journal-id>
+      <issn></issn>
+    </journal-meta>
+    <article-meta>
+      <title-group>
+        <article-title>Archival DTD Test Article</article-title>
+        <subtitle>(Just a small one for parsing)</subtitle>
+      </title-group>
+      <pub-date>
+        <year>2015</year>
+      </pub-date>
+      <permissions>
+        <copyright-statement>© 2015 Fred et al.</copyright-statement>
+        <copyright-year>2015</copyright-year>
+        <copyright-holder>Fred et al.</copyright-holder>
+        <license license-type="open-access" xlink:href="http://creativecommons.org/licenses/by/4.0/">
+          <license-p>This is an open access article distributed under the terms of the 
+            <ext-link ext-link-type="uri" xlink:href="http://creativecommons.org/licenses/by/4.0/">Creative 
+              Commons Attribution License</ext-link>, which permits unrestricted use, distribution, 
+            reproduction and adaptation in any medium and for any purpose provided that it is properly 
+            attributed. For attribution, the original author(s), title, publication source (PeerJ) and 
+            either DOI or URL of the article must be cited.</license-p>
+        </license>
+      </permissions>
+    </article-meta>
+  </front>
+  <body>
+    <fig id="fig0">
+      <permissions>
+        <!-- expect an error: no copyright-year -->
+        <copyright-statement>The National Portrait Gallery, London. All rights
+          reserved</copyright-statement>
+        <copyright-holder>Fred et al.</copyright-holder>
+      </permissions>
+    </fig>
+    <fig id="fig1">
+      <permissions>
+        <copyright-statement>The National Portrait Gallery, London. All rights
+          reserved</copyright-statement>
+        <!-- expect an error: copyright-year should be a full 4-digit year -->
+        <copyright-year>13</copyright-year>
+        <copyright-holder>Fred et al.</copyright-holder>
+      </permissions>
+    </fig>
+    <fig id="fig2">
+      <permissions>
+        <copyright-statement>The National Portrait Gallery, London. All rights
+          reserved</copyright-statement>
+        <!-- expect an error: copyright-year should not include whitespace -->
+        <copyright-year> 2013</copyright-year>
+        <copyright-holder>Fred et al.</copyright-holder>
+      </permissions>
+    </fig>
+    <fig id="fig3">
+      <permissions>
+        <!-- expect an error: no copyright-holder -->
+        <copyright-statement>The National Portrait Gallery, London. All rights
+          reserved</copyright-statement>
+        <copyright-year>2013</copyright-year>
+      </permissions>
+    </fig>
+    <fig id="fig4">
+      <permissions>
+        <!-- expect a warning: <license> with no @xlink:href -->
+        <license>
+          <license-p/>
+        </license>
+      </permissions>
+    </fig>
+  </body>
+</article>

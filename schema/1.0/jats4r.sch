@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <schema xmlns="http://purl.oclc.org/dsdl/schematron"
-  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-  xmlns:j4r="http://jats4r.org/ns"
-  queryBinding="xslt2">
+        xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+        xmlns:j4r="http://jats4r.org/ns"
+        queryBinding="xslt2">
 
   <ns prefix="ali" uri="http://www.niso.org/schemas/ali/1.0"/>
   <ns prefix="j4r" uri="http://jats4r.org/ns"/>
@@ -13,4 +14,17 @@
   <include href="permissions-errors.sch"/>
   <include href="math-errors.sch"/>
 
+  <xsl:function name='j4r:jats-version-later-1d2' as="xsd:boolean">
+    <xsl:param name="v"/>
+    <xsl:variable name='maj' select="substring-before($v, '.')"/>
+    <xsl:variable name='min' select="substring-after($v, '.')"/>
+    <xsl:variable name='min-is-num' select='number($min) = number($min)'/>
+    <xsl:value-of select="
+      $maj = '1' and
+      ( $min-is-num and number($min) >= 1 or
+        not($min-is-num) and $min > '1d2' )
+    "/>
+  </xsl:function>
+  
+  
 </schema>
