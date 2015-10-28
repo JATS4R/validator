@@ -1,10 +1,11 @@
 <!-- 
   Tests for permissions, JATS4R GitHub issues #2, #11, #13 
 -->
-<pattern id="permissions-errors" xmlns="http://purl.oclc.org/dsdl/schematron">
+<pattern id="permissions-errors" xmlns="http://purl.oclc.org/dsdl/schematron"
+  xmlns:j4r="http://jats4r.org/ns">
   
   <rule context="article-meta">
-    <assert test="permissions">
+    <assert test="permissions" j4r:test-file='permissions-1.xml'>
       ✓ERROR: Missing top-level &lt;permissions> element. JATS4R-compliant articles must include
       a &lt;permissions> element within &lt;article-meta>.
     </assert>

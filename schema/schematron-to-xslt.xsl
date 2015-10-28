@@ -5,7 +5,8 @@
                 exclude-result-prefixes="xsd"
                 version="2.0">
   <xsl:import href='../lib/iso-schematron-xslt2/iso_svrl_for_xslt2.xsl'/>
-
+  <xsl:param name="allow-foreign">true</xsl:param>
+  
   <xsl:template name="process-prolog">
     <axsl:output method="xml" omit-xml-declaration="no" standalone="yes" indent="yes">
       <xsl:if test=" string-length($output-encoding) &gt; 0">
@@ -15,7 +16,7 @@
 
     <!-- FIXME: make this a generic version-comparator. Use feature testing if /article/@dtd-version
       isn't present. -->
-    <axsl:function name='fn:jats-version-later-1d3' as="xsd:boolean">
+    <axsl:function name='j4r:jats-version-later-1d3' as="xsd:boolean">
       <axsl:param name="v"/>
       <axsl:variable name='maj' select="substring-before($v, '.')"/>
       <axsl:variable name='min' select="substring-after($v, '.')"/>
