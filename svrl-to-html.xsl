@@ -3,6 +3,7 @@
     xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
+    xmlns:j4r="http://jats4r.org/ns"
     version="2.0" exclude-result-prefixes="svrl">
 
   <xsl:output method="html" omit-xml-declaration="yes" standalone="no" indent="yes"/>
@@ -49,6 +50,7 @@
   <xsl:template name='problem-report'>
     <xsl:variable name='active-pattern' 
                   select='preceding-sibling::svrl:active-pattern[1]/@name'/>
+    <xsl:variable name='topic' select='substring-before($active-pattern, "-")'/>
     <xsl:variable name='level'>
       <xsl:choose>
         <xsl:when test="contains($active-pattern, 'errors')">
@@ -62,6 +64,7 @@
         </xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
+    <xsl:variable name='rec' select='.//j4r:meta/@rec'/>
     <tr>
       <td class='{$level}'>
         <!-- Insert zero-width spaces to allow the browser to wrap the location cell -->
@@ -74,6 +77,11 @@
       </td>
       <td class='{$level}'>
         <xsl:apply-templates select="svrl:text"/>
+        <xsl:if test='$rec'>
+          (<a href='http://jats4r.org/recommendations/{$topic}.html#{$rec}' target="_blank">
+            <img src='assets/Icon_External_Link.png'/>
+          </a>)
+        </xsl:if>
       </td>
     </tr>
   </xsl:template>

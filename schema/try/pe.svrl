@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<svrl:schematron-output xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                        xmlns:saxon="http://saxon.sf.net/"
+                        xmlns:schold="http://www.ascc.net/xml/schematron"
+                        xmlns:iso="http://purl.oclc.org/dsdl/schematron"
+                        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+                        xmlns:j4r="http://jats4r.org/ns"
+                        title=""
+                        schemaVersion=""><!--   
+		   
+		   
+		 --><svrl:ns-prefix-in-attribute-values uri="http://jats4r.org/ns" prefix="j4r"/>
+   <svrl:active-pattern document="file:/home/maloneyc/git/jats4r/website/validator/schema/try/pe.xml"/>
+   <svrl:fired-rule context="article-meta"/>
+   <svrl:failed-assert test="permissions" location="/article-meta[1]">
+      <svrl:text>
+         <j4r:meta xmlns="http://purl.oclc.org/dsdl/schematron"
+                   test-file="permissions-none.xml"/>
+        No &lt;permissions&gt;!
+      </svrl:text>
+   </svrl:failed-assert>
+</svrl:schematron-output>
