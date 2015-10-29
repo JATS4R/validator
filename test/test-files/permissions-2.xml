@@ -20,16 +20,9 @@
         <year>2015</year>
       </pub-date>
       <permissions>
-        <copyright-statement>© 2015 Fred et al.</copyright-statement>
-        <copyright-year>2015</copyright-year>
-        <copyright-holder>Fred et al.</copyright-holder>
-        <license license-type="open-access" xlink:href="http://creativecommons.org/licenses/by/4.0/">
-          <license-p>This is an open access article distributed under the terms of the 
-            <ext-link ext-link-type="uri" xlink:href="http://creativecommons.org/licenses/by/4.0/">Creative 
-              Commons Attribution License</ext-link>, which permits unrestricted use, distribution, 
-            reproduction and adaptation in any medium and for any purpose provided that it is properly 
-            attributed. For attribution, the original author(s), title, publication source (PeerJ) and 
-            either DOI or URL of the article must be cited.</license-p>
+        <!-- expect a warning: no licence URI -->
+        <license>
+          <license-p/>
         </license>
       </permissions>
     </article-meta>
@@ -37,42 +30,47 @@
   <body>
     <fig id="fig0">
       <permissions>
-        <!-- expect an error: no copyright-year -->
-        <copyright-statement>The National Portrait Gallery, London. All rights
-          reserved</copyright-statement>
-        <copyright-holder>Fred et al.</copyright-holder>
+        <!-- expect an warning: license is specified in @xlink:href, not ali:license_ref -->
+        <license xlink:href="http://my/license">
+          <license-p/>
+        </license>
       </permissions>
     </fig>
+
     <fig id="fig1">
       <permissions>
-        <copyright-statement>The National Portrait Gallery, London. All rights
-          reserved</copyright-statement>
-        <!-- expect an error: copyright-year should be a full 4-digit year -->
-        <copyright-year>13</copyright-year>
-        <copyright-holder>Fred et al.</copyright-holder>
+        <!-- expect an error: license/@xlink-href is empty -->
+        <license xlink:href=" ">
+          <license-p/>
+        </license>
       </permissions>
     </fig>
+
     <fig id="fig2">
       <permissions>
-        <copyright-statement>The National Portrait Gallery, London. All rights
-          reserved</copyright-statement>
-        <!-- expect an error: copyright-year should not include whitespace -->
-        <copyright-year> 2013</copyright-year>
-        <copyright-holder>Fred et al.</copyright-holder>
+        <!-- expect an error: license/ali:license_ref is empty -->
+        <license>
+          <ali:license_ref>  </ali:license_ref>
+          <license-p/>
+        </license>
       </permissions>
     </fig>
+
     <fig id="fig3">
       <permissions>
-        <!-- expect an error: no copyright-holder -->
-        <copyright-statement>The National Portrait Gallery, London. All rights
-          reserved</copyright-statement>
-        <copyright-year>2013</copyright-year>
+        <!-- expect an error: @xlink:href and ali:license_ref must match -->
+        <license xlink:href="foo">
+          <ali:license_ref>bar</ali:license_ref>
+          <license-p/>
+        </license>
       </permissions>
     </fig>
+
     <fig id="fig4">
       <permissions>
-        <!-- expect a warning: <license> with no @xlink:href -->
-        <license>
+        <!-- expect an info: @xlink:href and ali:license_ref match exactly. -->
+        <license xlink:href="foo">
+          <ali:license_ref>foo</ali:license_ref>
           <license-p/>
         </license>
       </permissions>

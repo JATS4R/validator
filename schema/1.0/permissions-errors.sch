@@ -43,6 +43,30 @@
     </report>
   </rule>
   
-  
+  <rule context="license">
+    <!-- If license/@xlink:href exists, it must not be empty -->
+    <report test="@xlink:href and normalize-space(@xlink:href) = ''"> 
+      <j4r:meta rec='rec5' test-file='permissions-2.xml'/>
+      ERROR: Whenever the @xlink:href attribute appears on the &lt;license> element, its
+      value must be the canonical URI of a valid license (such as a Creative Commons
+      license). In this article, the attribute appears to be empty.
+    </report>
 
+    <!-- Same for ali:license_ref -->
+    <report test="ali:license_ref and normalize-space(string(ali:license_ref)) = ''"> 
+      <j4r:meta rec='rec6' test-file='permissions-2.xml'/>
+      ERROR: Whenever the ali:license_ref element appears, its
+      content must be the canonical URI of a valid license (such as a Creative Commons
+      license). In this article, the attribute appears to be empty.
+    </report>
+    
+    <!-- if both @xlink:href and ali:license_ref are used, they must match exactly -->
+    <report test="@xlink:href and ali:license_ref and
+                  string(@xlink:href) != string(ali:license_ref)">
+      <j4r:meta rec='rec6' test-file='permissions-2.xml'/>
+      ERROR: If both @xlink:href and &lt;ali:license_ref> are used to specify the licence
+      URI of an article, their contents must match exactly.
+    </report>
+  </rule>
+  
 </pattern>

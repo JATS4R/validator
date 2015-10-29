@@ -71,4 +71,13 @@
     </report>
   </rule>
 
+  <!-- if both @xlink:href and ali:license_ref are used, and they match, that's good! -->
+  <rule context="license">
+    <report test="@xlink:href and ali:license_ref and
+                  string(@xlink:href) = string(ali:license_ref)">
+      <j4r:meta rec='rec6' test-file='permissions-2.xml'/>
+      INFO: It appears this article specifies the licence URI with both the @xlink:href attribute
+      and the &lt;ali:license_ref> element; and they match exactly.  This is good!
+    </report>
+  </rule>
 </pattern>
