@@ -78,7 +78,7 @@
       <td class='{$level}'>
         <xsl:apply-templates select="svrl:text"/>
         <xsl:if test='$rec'>
-          (<a href='http://jats4r.org/recommendations/{$topic}.html#{$rec}' target="_blank">
+          (<a href='../recommendations/{$topic}.html#{$rec}' target="_blank">
             <img src='assets/Icon_External_Link.png'/>
           </a>)
         </xsl:if>
