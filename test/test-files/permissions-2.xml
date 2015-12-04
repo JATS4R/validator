@@ -20,6 +20,7 @@
         <year>2015</year>
       </pub-date>
       <permissions>
+        <ali:free_to_read/>
         <!-- expect a warning: no licence URI -->
         <license>
           <license-p/>

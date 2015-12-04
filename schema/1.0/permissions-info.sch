@@ -64,7 +64,7 @@
 
   <rule context="ali:free_to_read">
     <report test="true()">
-      <j4r:meta rec='rec7' test-file='permissions-1.xml'/>
+      <j4r:meta rec='rec8' test-file='permissions-2.xml'/>
       INFO: This article contains the &lt;ali:free_to_read> element, indicating that it is not behind 
       access barriers, irrespective of any license specifications. The article should be accessible by 
       any user without payment or authentication.
