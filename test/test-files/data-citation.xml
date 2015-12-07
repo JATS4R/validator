@@ -1,0 +1,387 @@
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Archiving and Interchange DTD v1.1d3 20150301//EN" "http://jats.nlm.nih.gov/archiving/1.1d3/JATS-archivearticle1.dtd">
+<article xmlns:ali="http://www.niso.org/schemas/ali/1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" article-type="research-article">
+<?xml-model href="http://jats4r.org/schema/1.0/jats4r.sch"
+  schematypens="http://purl.oclc.org/dsdl/schematron" title="JATS4R 1.0"?>  <front>
+    <journal-meta>
+      <journal-id journal-id-type="nlm-ta">PLoS One</journal-id>
+      <journal-id journal-id-type="iso-abbrev">PLoS ONE</journal-id>
+      <journal-id journal-id-type="publisher-id">plos</journal-id>
+      <journal-id journal-id-type="pmc">plosone</journal-id>
+      <journal-title-group>
+        <journal-title>PLoS ONE</journal-title>
+      </journal-title-group>
+      <issn pub-type="epub">1932-6203</issn>
+      <publisher>
+        <publisher-name>Public Library of Science</publisher-name>
+        <publisher-loc>San Francisco, CA USA</publisher-loc>
+      </publisher>
+    </journal-meta>
+    <article-meta>
+      <article-id pub-id-type="doi">10.1371/journal.pone.0143847</article-id>
+      <article-id pub-id-type="publisher-id">PONE-D-15-24580</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>Research Article</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>Combination of a Selective HSP90&#x003b1;/&#x003b2; Inhibitor and a RAS-RAF-MEK-ERK Signaling Pathway Inhibitor Triggers Synergistic Cytotoxicity in Multiple Myeloma Cells</article-title>
+        <alt-title alt-title-type="running-head">TAS-116 Enhances Activity of a RAS-RAF-MEK-ERK Pathway Inhibitor</alt-title>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author" equal-contrib="yes">
+          <name>
+            <surname>Suzuki</surname>
+            <given-names>Rikio</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff001">
+            <sup>1</sup>
+          </xref>
+          <xref ref-type="aff" rid="aff002">
+            <sup>2</sup>
+          </xref>
+        </contrib>
+        <contrib contrib-type="author" equal-contrib="yes">
+          <name>
+            <surname>Kikuchi</surname>
+            <given-names>Shohei</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff001">
+            <sup>1</sup>
+          </xref>
+        </contrib>
+        <contrib contrib-type="author" equal-contrib="yes">
+          <name>
+            <surname>Harada</surname>
+            <given-names>Takeshi</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff001">
+            <sup>1</sup>
+          </xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Mimura</surname>
+            <given-names>Naoya</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff001">
+            <sup>1</sup>
+          </xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Minami</surname>
+            <given-names>Jiro</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff001">
+            <sup>1</sup>
+          </xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Ohguchi</surname>
+            <given-names>Hiroto</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff001">
+            <sup>1</sup>
+          </xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Yoshida</surname>
+            <given-names>Yasuhiro</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff001">
+            <sup>1</sup>
+          </xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Sagawa</surname>
+            <given-names>Morihiko</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff001">
+            <sup>1</sup>
+          </xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Gorgun</surname>
+            <given-names>Gullu</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff001">
+            <sup>1</sup>
+          </xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Cirstea</surname>
+            <given-names>Diana</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff001">
+            <sup>1</sup>
+          </xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Cottini</surname>
+            <given-names>Francesca</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff001">
+            <sup>1</sup>
+          </xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Jakubikova</surname>
+            <given-names>Jana</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff001">
+            <sup>1</sup>
+          </xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Tai</surname>
+            <given-names>Yu-Tzu</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff001">
+            <sup>1</sup>
+          </xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Chauhan</surname>
+            <given-names>Dharminder</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff001">
+            <sup>1</sup>
+          </xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Richardson</surname>
+            <given-names>Paul G.</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff001">
+            <sup>1</sup>
+          </xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Munshi</surname>
+            <given-names>Nikhil</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff004">
+            <sup>4</sup>
+          </xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Ando</surname>
+            <given-names>Kiyoshi</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff002">
+            <sup>2</sup>
+          </xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Utsugi</surname>
+            <given-names>Teruhiro</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff003">
+            <sup>3</sup>
+          </xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Hideshima</surname>
+            <given-names>Teru</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff001">
+            <sup>1</sup>
+          </xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Anderson</surname>
+            <given-names>Kenneth C.</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff001">
+            <sup>1</sup>
+          </xref>
+          <xref rid="cor001" ref-type="corresp">*</xref>
+        </contrib>
+      </contrib-group>
+      <aff id="aff001">
+        <label>1</label>
+        <addr-line>Jerome Lipper Multiple Myeloma Center, Department of Medical Oncology, Dana-Farber Cancer Institute, Harvard Medical School, Boston, MA, United States of America</addr-line>
+      </aff>
+      <aff id="aff002">
+        <label>2</label>
+        <addr-line>Department of Hematology/Oncology, Tokai University School of Medicine, Isehara, Kanagawa, Japan</addr-line>
+      </aff>
+      <aff id="aff003">
+        <label>3</label>
+        <addr-line>Tsukuba Research Center, Taiho Pharmaceutical Co., Ltd., Tsukuba, Japan</addr-line>
+      </aff>
+      <aff id="aff004">
+        <label>4</label>
+        <addr-line>VA Boston Healthcare System, Jerome Lipper Multiple Myeloma Center, Dana-Farber Cancer Institute, Harvard Medical School, Boston, MA, United States of America</addr-line>
+      </aff>
+      <contrib-group>
+        <contrib contrib-type="editor">
+          <name>
+            <surname>Haass</surname>
+            <given-names>Nikolas K.</given-names>
+          </name>
+          <role>Editor</role>
+          <xref ref-type="aff" rid="edit1"/>
+        </contrib>
+      </contrib-group>
+      <aff id="edit1">
+        <addr-line>University of Queensland Diamantina Institute, AUSTRALIA</addr-line>
+      </aff>
+      <author-notes>
+        <fn fn-type="conflict" id="coi001">
+          <p>
+            <bold>Competing Interests: </bold>The authors of this manuscript have the following competing interests: T.U. is an employee at Taiho Pharmaceutical Co., Ltd. Y.-T.T. is a consultant for Onyx. D.C. is a consultant for Oncopeptides AB. P.G.R. is a member of the advisory boards for Celgene, Millennium, Johnson &#x00026; Johnson, Novartis, and Bristol-Myers Squibb. N.M. is a member of the advisory boards for Millennium, Celgene, and Novartis. T.H. is a consultant for Acetylon Pharmaceuticals. K.C.A. is a member of the advisory boards for Onyx, Celgene, Gilead, and Sanofi-Aventis, and is a scientific founder of Acetylon and Oncopep. J.M. receives research funding from Bristol-Myers Squibb. The other authors declare no conflicts of interest. This does not alter the authors' adherence to PLOS ONE policies on sharing data and materials.
+          </p>
+        </fn>
+        <fn fn-type="con" id="contrib001">
+          <p>Conceived and designed the experiments: RS SK T. Harada D. Cirstea JJ YTT D. Chauhan KA TU T. Hideshima KCA. Performed the experiments: RS SK T. Harada N. Mimura JM HO YY MS GG FC T. Hideshima. Analyzed the data: RS SK T. Harada D. Chauhan PGR N. Munshi T. Hideshima KCA. Wrote the paper: RS SK T. Harada T. Hideshima KCA.</p>
+        </fn>
+        <corresp id="cor001">* E-mail: <email>kenneth_anderson@dfci.harvard.edu</email></corresp>
+      </author-notes>
+      <pub-date pub-type="epub">
+        <day>2</day>
+        <month>12</month>
+        <year>2015</year>
+      </pub-date>
+      <pub-date pub-type="collection">
+        <year>2015</year>
+      </pub-date>
+      <volume>10</volume>
+      <issue>12</issue>
+      <elocation-id>e0143847</elocation-id>
+      <history>
+        <date date-type="received">
+          <day>8</day>
+          <month>6</month>
+          <year>2015</year>
+        </date>
+        <date date-type="accepted">
+          <day>9</day>
+          <month>11</month>
+          <year>2015</year>
+        </date>
+      </history>
+      <permissions>
+        <copyright-year>2015</copyright-year>
+        <copyright-holder>Suzuki et al</copyright-holder>
+        <license xlink:href="http://creativecommons.org/licenses/by/4.0/">
+          <license-p>This is an open access article distributed under the terms of the <ext-link ext-link-type="uri" xlink:href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution License</ext-link>, which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited</license-p>
+        </license>
+      </permissions>
+      <self-uri content-type="pdf" xlink:type="simple" xlink:href="pone.0143847.pdf"/>
+      <abstract>
+        <p>Heat shock protein (HSP)90 inhibitors have shown significant anti-tumor activities in preclinical settings in both solid and hematological tumors. We previously reported that the novel, orally available HSP90&#x003b1;/&#x003b2; inhibitor TAS-116 shows significant anti-MM activities. In this study, we further examined the combination effect of TAS-116 with a RAS-RAF-MEK-ERK signaling pathway inhibitor in <italic>RAS</italic>- or <italic>BRAF</italic>-mutated MM cell lines. TAS-116 monotherapy significantly inhibited growth of <italic>RAS</italic>-mutated MM cell lines and was associated with decreased expression of downstream target proteins of the RAS-RAF-MEK-ERK signaling pathway. Moreover, TAS-116 showed synergistic growth inhibitory effects with the farnesyltransferase inhibitor tipifarnib, the BRAF inhibitor dabrafenib, and the MEK inhibitor selumetinib. Importantly, treatment with these inhibitors paradoxically enhanced p-C-Raf, p-MEK, and p-ERK activity, which was abrogated by TAS-116. TAS-116 also enhanced dabrafenib-induced MM cytotoxicity associated with mitochondrial damage-induced apoptosis, even in the <italic>BRAF</italic>-mutated U266 MM cell line. This enhanced apoptosis in <italic>RAS</italic>-mutated MM triggered by combination treatment was observed even in the presence of bone marrow stromal cells. Taken together, our results provide the rationale for novel combination treatment with HSP90&#x003b1;/&#x003b2; inhibitor and RAS-RAF-MEK-ERK signaling pathway inhibitors to improve outcomes in patients with in <italic>RAS-</italic> or <italic>BRAF-</italic>mutated MM.</p>
+      </abstract>
+      <funding-group>
+        <funding-statement>This study was supported by the National Institutes of Health Grants (<ext-link ext-link-type="uri" xlink:href="http://grants.nih.gov/grants/oer.htm">http://grants.nih.gov/grants/oer.htm</ext-link>) P50-100707, PO1-CA078378, and PO1-155258 (K.C.A., N.M.); RO1-CA050947 (K.C.A.) and RO1-178264 (T.H., K.C.A.); IO1-BX001584 (N.M.); and SENSHIN Medical Research Foundation (<ext-link ext-link-type="uri" xlink:href="http://www.mt-pharma.co.jp/zaidan/">http://www.mt-pharma.co.jp/zaidan/</ext-link>) (R.S.). The funders had no role in study design, data collection and analysis, decision to publish, or preparation of the manuscript.</funding-statement>
+      </funding-group>
+      <counts>
+        <fig-count count="6"/>
+        <table-count count="0"/>
+        <page-count count="20"/>
+      </counts>
+      <custom-meta-group>
+        <custom-meta id="data-availability">
+          <meta-name>Data Availability</meta-name>
+          <meta-value>All relevant data are within the paper and its Supporting Information files.</meta-value>
+        </custom-meta>
+      </custom-meta-group>
+    </article-meta>
+    <notes>
+      <title>Data Availability</title>
+      <p>All relevant data are within the paper and its Supporting Information files.</p>
+    </notes>
+  </front>
+  <back>
+    <ref-list>
+      <title>Data References</title>
+      <ref id="dc1">
+        <label>1</label>
+        <mixed-citation publication-type="journal">
+          <name>
+            <surname>Palumbo</surname>
+            <given-names>A</given-names>
+          </name>, <name>
+            <surname>Anderson</surname>
+            <given-names>K</given-names>
+          </name> (<year>844</year>) <data-title>Multiple myeloma</data-title>. <source>N Engl J Med</source>
+          <volume>364</volume>: <fpage>1946</fpage>&#x02013;<lpage>1060</lpage>. <comment>doi: <ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1056/NEJMra1011442">10.1056/NEJMra1011442</ext-link></comment>
+          <?supplied-pmid 21410373?>
+          <pub-id pub-id-type="pmid">21410373</pub-id>
+        </mixed-citation>
+      </ref>
+
+      <ref id="dc2">
+        <label>1</label>
+        <mixed-citation publication-type="data">
+		  <person-group person-group-type="author">
+          <name>
+            <surname>Palumbo</surname>
+            <given-names>A</given-names>
+          </name>, <name>
+            <surname>Anderson</surname>
+            <given-names>K</given-names>
+          </name>
+			 </person-group> (<year>2011</year>) <data-title>Multiple myeloma</data-title>. <source>N Engl J Med</source>
+          <volume>364</volume>: <fpage>1046</fpage>&#x02013;<lpage>1060</lpage>. <comment>doi: <ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1056/NEJMra1011442">10.1056/NEJMra1011442</ext-link></comment>
+          <?supplied-pmid 21410373?>
+          <pub-id pub-id-type="pmid">21410373</pub-id>
+        </mixed-citation>
+      </ref>
+
+      <ref id="dc3">
+        <label>1</label>
+        <mixed-citation publication-type="data">
+		  <person-group person-group-type="author">
+          <name>
+            <surname>Palumbo</surname>
+            <given-names>A</given-names>
+          </name>, <name>
+            <surname>Anderson</surname>
+            <given-names>K</given-names>
+          </name>
+			 </person-group> (<year>2011</year>) <article-title>Multiple myeloma</article-title>. <source>FigShare</source> <version>1st</version>
+          <volume>364</volume>: <fpage>1046</fpage>&#x02013;<lpage>1060</lpage>. <comment>doi: <ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1056/NEJMra1011442">10.1056/NEJMra1011442</ext-link></comment>
+          <?supplied-pmid 21410373?>
+          <pub-id pub-id-type="pmid">21410373</pub-id>
+        </mixed-citation>
+      </ref>
+
+      <ref id="dc4">
+        <label>1</label>
+        <mixed-citation publication-type="data">
+		  <person-group person-group-type="author">
+          <name>
+            <surname>Palumbo</surname>
+            <given-names>A</given-names>
+          </name>, <name>
+            <surname>Anderson</surname>
+            <given-names>K</given-names>
+          </name>
+			 </person-group> (<year>2011</year>) <article-title>Multiple myeloma</article-title>. 
+			 <source>FigShare</source>
+			           <volume>364</volume>: <fpage>1046</fpage>&#x02013;<lpage>1060</lpage><version designator="14a">fourteen</version>. <comment>doi: <ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1056/NEJMra1011442">10.1056/NEJMra1011442</ext-link></comment>
+          <?supplied-pmid 21410373?>
+          <pub-id pub-id-type="pmid">21410373</pub-id>
+        </mixed-citation>
+      </ref>
+
+    </ref-list>
+  </back>
+</article>
