@@ -90,7 +90,7 @@ process()
   fi
 
   echo "==> Generating the XSLT $OUT_XSL"
-  java -jar $SAXON_JAR -s:$COMBINED_SCH -xsl:lib/iso-schematron-xslt2/iso_svrl_for_xslt2.xsl \
+  java -jar $SAXON_JAR -versionmsg:off -s:$COMBINED_SCH -xsl:lib/iso-schematron-xslt2/iso_svrl_for_xslt2.xsl \
        -o:$OUT_XSL generate-paths=yes allow-foreign=true $P
 
 #java -jar $SAXON_JAR -s:pe.sch \
