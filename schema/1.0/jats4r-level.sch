@@ -15,6 +15,7 @@
   <phase id="errors">
     <active pattern="permissions-errors"/>
     <active pattern="math-errors"/>
+    <active pattern="datacitation-errors"/>
   </phase>
 
   <phase id="warnings">
@@ -22,6 +23,8 @@
     <active pattern="permissions-warnings"/>
     <active pattern="math-errors"/>
     <active pattern="math-warnings"/>
+    <active pattern="datacitation-errors"/>
+    <active pattern="datacitation-warnings"/>
   </phase>
 
   <phase id="info">
@@ -31,6 +34,9 @@
     <active pattern="math-errors"/>
     <active pattern="math-warnings"/>
     <active pattern="math-info"/>
+    <active pattern="datacitation-errors"/>
+    <active pattern="datacitation-warnings"/>
+    <active pattern="datacitation-info"/>
   </phase>
 
   <include href="permissions-errors.sch"/>
@@ -41,6 +47,10 @@
   <include href="math-warnings.sch"/>
   <include href="math-info.sch"/>
 
+  <include href="datacitation-errors.sch"/>
+  <include href="datacitation-warnings.sch"/>
+  <include href="datacitation-info.sch"/>
+  
   <xsl:function name='j4r:jats-version-later-1d2' as="xsd:boolean">
     <xsl:param name="v"/>
     <xsl:variable name='maj' select="substring-before($v, '.')"/>

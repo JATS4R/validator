@@ -4,5 +4,4 @@
          xmlns="http://purl.oclc.org/dsdl/schematron"
          xmlns:j4r="http://jats4r.org/ns">
 
-
 </pattern>

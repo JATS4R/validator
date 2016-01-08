@@ -23,6 +23,12 @@
     <active pattern="math-info"/>
   </phase>
 
+  <phase id="datacitation">
+    <active pattern="datacitation-errors"/>
+    <active pattern="datacitation-warnings"/>
+    <active pattern="datacitation-info"/>
+  </phase>
+
   <include href="permissions-errors.sch"/>
   <include href="permissions-warnings.sch"/>
   <include href="permissions-info.sch"/>
@@ -31,6 +37,10 @@
   <include href="math-warnings.sch"/>
   <include href="math-info.sch"/>
 
+  <include href="datacitation-errors.sch"/>
+  <include href="datacitation-warnings.sch"/>
+  <include href="datacitation-info.sch"/>
+  
   <xsl:function name='j4r:jats-version-later-1d2' as="xsd:boolean">
     <xsl:param name="v"/>
     <xsl:variable name='maj' select="substring-before($v, '.')"/>

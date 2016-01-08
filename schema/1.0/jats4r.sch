@@ -13,7 +13,8 @@
 
   <include href="permissions-errors.sch"/>
   <include href="math-errors.sch"/>
-
+  <include href="datacitation-errors.sch"/>
+  
   <xsl:function name='j4r:jats-version-later-1d2' as="xsd:boolean">
     <xsl:param name="v"/>
     <xsl:variable name='maj' select="substring-before($v, '.')"/>
