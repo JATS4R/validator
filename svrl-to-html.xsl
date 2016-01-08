@@ -50,7 +50,8 @@
   <xsl:template name='problem-report'>
     <xsl:variable name='active-pattern' 
                   select='preceding-sibling::svrl:active-pattern[1]/@name'/>
-    <xsl:variable name='topic' select='substring-before($active-pattern, "-")'/>
+    <xsl:variable name='topic' 
+      select='replace($active-pattern, "(.*)-.*", "$1")'/>
     <xsl:variable name='level'>
       <xsl:choose>
         <xsl:when test="contains($active-pattern, 'errors')">
