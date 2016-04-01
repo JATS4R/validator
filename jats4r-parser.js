@@ -39,7 +39,7 @@ jats4r.parser = (function() {
 
     // This is first, because it should take precedence
 
-    var doctype_pub_re = 
+    var doctype_pub_re =
       /<!DOCTYPE\s+\S+\s+PUBLIC\s+('|\")(.*?)('|\")\s+('|\")(.*?)('|\")\s*(\[[\s\S]*?\]\s*)?>/;
     if (m = contents.match(doctype_pub_re)) {
 
@@ -83,7 +83,7 @@ jats4r.parser = (function() {
       }
     }
     else {
-      var doctype_sys_re = 
+      var doctype_sys_re =
         /<!DOCTYPE\s+\S+\s+SYSTEM\s+('|\")(.*?)('|\")\s*(\[[\s\S]*?\]\s*)?>/;
       if (m = contents.match(doctype_sys_re)) {
         results.error(
@@ -123,12 +123,13 @@ jats4r.parser = (function() {
       if (!pi.href) return;
 
       var schema_ref = {
-        type: 'xml-model-pi', 
+        type: 'xml-model-pi',
       };
 
       var schematypens = pi.schematypens ? pi.schematypens : '';
       var type = pi.type ? pi.type : '';
 
+    /*
       // Check JATS4R <?xml-model?> PI
       if ( schematypens == "http://purl.oclc.org/dsdl/schematron" &&
            (m = pi.href.match(/http:\/\/jats4r\.org\//)) )
@@ -148,6 +149,7 @@ jats4r.parser = (function() {
           schema_refs.push(schema_ref);
         }
       }
+    */
 
       // Check for xml-model calling out one of DTD, RNG, or XSD
       else if (type == "application/xml-dtd") {
@@ -196,8 +198,8 @@ jats4r.parser = (function() {
       // iterate through the attributes to see if an XSD namespace prefix was set
       var xsi_prefix = null;
       for (a in root_attrs) {
-        if (a.startsWith("xmlns:") && root_attrs[a] == 
-            "http://www.w3.org/2001/XMLSchema-instance") 
+        if (a.startsWith("xmlns:") && root_attrs[a] ==
+            "http://www.w3.org/2001/XMLSchema-instance")
         {
           xsi_prefix = a.substr(6);
           break;

@@ -2,7 +2,7 @@
 // object:
 //   - parser - functions defined in jats4r-parser.js
 //   - jats_schema - functions defined in jats4r-jats-schema.js
-//   - jats_schema_db - the JatsSchemaDb object, which has data from 
+//   - jats_schema_db - the JatsSchemaDb object, which has data from
 //     jats-schema.yaml, and various accessor methods.
 //   - results - this is like our logger. Error, warning, and info messages go
 //     here.
@@ -74,7 +74,7 @@ var onSaxonLoad = function() {
 
 
 
-  // First fetch the jats4r schema versions file, the jats schema database, 
+  // First fetch the jats4r schema versions file, the jats schema database,
   // then add event handlers
   fetch('schema/versions.yaml')
     .then(function(response) {
@@ -83,7 +83,7 @@ var onSaxonLoad = function() {
     .then(function(yaml_str) {
       jats4r.jats4r_schema_versions = jsyaml.load(yaml_str);
       return JATS.schema.read_database("jats/jats.yaml")
-    })  
+    })
     .then(function(db) {
       // FIXME: couldn't I set this inside the jats-schema module?
       jats4r.jats_schema_db = db;
@@ -110,7 +110,7 @@ var onSaxonLoad = function() {
         input_file = $('#choose_input').get()[0].files[0];
         if (input_file) {
           set_drop_area();
-          start_session_file();        
+          start_session_file();
         }
         else {
           clear_input_file();
@@ -167,7 +167,7 @@ var onSaxonLoad = function() {
     });
 
 
-  // Set the status. Values for level are one of NEUTRAL (default), GOOD, INFO, 
+  // Set the status. Values for level are one of NEUTRAL (default), GOOD, INFO,
   // WARN, or ERROR. Most of the time, this is called from the results
   // object.
   function set_status(status, level) {
@@ -177,7 +177,7 @@ var onSaxonLoad = function() {
                 .text(status);
   }
 
-  /* 
+  /*
     The following functions are by syssgx (https://github.com/syssgx),
     and are licensed CC-BY.
     See https://github.com/syssgx/xml.js/blame/gh-pages/js/script.js#L59.
@@ -191,11 +191,11 @@ var onSaxonLoad = function() {
 
   // This sets the drop area to show info about the input JATS file
   function set_drop_area() {
-    var filestring = 
-      "<strong>" + escape(input_file.name) + "</strong> " + 
-      "(" + (input_file.type || "n/a") + "): " + input_file.size + " bytes - " + 
-      "<strong>last modified:</strong> " + 
-      (input_file.lastModifiedDate ? 
+    var filestring =
+      "<strong>" + escape(input_file.name) + "</strong> " +
+      "(" + (input_file.type || "n/a") + "): " + input_file.size + " bytes - " +
+      "<strong>last modified:</strong> " +
+      (input_file.lastModifiedDate ?
         input_file.lastModifiedDate.toLocaleDateString() : "n/a");
     $("#drop_div").html(filestring)
                   .addClass("dropped");
@@ -251,7 +251,7 @@ var onSaxonLoad = function() {
       phase = null;
       results_area.html('');
 
-      results_area.attr('style', 
+      results_area.attr('style',
         'max-height: ' + Math.floor($(window).height() * 0.5) + 'px;');
 
       results_area.hide();
@@ -260,7 +260,7 @@ var onSaxonLoad = function() {
     }
 
     // start_phase returns a Promise, because we're using setTimeout to
-    // make sure that the status update is rendered and visible to the user, 
+    // make sure that the status update is rendered and visible to the user,
     // before embarking on very cpu-intensive processing. Otherwise, the
     // display freezes.
 
@@ -274,7 +274,7 @@ var onSaxonLoad = function() {
         if (!phase) {
           spinner.spin(spinner_target);
           var lsv = $('#level_select').val();
-          report_level = 
+          report_level =
               lsv == "errors" ? ERROR
             : lsv == "warnings" ? WARN
             : INFO;
@@ -298,7 +298,7 @@ var onSaxonLoad = function() {
 
     self.done = function() {
       phase = null;
-      var message = 
+      var message =
           level == GOOD ? ". All good."
         : level == INFO ? " with informational messages."
         : level == WARN ? " with warnings."
@@ -486,7 +486,7 @@ var onSaxonLoad = function() {
       message_given = true;
       results.warn(
         "JATS4R-compliant articles should use the xml-model processing instruction to " +
-        "specify that they comply with our recommendations. For example: " + 
+        "specify that they comply with our recommendations. For example: " +
         "<blockquote><pre>&lt;?xml-model href=\"http://jats4r.org/schema/1.0/jats4r.sch\"\n" +
         "  schematypens=\"http://purl.oclc.org/dsdl/schematron\" title=\"JATS4R 1.0\"?></pre></blockquote>" +
         "<p>This tool will now use the default version: '" + default_ver + "'."
@@ -543,7 +543,7 @@ var onSaxonLoad = function() {
     });
 
     if (!jats_schema_ref) {
-      results.warn(
+      results.error(
         "<p>No reference to any JATS schema (doctype declaration, xml-model " +
         "processing instruction, or xsd attributes on the root node) were " +
         "found. We recommend that all JATS documents identify which version " +
@@ -553,9 +553,9 @@ var onSaxonLoad = function() {
     else if (count > 1) {
       if (diffs) {
         results.error(
-          "Multiple ways of referencing a JATS schema were found, and they do not match. " +
-          "For the purposes of this validation, the first specification " +
-          "will be used."
+          "Multiple ways of referencing a JATS schema were found, and they do " +
+          "not match. For the purposes of this validation, the first " +
+          "specification will be used."
         );
       }
       else {
@@ -572,13 +572,13 @@ var onSaxonLoad = function() {
     else {
       // Fetch the flattened schema:
       // - if a DTD was specified, fetch the DTD
-      // - if either Relax NG or XSD was specified, fetch the RNG. Note that 
+      // - if either Relax NG or XSD was specified, fetch the RNG. Note that
       //   documents that use the XSD attributes on the root node are not
       //   valid according to the DTD (or RNG); see this comment on the NISO site:
       //   http://www.niso.org/apps/group_public/view_comment.php?comment_id=601
 
       var schema = jats_schema_ref.schema;
-      var flat_schema_path = 'jats/flat/' + 
+      var flat_schema_path = 'jats/flat/' +
         (jats_schema_ref.ref_type == "dtd"
           ? schema.dtd_path() : schema.rng_path());
 
@@ -601,15 +601,15 @@ var onSaxonLoad = function() {
   }
 
   // This function gets called when we've finished reading the DTD, or, if
-  // there is no DTD, immediately after the instance document is read. 
+  // there is no DTD, immediately after the instance document is read.
   // If there is no DTD, this will be called with only one argument.
 
-  // This kicks off an asynchronous processing chain, and then returns right 
+  // This kicks off an asynchronous processing chain, and then returns right
   // away.
 
   // This does not throw any errors.
 
-  function do_validate(contents, xml_filename, schema_ref, schema_contents) 
+  function do_validate(contents, xml_filename, schema_ref, schema_contents)
   {
     parse_and_schema_validate(contents, xml_filename, schema_ref, schema_contents)
       .then(function(results) {
@@ -625,12 +625,12 @@ var onSaxonLoad = function() {
   //   - DTD specified: `xmllint --dtdvalid <dtd-path> <xml-filename>`
   //   - RNG (or XSD) specified: `xmllint --relaxng <rng-path> <xml-filename>`
 
-  // This creates a start_phase Promise, and returns it, immediately. 
+  // This creates a start_phase Promise, and returns it, immediately.
 
   // This does not throw any errors, but the then() method on the promise might
   // return null, if there's an error with DTD validation
 
-  function parse_and_schema_validate(contents, xml_filename, schema_ref, schema_contents) 
+  function parse_and_schema_validate(contents, xml_filename, schema_ref, schema_contents)
   {
     var to_validate = typeof(schema_ref) !== "undefined";
     if (to_validate) {
@@ -648,9 +648,9 @@ var onSaxonLoad = function() {
 
     var msg = "Parsing";
     if (to_validate) {
-      msg += " and validating against the JATS " + 
+      msg += " and validating against the JATS " +
              (schema_type == "dtd" ? "DTD" : "Relax NG");
-    } 
+    }
 
     return results.start_phase(msg)
       .then(function() {
@@ -687,7 +687,7 @@ var onSaxonLoad = function() {
           result = null;
         }
 
-        // FIXME: Determining whether or not the validation succeeded; this is probably brittle. 
+        // FIXME: Determining whether or not the validation succeeded; this is probably brittle.
         // I don't yet know how to get the return status from xmllint.
         // For DTD validation, when success: the stderr is empty. Unfortunately, for RNG
         // validation, they write "<filename validates\n" to stderr.
@@ -709,12 +709,12 @@ var onSaxonLoad = function() {
 
   // Finally, do the Schematron validation with Saxon CE
 
-  // This creates a start_phase Promise, and returns it, immediately. 
+  // This creates a start_phase Promise, and returns it, immediately.
 
   // This does not throw any errors. When the then() method returns, processing
   // for this session is done.
 
-  function schematron_validate(result) 
+  function schematron_validate(result)
   {
     results.start_phase("Checking JATS for Reuse rules", "schematron-results")
       .then(function() {
@@ -762,7 +762,7 @@ var onSaxonLoad = function() {
               do_xpath_locations(result.stdout);
 
               var sr = $('#schematron-results');
-              var level = 
+              var level =
                   sr.find("td.error").length != 0 ? ERROR
                 : sr.find("td.warn").length != 0 ? WARN
                 : sr.find("td.info").length != 0 ? INFO
@@ -771,7 +771,7 @@ var onSaxonLoad = function() {
               results.done();
             },
             errorHandler: function(e) {
-              results.error("Server error while attempting to validate JATS4R rules. " + 
+              results.error("Server error while attempting to validate JATS4R rules. " +
                             "Please report this as an issue on GitHub.");
               results.done();
             }
@@ -783,7 +783,7 @@ var onSaxonLoad = function() {
   function do_xpath_locations(doc) {
     // Get the xpath locations from the schematron output results
     var locs = $.map(
-      $('.xpath-location'), 
+      $('.xpath-location'),
       function(loc) {
         return $(loc).text();
       }
@@ -832,7 +832,7 @@ var onSaxonLoad = function() {
 
     // This set the height of the listing to be about the same as the viewport,
     // but I took it out.
-    //$('.language-markup').attr('style', 
+    //$('.language-markup').attr('style',
     //  'max-height: ' + Math.floor($(window).height() * 0.9) + 'px;');
   }
 
