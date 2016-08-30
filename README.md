@@ -2,11 +2,20 @@ JATS4R Validator
 ================
 
 This is the code repository for the JATS4R client-side validator, deployed to
-[http:///jats4r.org/validator/](http:///jats4r.org/validator/).
+[http://jats4r.org/validator/](http://jats4r.org/validator/).
 
 This was the subject of a paper presented at Balisage, 2015:
 [A client-side JATS4R validator using 
 Saxon-CE](http://www.balisage.net/Proceedings/vol15/html/Beck01/BalisageVol15-Beck01.html).
+
+Prerequisites:
+
+* Python - at least version 3.5
+* The instructions here assume you're working on a Unix environment
+  with the *bash* shell; but should be easily adaptible to other
+  environments.
+
+
 
 
 Contents
@@ -27,63 +36,61 @@ Contents
 Files and directories
 ---------------------
 
-The following are the directories and files in this repository, and what
-they are for.
+The following are the directories and files in this
+repository, and what they are for.
 
-* ***index.html***, ***validate.js***, ***validate.css*** - the main validator
-  files
-* ***schema*** - The Schematron source files. See [Schema sources](#schema-sources),
-  below.
-* ***bin*** - Shell scripts and XSLT files
-* ***samples*** - Some sample XML documents
-* ***nlm-dtd***, ***niso-jats*** - The original NLM and JATS schema files, as
-  Git submodules.
-* ***jats4r-parser.js*** - JS module for parsing XML file headers
-* ***jats4r-jats-schema.js***, ***jats-schema.yaml*** - JS module and data file
-  that provides information about all the various flavors, versions, and formats
-  of JATS schema files.
-* ***test/test-files*** - XML files used for testing.
-* ***assets*** - Some static resources, including some third party libraries.
-* ***README.md*** - This file
+* ***assets/*** - static resources
+* ***bin/*** - shell scripts and XSLT files
+* ***jats/*** - scripts to download and prepare NLM and JATS
+  schema definition files.
+* ***samples/*** - sample XML documents
+* ***schema/*** - Schematron source files; see [schema 
+  sources](#schema-sources), below.
+* ***test/test-files/*** - XML files used for testing.
 * ***LICENSE***
+* ***README.md*** - This file
+* ***index.html***, ***validate.js***, ***validate.css*** - 
+  the main validator files
 
-The following directories are generated in the course of building the validator.
+The following directories are generated in the course of building the 
+validator.
+
+***FIXME*** double-check these
 
 * ***venv*** - Python virtual environment
 * ***lib*** - Third party libraries and tools. See [Dependencies](#dependencies), below.
-* ***jats-schema*** - Flattened versions of all of the NLM and JATS DTDs
-* ***generated-xsl*** - This contains XSLT versions of the Schematron files. The contents
-  here should not be edited directly.  See [Generating XSLTs from Schematron 
+* ***jats-schema*** - Flattened versions of all of the NLM and JATS 
+  DTDs
+* ***generated-xsl*** - This contains XSLT versions of the Schematron 
+  files. The contents here should not be edited directly.  See 
+  [Generating XSLTs from Schematron 
   sources](#generating-xslts-from-schematron-sources), below
 
 
 Quick start
 -----------
 
-Note: the instructions on this page assume you'll be working in a *bash* shell.
-
 Here are the steps to get a working validator on your system.
 
-The validator is deployed as a static web site, so you'll need to have access to
-a system with a web server such as Apache. Find a convenient location served by
-that server, and execute the following:
+The validator is deployed as a static web site, so you'll need to have
+access to a system with a web server such as Apache. Find a convenient
+location served by that server, and execute the following:
 
 ```
 git clone --recursive https://github.com/JATS4R/validator.git
 cd validator
-source bin/setenv.sh   # sets environment variables
+. bin/setenv.sh
 
 # Set up python environment
 virtualenv -p python3 venv
 source venv/bin/activate
-pip install pyyaml
-pip install rnginline 
+pip install -r requirements.txt
 
-setup.sh               # extracts libraries, etc., and processes schematron
+bin/setup.sh     # extracts libraries, etc., and processes schematron
 ```
 
-Then, open the `index.html` page in your browser, through the web server on your
-system, and you should have a working validator.
+Then, open the `index.html` page in your browser, through the web
+server on your system, and you should have a working validator.
 
 
 Validation setup
@@ -91,14 +98,15 @@ Validation setup
 
 Here is some more detailed information.
 
-Whenever you open a new shell, to configure your environment, you must first 
-do two things:
+Whenever you open a new shell to work on this tool, configure its
+environment with:
 
-1. Activate the Python virtual environment, with `source venv/bin/activate`
-2. Source the *bin/setenv.sh* script, with `source bin/setenv.sh`
+```
+. bin/setenv.sh
+```
 
-After initially cloning the repository, in order to configure the necessary tools, 
-you'll need to run 
+After initially cloning the repository, in order to configure the
+necessary tools,  you'll need to run
 
 ```
 bin/setup.sh

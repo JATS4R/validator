@@ -71,12 +71,12 @@ export PATH=$PATH:$DTDANALYZER_HOME
 cd $JATS4R_HOME/jats
 # Verify that the submodules are here
 if ! [ -d src/nlm-dtd/publishing ]; then
-    echo "nlm-dtd content not found. Did you use `--recursive` when you cloned this repo?"
+    echo "nlm-dtd content not found. Did you use '--recursive' when you cloned this repo?"
     exit 1
 fi
 
 if ! [ -d src/niso-jats/publishing ]; then
-    echo "niso-jats content not found. Did you use `--recursive` when you cloned this repo?"
+    echo "niso-jats content not found. Did you use '--recursive' when you cloned this repo?"
     exit 1
 fi
 

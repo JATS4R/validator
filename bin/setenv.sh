@@ -12,6 +12,13 @@ if ! [ -e validate.js ]
 fi
 export JATS4R_HOME=`pwd`
 
+# Create virtualenv if needed; and activate it
+if ! [ -x env/bin/activate ]; then
+  virtualenv -p python3 env
+  pip install -r requirements.txt
+fi
+. env/bin/activate
+
 export DTDANALYZER_HOME=$JATS4R_HOME/lib/DtdAnalyzer-0.5
 export SAXON_JAR=$DTDANALYZER_HOME/lib/saxon9he.jar
 export JING_HOME=$JATS4R_HOME/lib/jing-20081028
