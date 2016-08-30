@@ -390,4 +390,3 @@ Portions of this software were borrowed from the following sources:
   in turn is based on [xml.js](https://github.com/kripken/xml.js/) by 
   [kripken](https://github.com/kripken).
   
-
