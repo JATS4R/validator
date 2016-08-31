@@ -13,7 +13,7 @@ fi
 export JATS4R_HOME=`pwd`
 
 # Create virtualenv if needed; and activate it
-if ! [ -x env/bin/activate ]; then
+if ! [ -f env/bin/activate ]; then
   virtualenv -p python3 env
   pip install -r requirements.txt
 fi

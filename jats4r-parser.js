@@ -152,7 +152,7 @@ jats4r.parser = (function() {
     */
 
       // Check for xml-model calling out one of DTD, RNG, or XSD
-      else if (type == "application/xml-dtd") {
+      if (type == "application/xml-dtd") {
         s = schema_db.get_by_sysid(pi.href) || null;
         if (!s) {
           results.error("Bad xml-model processing instruction. " +

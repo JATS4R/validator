@@ -79,10 +79,12 @@ location served by that server, and execute the following:
 ```
 git clone --recursive https://github.com/JATS4R/validator.git
 cd validator
+
+# Initializes python's virtualenv; sets bash environment
 . bin/setenv.sh
 
-
-bin/setup.sh     # extracts libraries, etc., and processes schematron
+# extracts libraries, etc., and processes schematron
+bin/setup.sh
 ```
 
 Then, open the `index.html` page in your browser, through the web
