@@ -81,10 +81,6 @@ git clone --recursive https://github.com/JATS4R/validator.git
 cd validator
 . bin/setenv.sh
 
-# Set up python environment
-virtualenv -p python3 venv
-source venv/bin/activate
-pip install -r requirements.txt
 
 bin/setup.sh     # extracts libraries, etc., and processes schematron
 ```
