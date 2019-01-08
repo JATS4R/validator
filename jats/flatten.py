@@ -27,7 +27,7 @@ flat_base = 'flat'
 
 # Read the YAML database
 with open("jats.yaml", "r") as stream:
-    jats_db = yaml.load(stream)
+    jats_db = yaml.safe_load(stream)
 
 
 def gen_flat_dtd(repo_path, schema_def):
